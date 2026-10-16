@@ -144,6 +144,9 @@ function thaimoon_menu_item_id( $id, $item, $args, $depth ) {
 }
 
 function thaimoon_navigation() {
+    $account_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'myaccount' ) : wp_login_url();
+    $account_label = is_user_logged_in() ? 'Mon compte' : 'Se connecter';
+    $cart_url = function_exists( 'wc_get_cart_url' ) ? wc_get_cart_url() : '';
     ?>
     <nav class="navigation" aria-label="Navigation principale">
         <?php wp_nav_menu( array( 'theme_location' => 'primary', 'container' => false, 'menu_class' => 'navigation__list', 'items_wrap' => '<ul class="%2$s">%3$s</ul>', 'depth' => 1, 'fallback_cb' => 'thaimoon_default_menu', 'thaimoon_menu' => true ) ); ?>
@@ -151,6 +154,16 @@ function thaimoon_navigation() {
             Commander en ligne
             <img class="navigation__arrow" src="<?php echo esc_url( thaimoon_image_url( 'arrow.svg' ) ); ?>" width="23" height="21" alt="">
         </a>
+        <div class="navigation__actions">
+            <a class="navigation__icon-link" href="<?php echo esc_url( $account_url ); ?>" aria-label="<?php echo esc_attr( $account_label ); ?>" title="<?php echo esc_attr( $account_label ); ?>"<?php if ( function_exists( 'is_account_page' ) && is_account_page() ) : ?> aria-current="page"<?php endif; ?>>
+                <img class="navigation__icon" src="<?php echo esc_url( thaimoon_image_url( 'nav-account.svg' ) ); ?>" width="32" height="32" alt="">
+            </a>
+            <?php if ( $cart_url ) : ?>
+                <a class="navigation__icon-link" href="<?php echo esc_url( $cart_url ); ?>" aria-label="Panier" title="Panier"<?php if ( is_cart() ) : ?> aria-current="page"<?php endif; ?>>
+                    <img class="navigation__icon" src="<?php echo esc_url( thaimoon_image_url( 'nav-cart.svg' ) ); ?>" width="32" height="32" alt="">
+                </a>
+            <?php endif; ?>
+        </div>
     </nav>
     <?php
 }

@@ -1,0 +1,100 @@
+/* Espace client V1.2 : composants BEM et raccords aux formulaires WooCommerce. */
+.restaurant.account-page .site-content > .col-full { max-width: 1440px; padding-inline: 40px; }
+.restaurant.account-page .storefront-breadcrumb { margin-bottom: 40px; padding-block: 40px 0; }
+.restaurant.account-page .site-main { padding-top: 0; }
+.restaurant.account-page .entry-header { display: none; }
+.restaurant .account-heading { margin: 0 0 40px; }
+.restaurant .account-heading__title { margin: 0 0 12px; color: var(--fg); font-size: var(--fs-36); font-weight: var(--fw-bold); line-height: var(--lh-48); }
+.account-heading__description { margin: 0; color: var(--fg-desc); font-size: var(--fs-16); line-height: var(--lh-24); }
+.restaurant .account-panel { min-width: 0; margin: 0; padding: 30px; border: 0; border-radius: 30px; background: var(--bg-card); box-shadow: 0 4px 2px var(--shadow); }
+.restaurant .account-panel__title { margin: 0 0 5px; color: var(--fg); font-size: var(--fs-18); font-weight: var(--fw-bold); line-height: var(--lh-28); }
+.account-panel__description { margin: 0; color: var(--fg-desc); font-size: var(--fs-18); line-height: var(--lh-28); }
+.account-panel__actions { width: 100%; margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--clr-gray-transparent); }
+.restaurant.account-page .account-panel__button { display: block; float: none; width: 100%; min-height: 44px; margin: 0; padding: 10px 20px; border: 0; border-radius: 50px; background: var(--bg-btn); color: var(--fg-btn); font-size: var(--fs-16); font-weight: var(--fw-semibold); line-height: var(--lh-24); text-align: center; text-decoration: none; }
+.restaurant.account-page .account-panel__button:hover { background: var(--clr-green-800); color: var(--fg-btn); }
+.account-auth { width: 100%; max-width: 400px; margin-inline: auto; }
+.account-auth--register { max-width: 900px; }
+.restaurant .account-auth__form { display: flex; flex-direction: column; gap: 24px; }
+.account-auth__columns, .account-profile__columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px; width: 100%; }
+.account-auth__column, .account-profile__column { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
+.restaurant.account-page .account-auth__form .form-row { float: none; width: 100%; margin: 0; padding: 0; }
+.restaurant.account-page .account-auth__form .form-row::before, .restaurant.account-page .account-auth__form .form-row::after { display: none; }
+.restaurant.account-page .account-form__field label { display: block; margin: 0 0 10px; color: var(--fg); font-size: var(--fs-18); font-weight: var(--fw-bold); line-height: var(--lh-28); }
+.restaurant.account-page .input-text, .restaurant.account-page .account-form__field select, .restaurant.account-page .woocommerce-address-fields select { display: block; width: 100%; min-width: 0; min-height: 48px; padding: 12px; border: 1px solid var(--clr-light-gray); border-radius: 12px; background: var(--bg-card); color: var(--fg-desc); box-shadow: none; font-size: var(--fs-16); font-weight: var(--fw-regular); line-height: var(--lh-24); }
+.restaurant.account-page .input-text::placeholder { color: var(--fg-desc); opacity: 1; }
+.restaurant.account-page span.password-input { display: block; width: 100%; }
+.restaurant.account-page span.password-input input { padding-right: 48px; }
+.restaurant.account-page .show-password-input { min-width: 32px; min-height: 32px; margin: 0; padding: 0; border: 0; background: transparent; color: var(--fg-desc); }
+.account-auth__options { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; width: 100%; padding-top: 24px; border-top: 1px solid var(--clr-gray-transparent); }
+.restaurant.account-page .account-auth__remember { display: inline-flex; align-items: center; gap: 8px; margin: 0; color: var(--fg-desc); font-size: var(--fs-12); font-weight: var(--fw-regular); line-height: var(--lh-20); }
+.account-auth__remember input { margin: 0; accent-color: var(--fg); }
+.account-auth__link { color: var(--fg); font-size: var(--fs-14); font-weight: var(--fw-semibold); line-height: var(--lh-20); }
+.restaurant .account-auth__switch { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 20px 0 0; color: var(--fg); font-size: var(--fs-16); line-height: var(--lh-24); text-align: center; }
+.account-auth__switch a { color: var(--fg); font-weight: var(--fw-semibold); }
+.account-auth__form .account-panel__actions { margin-top: 0; }
+.account-auth__form .woocommerce-privacy-policy-text { color: var(--fg-desc); font-size: var(--fs-14); line-height: var(--lh-24); }
+.account-auth__form .woocommerce-privacy-policy-text p { margin: 0; }
+.account-layout { display: grid; grid-template-columns: 179px minmax(0, 900px); gap: 82px; align-items: start; max-width: 1161px; }
+.restaurant.account-page .account-layout__content { float: none; width: 100%; min-width: 0; margin: 0; }
+.restaurant.account-page .account-nav { float: none; width: 100%; margin: 0; }
+.restaurant .account-nav__list { display: flex; flex-direction: column; gap: 1px; margin: 0; padding: 0; border: 0; list-style: none; }
+.restaurant .account-nav__item { margin: 0; padding: 0; border: 0; }
+.restaurant .account-nav__link { display: block; min-height: 44px; padding: 10px 12px; border: 0; border-bottom: 1px solid var(--fg); border-left: 3px solid transparent; border-radius: 0; color: var(--fg); font-size: var(--fs-16); font-weight: var(--fw-semibold); line-height: var(--lh-24); text-decoration: none; }
+.restaurant .account-nav__link::before, .restaurant .account-nav__link::after { display: none; }
+.restaurant .account-nav__item--current .account-nav__link { border-left-color: var(--fg); background: var(--bg-choice); }
+.restaurant .account-nav__link:hover { background: var(--bg-choice); }
+.account-profile__column { gap: 20px; }
+.account-profile__field { min-width: 0; }
+.account-profile__label { margin: 0 0 5px; color: var(--fg); font-size: var(--fs-18); font-weight: var(--fw-bold); line-height: var(--lh-28); }
+.account-profile__value { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-width: 0; min-height: 56px; padding: 11px 12px; border: 1px solid var(--clr-light-gray); border-radius: 12px; color: var(--fg-desc); font-size: var(--fs-16); line-height: var(--lh-24); }
+.account-profile__value > span { min-width: 0; overflow-wrap: anywhere; }
+.account-profile__edit { display: flex; flex: 0 0 32px; align-items: center; justify-content: center; width: 32px; height: 32px; }
+.restaurant .account-profile__edit img { display: block; width: 24.6664px; height: 24.6664px; max-width: none; margin: 0; }
+.account-profile__divider { margin-top: 24px; border-top: 1px solid var(--clr-gray-transparent); }
+.account-layout--logout { grid-template-columns: 179px 460px; justify-content: space-between; column-gap: 40px; max-width: 900px; }
+.account-panel--logout { max-width: 460px; }
+.restaurant.account-page .woocommerce-EditAccountForm, .restaurant.account-page .woocommerce-address-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 40px; padding: 30px; border: 0; border-radius: 30px; background: var(--bg-card); box-shadow: 0 4px 2px var(--shadow); }
+.restaurant.account-page .woocommerce-EditAccountForm > .clear, .restaurant.account-page .woocommerce-EditAccountForm::before, .restaurant.account-page .woocommerce-EditAccountForm::after { display: none; }
+.restaurant.account-page .woocommerce-EditAccountForm > p, .restaurant.account-page .woocommerce-EditAccountForm > .form-row { float: none; width: 100%; min-width: 0; margin: 0; padding: 0; }
+.restaurant.account-page .woocommerce-EditAccountForm label, .restaurant.account-page .woocommerce-address-fields label { display: block; margin-bottom: 10px; color: var(--fg); font-size: var(--fs-18); font-weight: var(--fw-bold); line-height: var(--lh-28); }
+.restaurant.account-page .woocommerce-EditAccountForm fieldset { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; grid-column: 1 / -1; min-width: 0; width: 100%; margin: 0; padding: 24px 0 0; border: 0; border-top: 1px solid var(--clr-gray-transparent); background: transparent; }
+.restaurant.account-page .woocommerce-EditAccountForm fieldset legend { color: var(--fg); font-size: var(--fs-18); font-weight: var(--fw-bold); }
+.restaurant.account-page .woocommerce-EditAccountForm fieldset .form-row { display: flex; flex-direction: column; justify-content: flex-end; float: none; width: 100%; margin: 0; }
+.restaurant.account-page .woocommerce-EditAccountForm fieldset .form-row:first-of-type { grid-column: 1 / -1; }
+.restaurant.account-page .woocommerce-EditAccountForm > p:last-of-type { grid-column: 1 / -1; }
+.restaurant.account-page .woocommerce-EditAccountForm button[name="save_account_details"] { width: 100%; min-height: 44px; margin: 0; border-radius: 50px; font-size: var(--fs-16); line-height: var(--lh-24); }
+.restaurant.account-page #account_display_name_description { display: block; margin-top: 8px; color: var(--fg-desc); font-size: var(--fs-12); line-height: var(--lh-20); }
+.restaurant.account-page .woocommerce-address-fields__field-wrapper, .restaurant.account-page .woocommerce-address-fields > p { grid-column: 1 / -1; margin: 0; }
+.restaurant.account-page .woocommerce-address-fields .form-row { margin-bottom: 20px; }
+.restaurant.account-page .woocommerce-Address, .restaurant.account-page .woocommerce-MyAccount-orders { padding: 24px; border: 0; border-radius: 20px; background: var(--bg-card); box-shadow: 0 4px 2px var(--shadow); }
+.restaurant.account-page .woocommerce-Addresses .col-1, .restaurant.account-page .woocommerce-Addresses .col-2 { float: none; width: 100%; margin: 0 0 24px; }
+.restaurant.account-page .woocommerce-Address .title h2 { color: var(--fg); font-size: var(--fs-24); line-height: var(--lh-32); }
+.restaurant.account-page .woocommerce-Address address { margin: 0; color: var(--fg-desc); font-style: normal; }
+.restaurant.account-page .woocommerce-orders-table { width: 100%; border: 0; border-collapse: separate; border-spacing: 0; border-radius: 20px; overflow: hidden; }
+.restaurant.account-page .woocommerce-orders-table th { background: var(--bg-choice); color: var(--fg); font-size: var(--fs-14); }
+.restaurant.account-page .woocommerce-orders-table td { padding: 16px 12px; border-bottom: 1px solid var(--clr-light-gray); background: var(--bg-card); color: var(--fg-desc); font-size: var(--fs-14); }
+.restaurant.account-page .woocommerce-orders-table .button { margin: 4px; padding: 8px 16px; font-size: var(--fs-14); }
+.restaurant.account-page .woocommerce-order-details, .restaurant.account-page .woocommerce-customer-details { margin-top: 24px; padding: 24px; border-radius: 20px; background: var(--bg-card); box-shadow: 0 4px 2px var(--shadow); }
+.restaurant.account-page .woocommerce-ResetPassword { max-width: 460px; margin: 0 auto; padding: 30px; border-radius: 30px; background: var(--bg-card); box-shadow: 0 4px 2px var(--shadow); }
+.restaurant.account-page .woocommerce-ResetPassword .form-row { float: none; width: 100%; }
+.restaurant.account-page .woocommerce-ResetPassword label { margin-bottom: 10px; color: var(--fg); font-weight: var(--fw-bold); }
+.restaurant.account-page .woocommerce-ResetPassword .button { width: 100%; }
+.restaurant.account-page .account-profile__edit:focus-visible, .restaurant.account-page .account-nav__link:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
+@media (max-width: 1100px) {
+  .account-layout { grid-template-columns: 179px minmax(0, 1fr); gap: 32px; }
+  .account-profile__columns, .account-auth__columns { gap: 24px; }
+}
+@media (max-width: 800px) {
+  .account-layout, .account-layout--logout { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .restaurant.account-page .account-nav { max-width: none; }
+  .account-panel--logout { max-width: none; }
+  .restaurant.account-page .site-content > .col-full { padding-inline: 20px; }
+}
+@media (max-width: 599px) {
+  .restaurant .account-heading__title { font-size: 30px; line-height: 44px; }
+  .restaurant .account-panel, .restaurant.account-page .woocommerce-EditAccountForm, .restaurant.account-page .woocommerce-address-fields, .restaurant.account-page .woocommerce-ResetPassword { padding: 20px; }
+  .account-auth__columns, .account-profile__columns, .restaurant.account-page .woocommerce-EditAccountForm, .restaurant.account-page .woocommerce-EditAccountForm fieldset { grid-template-columns: minmax(0, 1fr); }
+  .account-auth__options { align-items: flex-start; flex-direction: column; }
+  .account-profile__value { min-height: 56px; }
+  .restaurant.account-page .woocommerce-orders-table td { display: block; text-align: right; }
+}

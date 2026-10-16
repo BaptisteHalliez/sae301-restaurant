@@ -448,6 +448,39 @@ body.restaurant {
   margin: 0;
   max-width: none;
 }
+.navigation__actions {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 12px;
+}
+.restaurant #masthead .navigation__icon-link {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: var(--clr-white);
+  text-decoration: none;
+}
+.navigation__icon {
+  display: block;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  max-width: none;
+  margin: 0;
+}
+.restaurant #masthead .navigation__icon-link:hover,
+.restaurant #masthead .navigation__icon-link[aria-current="page"] {
+  background-color: var(--hover-bg-btn);
+}
+.restaurant #masthead .navigation__icon-link:focus-visible {
+  outline: 2px solid var(--clr-white);
+  outline-offset: 3px;
+}
 .restaurant #masthead .navigation__link:hover,
 .restaurant #masthead .navigation__order:hover {
   background-color: var(--hover-bg-btn);
@@ -618,7 +651,7 @@ body.restaurant {
     margin-inline: 60px;
   }
 }
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .header {
     min-height: 64px;
     padding-inline: 20px;
@@ -705,6 +738,11 @@ body.restaurant {
   .header__panel .navigation__order {
     align-self: flex-start;
   }
+  .header__panel .navigation__actions {
+    align-self: flex-start;
+  }
+}
+@media (max-width: 900px) {
   .footer__content {
     padding: 48px 32px;
     grid-template-columns: 1fr 1fr;
@@ -1295,10 +1333,6 @@ body .woocommerce-message {
 body .woocommerce-error {
   border-radius: 12px;
 }
-.woocommerce-info a,
-.woocommerce-message a {
-  color: var(--fg-btn);
-}
 .woocommerce-form-login,
 .woocommerce-form-register {
   padding: 28px;
@@ -1333,6 +1367,14 @@ body table tbody td {
 }
 
 
+}
+
+@layer components {
+/* Les actions des bandeaux doivent passer après la couleur des liens de base. */
+.restaurant :is(.woocommerce-info, .woocommerce-message, .woocommerce-error) :is(a, button),
+.restaurant :is(.woocommerce-info, .woocommerce-message, .woocommerce-error) :is(a, button):is(:visited, :hover, :focus, :active) {
+  color: var(--clr-white);
+}
 }
 
 /* Priorités explicites face aux déclarations importantes de Storefront. */
