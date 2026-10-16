@@ -3,7 +3,7 @@ Theme Name: Thaï Moon Restaurant
 Description: Thème enfant de Storefront pour la SAE301. Habillage commun issu de la maquette Figma V1.0.
 Author: Baptiste Halliez
 Template: storefront
-Version: 1.0.8
+Version: 1.0.9
 Text Domain: thaimoon-restaurant
 */
 
@@ -1155,6 +1155,30 @@ body table tbody td {
 .stock-badge--card { position: absolute; top: 0; left: 0; z-index: 3; margin: 0; }
 .stock-badge--empty { min-width: 112px; gap: 5px; padding: 5px 10px; }
 .restaurant .stock-badge .stock-badge__icon { display: block; flex-shrink: 0; max-width: none; margin: 0; }
+
+/* Seul l'attribut Couverts non utilisé pour les variations active ce composant. */
+.restaurant.single-product .summary .cutlery-options {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 16px;
+  width: 100%; min-width: 0; margin: 0 0 20px; padding: 0; border: 0;
+  background: transparent; color: var(--fg);
+}
+.cutlery-options__legend {
+  margin: 0 0 16px; padding: 0; color: var(--fg);
+  font-size: var(--fs-14); font-weight: var(--fw-bold); line-height: var(--lh-20);
+}
+.cutlery-options__option {
+  display: inline-flex; align-items: center; gap: 10px;
+  min-height: 28px; margin: 0; cursor: pointer;
+}
+.restaurant .cutlery-options__input {
+  appearance: auto; -webkit-appearance: radio;
+  flex: 0 0 16px; width: 16px; height: 16px; margin: 0; padding: 0;
+  accent-color: var(--fg); box-shadow: none; cursor: pointer;
+}
+.cutlery-options__input:focus-visible { outline: 2px solid var(--fg); outline-offset: 4px; }
+.cutlery-options__label {
+  color: var(--fg); font-size: var(--fs-14); font-weight: var(--fw-semibold); line-height: var(--lh-20);
+}
 .restaurant .purchase__unavailable,
 .restaurant ul.products li.product.product-card .purchase__unavailable:disabled,
 .restaurant.single-product .summary .purchase__unavailable {

@@ -34,3 +34,6 @@ require_once __DIR__ . '/shop-catalogue.php';
 
 // Stock, variations et quantité (US3.2).
 require_once __DIR__ . '/product-purchase.php';
+
+// Option de couverts en boutons radio, sans multiplier les variations.
+require_once __DIR__ . '/product-cutlery.php';
