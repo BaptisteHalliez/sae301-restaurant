@@ -31,3 +31,6 @@ function thaimoon_product_button_classes( $args ) {
 
 // Organisation de la boutique par catégories.
 require_once __DIR__ . '/shop-catalogue.php';
+
+// Stock, variations et quantité (US3.2).
+require_once __DIR__ . '/product-purchase.php';

@@ -3,7 +3,7 @@ Theme Name: Thaï Moon Restaurant
 Description: Thème enfant de Storefront pour la SAE301. Habillage commun issu de la maquette Figma V1.0.
 Author: Baptiste Halliez
 Template: storefront
-Version: 1.0.6
+Version: 1.0.8
 Text Domain: thaimoon-restaurant
 */
 
@@ -1142,4 +1142,97 @@ body table tbody td {
   }
 }
 
+
+
+/* US3.2 — stock, prix par portion et quantité, composants Figma V1.2. */
+.stock-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: max-content; min-width: 102px; max-width: 100%;
+  padding: 5px 15px; margin: 0 0 16px;
+  border-radius: 50px; background-color: var(--fg); color: var(--clr-white);
+  font-size: var(--fs-14); font-weight: var(--fw-bold); line-height: var(--lh-20);
+}
+.stock-badge--card { position: absolute; top: 0; left: 0; z-index: 3; margin: 0; }
+.stock-badge--empty { min-width: 112px; gap: 5px; padding: 5px 10px; }
+.restaurant .stock-badge .stock-badge__icon { display: block; flex-shrink: 0; max-width: none; margin: 0; }
+.restaurant .purchase__unavailable,
+.restaurant ul.products li.product.product-card .purchase__unavailable:disabled,
+.restaurant.single-product .summary .purchase__unavailable {
+  background-color: var(--bg-btn-indispo); color: var(--fg-btn);
+  /* Storefront applique opacity:.5 !important à tous les boutons désactivés. */
+  opacity: 1 !important; cursor: not-allowed;
+}
+.restaurant.single-product .summary .variations_form > .stock.out-of-stock { display: none; }
+.restaurant.single-product .summary form.cart:not(.variations_form),
+.restaurant.single-product .summary .woocommerce-variation-add-to-cart,
+.purchase__empty { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+.restaurant.single-product .summary form.cart::before,
+.restaurant.single-product .summary form.cart::after,
+.restaurant.single-product .summary .woocommerce-variation-add-to-cart::before,
+.restaurant.single-product .summary .woocommerce-variation-add-to-cart::after { display: none; }
+.restaurant.single-product .summary form.cart { margin-top: 0; padding-top: 0; border-top: 0; }
+.purchase__price { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 0; max-width: 100%; }
+.restaurant.single-product .summary .purchase__amount {
+  color: var(--fg); font-size: var(--fs-48); font-weight: var(--fw-bold); line-height: var(--lh-48);
+  max-width: 100%;
+}
+.purchase__amount del { display: inline-block; opacity: .6; font-size: var(--fs-24); line-height: var(--lh-32); }
+.purchase__amount ins { display: inline-block; margin-left: 8px; text-decoration: none; }
+.purchase__unit { color: var(--fg-desc); font-size: var(--fs-14); font-weight: var(--fw-semibold); line-height: var(--lh-20); }
+.restaurant.single-product .summary form.cart .quantity { float: none; margin: 0; }
+.restaurant.single-product .summary form.cart .quantity[hidden] { display: none !important; }
+.quantity-control { display: inline-flex; align-items: center; gap: 10px; }
+.restaurant.single-product .summary .quantity-control__button {
+  display: flex; align-items: center; justify-content: center;
+  flex: 0 0 26px; width: 26px; height: 26px;
+  padding: 0; border: 0; margin: 0; border-radius: 50%;
+  background-color: transparent; box-shadow: none; cursor: pointer;
+}
+.restaurant.single-product .summary .quantity-control__button[hidden] { display: none; }
+.quantity-control__button img { display: block; max-width: none; margin: 0; }
+.restaurant.single-product .summary .quantity-control__button:hover { background-color: transparent; opacity: .8; }
+.restaurant.single-product .summary .quantity-control__button:disabled { opacity: .45; cursor: not-allowed; }
+.restaurant.single-product .summary .quantity-control__input {
+  width: 13px; min-width: 13px; height: 26px; padding: 0; border: 0; border-radius: 0;
+  background-color: transparent; color: var(--fg); box-shadow: none;
+  font-size: var(--fs-14); font-weight: var(--fw-semibold); line-height: var(--lh-20); text-align: center;
+  appearance: textfield; -moz-appearance: textfield;
+}
+.quantity-control__input::-webkit-inner-spin-button,
+.quantity-control__input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.restaurant.single-product .summary .single_add_to_cart_button,
+.restaurant.single-product .summary .purchase__submit {
+  float: none; min-width: 212px; min-height: 44px; padding: 10px 20px; margin-top: 14px;
+  font-size: var(--fs-16); font-weight: var(--fw-semibold); line-height: var(--lh-24); border: 0; border-radius: 50px;
+}
+.restaurant.single-product .summary form.cart .single_add_to_cart_button.purchase__unavailable:disabled {
+  opacity: 1 !important; border: 0; background-color: var(--bg-btn-indispo); color: var(--fg-btn);
+}
+.restaurant.single-product .summary .woocommerce-variation-price { display: none; }
+.purchase__notice { color: var(--fg-desc); font-size: var(--fs-14); }
+.restaurant.single-product .summary table.variations { border: 0; margin: 0 0 20px; }
+.restaurant.single-product .summary table.variations tr { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.restaurant.single-product .summary table.variations th,
+.restaurant.single-product .summary table.variations td { padding: 0; background-color: transparent; }
+.restaurant.single-product .summary table.variations label { margin: 0; color: var(--fg); font-size: var(--fs-14); font-weight: var(--fw-semibold); }
+.restaurant.single-product .summary table.variations td.value { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.portion-select { display: inline-flex; position: relative; width: min(100%, 280px); }
+.portion-select::after {
+  content: ''; position: absolute; right: 20px; top: 19px;
+  width: 8px; height: 8px; border: solid var(--fg); border-width: 0 2px 2px 0; transform: rotate(45deg); pointer-events: none;
+}
+.restaurant.single-product .summary .portion-select select {
+  appearance: none; -webkit-appearance: none;
+  width: 100%; min-height: 48px; max-width: 100%; margin: 0; padding: 12px 44px 12px 20px;
+  border: 1px solid var(--fg); border-radius: 50px; background-color: var(--bg-card); color: var(--fg);
+  font-size: var(--fs-14); font-weight: var(--fw-semibold); line-height: var(--lh-24); cursor: pointer;
+}
+.portion-select select option { background-color: var(--bg-card); color: var(--fg); }
+.restaurant.single-product .summary .reset_variations { margin: 0; padding: 8px 0; color: var(--fg-desc); font-size: var(--fs-14); text-decoration: underline; }
+.restaurant.single-product .summary .reset_variations::before { display: none; }
+@media (max-width: 599px) {
+  .restaurant.single-product .summary .purchase__amount { font-size: var(--fs-36); line-height: 40px; }
+  .restaurant.single-product .summary .single_add_to_cart_button,
+  .restaurant.single-product .summary .purchase__submit { max-width: 100%; }
+}
 
