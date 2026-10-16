@@ -40,3 +40,6 @@ require_once __DIR__ . '/product-cutlery.php';
 
 // Allergènes et composition du groupe de champs du produit.
 require_once __DIR__ . '/product-information.php';
+
+// Panier et validation de commande, maquette V1.2.
+require_once __DIR__ . '/cart-checkout.php';

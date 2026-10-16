@@ -9,6 +9,9 @@ Text Domain: thaimoon-restaurant
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
 
+@layer reset, storefront, tokens, base, layout, components;
+
+@layer tokens {
 :root {
   /* Green */
   --clr-green-50: #f3fce9;
@@ -79,6 +82,10 @@ Text Domain: thaimoon-restaurant
   --hover-fg-btn: var(--clr-green);
 }
 
+
+}
+
+@layer reset {
 /* RESET */
 
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
@@ -265,12 +272,12 @@ template {
   display: none;
 }
 
-/* Habillage commun. Les sélecteurs Storefront servent de raccord au thème parent. */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+
 }
+
+@layer base {
+/* Habillage commun. Les sélecteurs Storefront servent de raccord au thème parent. */
+
 body.restaurant {
   margin: 0;
   background-color: var(--bg);
@@ -285,6 +292,10 @@ body.restaurant {
 .restaurant textarea {
   font-family: var(--ff-poppins);
 }
+
+}
+
+@layer layout {
 .restaurant .site {
   min-height: 100vh;
   display: flex;
@@ -306,6 +317,10 @@ body.restaurant {
 .restaurant .site-main {
   padding-top: 40px;
 }
+
+}
+
+@layer base {
 .restaurant h1,
 .restaurant h2,
 .restaurant h3,
@@ -329,6 +344,10 @@ body.restaurant {
   outline: 2px solid var(--clr-green-500);
   outline-offset: 4px;
 }
+
+}
+
+@layer components {
 .restaurant #masthead {
   padding: 0;
   margin-bottom: 0;
@@ -721,153 +740,6 @@ body.restaurant {
   }
 }
 
-/* Raccords WooCommerce déjà présents dans le thème. */
-.entry-header {
-  margin-bottom: 24px;
-}
-.entry-title {
-  color: var(--fg);
-}
-.woocommerce-breadcrumb {
-  color: var(--fg-desc);
-  margin-bottom: 0;
-  padding: 24px 0 0;
-  font-size: 12px;
-}
-.woocommerce-breadcrumb a {
-  color: var(--fg);
-}
-body .button,
-body button,
-body input[type="button"],
-body input[type="reset"],
-body input[type="submit"],
-body .wp-element-button,
-body .wp-block-button__link,
-body .wc-block-components-button {
-  background-color: var(--bg-btn);
-  color: var(--fg-btn);
-  border: 1px solid transparent;
-  border-radius: 999px;
-  padding: 12px 24px;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 1.4;
-  text-decoration: none;
-  box-shadow: none;
-}
-body .button:hover,
-body button:hover,
-body input[type="button"]:hover,
-body input[type="reset"]:hover,
-body input[type="submit"]:hover,
-body .wp-element-button:hover,
-body .wp-block-button__link:hover,
-body .wc-block-components-button:hover {
-  background-color: var(--hover-bg-btn);
-  color: var(--hover-fg-btn);
-  text-decoration: none;
-}
-body .button.alt,
-body button.alt,
-body input[type="submit"].alt {
-  background-color: var(--bg-btn);
-  color: var(--fg-btn);
-}
-body .button.alt:hover,
-body button.alt:hover,
-body input[type="submit"].alt:hover {
-  background-color: var(--hover-bg-btn);
-  color: var(--hover-fg-btn);
-  text-decoration: none;
-}
-body button:disabled,
-body .button.disabled,
-body input[type="submit"]:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-body input[type="text"],
-body input[type="email"],
-body input[type="password"],
-body input[type="tel"],
-body input[type="number"],
-body input[type="search"],
-body input[type="url"],
-body textarea,
-body select {
-  color: var(--fg-desc);
-  background-color: var(--bg);
-  border: 1px solid var(--clr-light-gray);
-  box-shadow: none;
-  border-radius: 8px;
-  padding: 12px 16px;
-  max-width: 100%;
-  font-size: 14px;
-}
-body input[type="checkbox"],
-body input[type="radio"] {
-  accent-color: var(--fg);
-}
-label {
-  color: var(--fg);
-  font-weight: 600;
-}
-body .onsale {
-  color: var(--fg);
-  border-color: var(--fg);
-  border-radius: 999px;
-  margin-inline: 20px;
-}
-.woocommerce-product-details__short-description {
-  color: var(--fg-desc);
-}
-body .woocommerce-info,
-body .woocommerce-message {
-  background-color: var(--bg-btn);
-  color: var(--fg-btn);
-  border-radius: 12px;
-}
-body .woocommerce-error {
-  border-radius: 12px;
-}
-.woocommerce-info a,
-.woocommerce-message a {
-  color: var(--fg-btn);
-}
-.woocommerce-form-login,
-.woocommerce-form-register {
-  padding: 28px;
-  border: 1px solid var(--clr-light-gray);
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow-card);
-}
-.woocommerce-MyAccount-navigation ul {
-  border: 0;
-}
-.woocommerce-MyAccount-navigation li a {
-  border-radius: 12px;
-  padding: 14px 18px;
-}
-.woocommerce-MyAccount-navigation li.is-active a {
-  background-color: var(--bg-choice);
-  color: var(--fg);
-}
-body table.shop_table {
-  border-radius: 16px;
-  overflow: hidden;
-}
-body table th {
-  color: var(--fg);
-  background-color: var(--clr-light-gray);
-}
-body table tbody td {
-  background-color: var(--bg);
-}
-.storefront-sorting {
-  font-size: 14px;
-}
-
 /* Cartes du catalogue Figma V1.0 : horizontales sur ordinateur, verticales sur mobile. */
 .restaurant.post-type-archive-product .site-content > .col-full,
 .restaurant.tax-product_cat .site-content > .col-full,
@@ -1225,9 +1097,7 @@ body table tbody td {
 .restaurant .purchase__unavailable,
 .restaurant ul.products li.product.product-card .purchase__unavailable:disabled,
 .restaurant.single-product .summary .purchase__unavailable {
-  background-color: var(--bg-btn-indispo); color: var(--fg-btn);
-  /* Storefront applique opacity:.5 !important à tous les boutons désactivés. */
-  opacity: 1 !important; cursor: not-allowed;
+  background-color: var(--bg-btn-indispo); color: var(--fg-btn); cursor: not-allowed;
 }
 .restaurant.single-product .summary .variations_form > .stock.out-of-stock { display: none; }
 .restaurant.single-product .summary form.cart:not(.variations_form),
@@ -1247,7 +1117,7 @@ body table tbody td {
 .purchase__amount ins { display: inline-block; margin-left: 8px; text-decoration: none; }
 .purchase__unit { color: var(--fg-desc); font-size: var(--fs-14); font-weight: var(--fw-semibold); line-height: var(--lh-20); }
 .restaurant.single-product .summary form.cart .quantity { float: none; margin: 0; }
-.restaurant.single-product .summary form.cart .quantity[hidden] { display: none !important; }
+.restaurant.single-product .summary form.cart .quantity[hidden] { }
 .quantity-control { display: inline-flex; align-items: center; gap: 10px; }
 .restaurant.single-product .summary .quantity-control__button {
   display: flex; align-items: center; justify-content: center;
@@ -1272,8 +1142,7 @@ body table tbody td {
   float: none; min-width: 212px; min-height: 44px; padding: 10px 20px; margin-top: 14px;
   font-size: var(--fs-16); font-weight: var(--fw-semibold); line-height: var(--lh-24); border: 0; border-radius: 50px;
 }
-.restaurant.single-product .summary form.cart .single_add_to_cart_button.purchase__unavailable:disabled {
-  opacity: 1 !important; border: 0; background-color: var(--bg-btn-indispo); color: var(--fg-btn);
+.restaurant.single-product .summary form.cart .single_add_to_cart_button.purchase__unavailable:disabled { border: 0; background-color: var(--bg-btn-indispo); color: var(--fg-btn);
 }
 .restaurant.single-product .summary .woocommerce-variation-price { display: none; }
 .purchase__notice { color: var(--fg-desc); font-size: var(--fs-14); }
@@ -1303,3 +1172,181 @@ body table tbody td {
   .restaurant.single-product .summary .purchase__submit { max-width: 100%; }
 }
 
+
+}
+
+
+@layer reset {
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+}
+
+@layer storefront {
+/* Raccords WooCommerce déjà présents dans le thème. */
+.entry-header {
+  margin-bottom: 24px;
+}
+.entry-title {
+  color: var(--fg);
+}
+.woocommerce-breadcrumb {
+  color: var(--fg-desc);
+  margin-bottom: 0;
+  padding: 24px 0 0;
+  font-size: 12px;
+}
+.woocommerce-breadcrumb a {
+  color: var(--fg);
+}
+body .button,
+body button,
+body input[type="button"],
+body input[type="reset"],
+body input[type="submit"],
+body .wp-element-button,
+body .wp-block-button__link,
+body .wc-block-components-button {
+  background-color: var(--bg-btn);
+  color: var(--fg-btn);
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 12px 24px;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.4;
+  text-decoration: none;
+  box-shadow: none;
+}
+body .button:hover,
+body button:hover,
+body input[type="button"]:hover,
+body input[type="reset"]:hover,
+body input[type="submit"]:hover,
+body .wp-element-button:hover,
+body .wp-block-button__link:hover,
+body .wc-block-components-button:hover {
+  background-color: var(--hover-bg-btn);
+  color: var(--hover-fg-btn);
+  text-decoration: none;
+}
+body .button.alt,
+body button.alt,
+body input[type="submit"].alt {
+  background-color: var(--bg-btn);
+  color: var(--fg-btn);
+}
+body .button.alt:hover,
+body button.alt:hover,
+body input[type="submit"].alt:hover {
+  background-color: var(--hover-bg-btn);
+  color: var(--hover-fg-btn);
+  text-decoration: none;
+}
+body button:disabled,
+body .button.disabled,
+body input[type="submit"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+body input[type="text"],
+body input[type="email"],
+body input[type="password"],
+body input[type="tel"],
+body input[type="number"],
+body input[type="search"],
+body input[type="url"],
+body textarea,
+body select {
+  color: var(--fg-desc);
+  background-color: var(--bg);
+  border: 1px solid var(--clr-light-gray);
+  box-shadow: none;
+  border-radius: 8px;
+  padding: 12px 16px;
+  max-width: 100%;
+  font-size: 14px;
+}
+body input[type="checkbox"],
+body input[type="radio"] {
+  accent-color: var(--fg);
+}
+label {
+  color: var(--fg);
+  font-weight: 600;
+}
+body .onsale {
+  color: var(--fg);
+  border-color: var(--fg);
+  border-radius: 999px;
+  margin-inline: 20px;
+}
+.woocommerce-product-details__short-description {
+  color: var(--fg-desc);
+}
+body .woocommerce-info,
+body .woocommerce-message {
+  background-color: var(--bg-btn);
+  color: var(--fg-btn);
+  border-radius: 12px;
+}
+body .woocommerce-error {
+  border-radius: 12px;
+}
+.woocommerce-info a,
+.woocommerce-message a {
+  color: var(--fg-btn);
+}
+.woocommerce-form-login,
+.woocommerce-form-register {
+  padding: 28px;
+  border: 1px solid var(--clr-light-gray);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+.woocommerce-MyAccount-navigation ul {
+  border: 0;
+}
+.woocommerce-MyAccount-navigation li a {
+  border-radius: 12px;
+  padding: 14px 18px;
+}
+.woocommerce-MyAccount-navigation li.is-active a {
+  background-color: var(--bg-choice);
+  color: var(--fg);
+}
+body table.shop_table {
+  border-radius: 16px;
+  overflow: hidden;
+}
+body table th {
+  color: var(--fg);
+  background-color: var(--clr-light-gray);
+}
+body table tbody td {
+  background-color: var(--bg);
+}
+.storefront-sorting {
+  font-size: 14px;
+}
+
+
+}
+
+/* Priorités explicites face aux déclarations importantes de Storefront. */
+@layer reset {
+.restaurant .purchase__unavailable,
+.restaurant ul.products li.product.product-card .purchase__unavailable:disabled,
+.restaurant.single-product .summary .purchase__unavailable {
+  /* Storefront applique opacity:.5 !important à tous les boutons désactivés. */
+  opacity: 1 !important;
+}
+.restaurant.single-product .summary form.cart .quantity[hidden] {
+  display: none !important;
+}
+.restaurant.single-product .summary form.cart .single_add_to_cart_button.purchase__unavailable:disabled {
+  opacity: 1 !important;
+}
+}

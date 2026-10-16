@@ -11,6 +11,40 @@ function thaimoon_assets() {
     wp_enqueue_style( 'storefront-child-style', get_stylesheet_uri(), array( 'storefront-style' ), (string) filemtime( get_stylesheet_directory() . '/style.css' ) );
 }
 
+
+// Charger le parent dans sa couche : un CSS hors layer prendrait le dessus sur le thème enfant.
+add_action( 'wp_head', 'thaimoon_layer_order', 1 );
+function thaimoon_layer_order() {
+    echo '<style id="thaimoon-layer-order">@layer reset, storefront, tokens, base, layout, components;</style>' . "\n";
+}
+
+add_action( 'wp_print_styles', 'thaimoon_storefront_inline_layers', PHP_INT_MAX );
+function thaimoon_storefront_inline_layers() {
+    if ( is_admin() ) {
+        return;
+    }
+    $styles = wp_styles();
+    foreach ( $styles->registered as $handle => $style ) {
+        if ( 0 !== strpos( $handle, 'storefront-' ) || 'storefront-child-style' === $handle ) {
+            continue;
+        }
+        $inline = $styles->get_data( $handle, 'after' );
+        if ( ! empty( $inline ) && ! $styles->get_data( $handle, 'thaimoon-layered' ) ) {
+            $styles->add_data( $handle, 'after', array( "@layer storefront {\n" . implode( "\n", $inline ) . "\n}" ) );
+            $styles->add_data( $handle, 'thaimoon-layered', true );
+        }
+    }
+}
+
+add_filter( 'style_loader_tag', 'thaimoon_storefront_style_layer', 10, 4 );
+function thaimoon_storefront_style_layer( $tag, $handle, $href, $media ) {
+    if ( is_admin() || 0 !== strpos( $handle, 'storefront-' ) || 'storefront-child-style' === $handle ) {
+        return $tag;
+    }
+    $import = '@import url(' . wp_json_encode( esc_url_raw( $href ), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . ') layer(storefront);';
+    return '<style id="' . esc_attr( $handle . '-css' ) . '" media="' . esc_attr( $media ) . '">' . $import . '</style>' . "\n";
+}
+
 add_action( 'after_setup_theme', 'thaimoon_setup', 20 );
 function thaimoon_setup() {
     register_nav_menu( 'thaimoon-footer', 'Thaï Moon : liens du pied de page' );
