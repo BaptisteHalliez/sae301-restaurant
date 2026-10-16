@@ -37,3 +37,6 @@ require_once __DIR__ . '/product-purchase.php';
 
 // Option de couverts en boutons radio, sans multiplier les variations.
 require_once __DIR__ . '/product-cutlery.php';
+
+// Allergènes et composition du groupe de champs du produit.
+require_once __DIR__ . '/product-information.php';

@@ -3,7 +3,7 @@ Theme Name: Thaï Moon Restaurant
 Description: Thème enfant de Storefront pour la SAE301. Habillage commun issu de la maquette Figma V1.0.
 Author: Baptiste Halliez
 Template: storefront
-Version: 1.0.9
+Version: 1.0.10
 Text Domain: thaimoon-restaurant
 */
 
@@ -1143,6 +1143,49 @@ body table tbody td {
 }
 
 
+
+/* Fiche produit — champs SCF Allergènes et Composition. */
+.restaurant.single-product .summary .product-information {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: 0 0 32px;
+  padding: 0;
+  font-size: var(--fs-18);
+  line-height: var(--lh-28);
+}
+.product-information__row {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  align-items: start;
+  gap: 14px;
+  min-width: 0;
+}
+.product-information__label {
+  margin: 0;
+  padding: 0;
+  color: var(--fg);
+  font-weight: var(--fw-bold);
+}
+.product-information__content {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  color: var(--fg-desc);
+  font-weight: var(--fw-regular);
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 479px) {
+  .product-information__row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+  }
+  .restaurant.single-product .summary .product-information {
+    font-size: var(--fs-16);
+    line-height: var(--lh-24);
+  }
+}
 
 /* US3.2 — stock, prix par portion et quantité, composants Figma V1.2. */
 .stock-badge {
