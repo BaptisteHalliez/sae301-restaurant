@@ -593,7 +593,7 @@ h2, h3, .address-title { color: <?php echo esc_attr( $base ); ?>; }
 h2 { font-size: 20px; line-height: 28px; }
 .email-introduction { padding-bottom: 12px; }
 .td { color: <?php echo esc_attr( $text ); ?>; border-color: <?php echo esc_attr( $thaimoon_email['border'] ); ?>; }
-#body_content .email-order-details thead th { background-color: <?php echo esc_attr( $thaimoon_email['soft'] ); ?>; color: <?php echo esc_attr( $base ); ?>; font-weight: 700; }
+#body_content .email-order-details thead th { background-color: <?php echo esc_attr( $body ); ?>; color: <?php echo esc_attr( wc_light_or_dark( $body, '#202020', '#ffffff' ) ); ?>; font-weight: 700; }
 #body_content table .email-order-details td, #body_content table .email-order-details th { padding: 12px 10px; }
 #body_content .email-order-details tbody td { border-bottom: 1px solid <?php echo esc_attr( $thaimoon_email['border'] ); ?>; }
 #body_content .email-order-details .order-totals-total th, #body_content .email-order-details .order-totals-total td { color: <?php echo esc_attr( $base ); ?>; font-weight: 700; }
