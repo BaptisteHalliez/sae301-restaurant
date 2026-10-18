@@ -1,0 +1,90 @@
+/* Compte V1.3 : historique, récapitulatif, confirmation et suivi des demandes. */
+.account-layout--orders { max-width: 1139px; grid-template-columns: 179px minmax(0, 787px); column-gap: 173px; }
+.account-layout--order-detail { max-width: 1139px; grid-template-columns: 179px minmax(0, 926px); column-gap: 34px; }
+.account-layout--order-result { max-width: 1000px; grid-template-columns: 179px minmax(0, 594px); column-gap: 227px; }
+.restaurant .account-orders { display: flex; flex-direction: column; gap: 25px; }
+.account-orders__row { display: flex; align-items: center; gap: 40px; min-width: 0; width: 100%; }
+.account-orders__row + .account-orders__row { padding-top: 25px; border-top: 1px solid var(--clr-gray-transparent); }
+.account-orders__fields { display: grid; grid-template-columns: 1.3fr 1.1fr .9fr .7fr; flex: 1 1 0; gap: 20px; min-width: 0; margin: 0; }
+.account-orders__field { min-width: 0; color: var(--fg); font-size: var(--fs-18); line-height: var(--lh-28); overflow-wrap: anywhere; }
+.account-orders__field dt { margin: 0 0 20px; font-weight: var(--fw-bold); }
+.account-orders__field dd { margin: 0; font-weight: var(--fw-regular); }
+.account-orders__actions { display: flex; flex: 0 0 auto; flex-direction: column; gap: 10px; align-items: center; }
+.restaurant.account-page .account-orders__button,
+.restaurant.account-page .account-order .button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; margin: 0; padding: 10px 20px; border: 0; border-radius: 50px; background: var(--bg-btn); color: var(--fg-btn); font-size: var(--fs-16); font-weight: var(--fw-semibold); line-height: var(--lh-24); text-align: center; text-decoration: none; }
+.restaurant.account-page .account-orders__button:hover,
+.restaurant.account-page .account-order .button:hover { background: var(--clr-green-800); color: var(--fg-btn); }
+.restaurant.account-page .account-orders__button:focus-visible,
+.restaurant.account-page .account-order .button:focus-visible { outline: 2px solid var(--fg); outline-offset: 4px; }
+.account-orders__request-state { display: block; margin-top: 8px; color: var(--fg-desc); font-size: var(--fs-12); line-height: var(--lh-20); }
+.account-orders__pagination { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.account-orders__empty h2 { color: var(--fg); font-size: var(--fs-24); line-height: var(--lh-32); }
+.restaurant .account-order__title, .restaurant .account-order-result__title { margin: 0; color: var(--fg); font-size: var(--fs-24); font-weight: var(--fw-bold); line-height: var(--lh-32); }
+.account-order__status { margin: 12px 0 20px; color: var(--fg-desc); font-size: var(--fs-14); line-height: var(--lh-24); }
+.account-order__notice { margin: 0 0 20px; padding: 16px; border: 1px solid var(--clr-light-gray); border-radius: 12px; background: var(--bg-choice); color: var(--fg); font-size: var(--fs-16); line-height: var(--lh-24); }
+.restaurant.account-page .account-order__table { width: 100%; margin: 0; border: 0; border-collapse: collapse; table-layout: fixed; }
+.restaurant.account-page .account-order__table thead th, .restaurant.account-page .account-order__table td, .restaurant.account-page .account-order__table tfoot th { padding: 10px 0; border: 0; background: transparent; color: var(--fg); font-size: var(--fs-18); line-height: var(--lh-28); vertical-align: middle; overflow-wrap: anywhere; }
+.restaurant.account-page .account-order__table thead th { padding-top: 0; padding-bottom: 14px; font-weight: var(--fw-bold); }
+.restaurant.account-page .account-order__table th:first-child, .restaurant.account-page .account-order__table td:first-child { width: 65%; padding-right: 20px; }
+.restaurant.account-page .account-order__table th:last-child, .restaurant.account-page .account-order__table td:last-child { width: 35%; text-align: right; }
+.restaurant.account-page .account-order__table a { color: var(--fg); text-decoration: none; }
+.restaurant.account-page .account-order__table a:hover { text-decoration: underline; }
+.restaurant.account-page .account-order__table .product-quantity { white-space: nowrap; font-weight: var(--fw-bold); }
+.restaurant.account-page .account-order__table .wc-item-meta { margin: 5px 0 0; padding: 0; list-style: none; color: var(--fg-desc); font-size: var(--fs-16); line-height: var(--lh-24); }
+.restaurant.account-page .account-order__table .wc-item-meta li { margin: 0; }
+.restaurant.account-page .account-order__table .wc-item-meta p { display: inline; margin: 0; }
+.restaurant.account-page .account-order__table tfoot tr:first-child th, .restaurant.account-page .account-order__table tfoot tr:first-child td { padding-top: 20px; border-top: 1px solid var(--clr-gray-transparent); }
+.restaurant.account-page .account-order__table tfoot th { font-weight: var(--fw-bold); }
+.account-order__table small { font-size: var(--fs-12); line-height: var(--lh-20); }
+.restaurant.account-page .account-order .order-again { display: flex; justify-content: center; margin: 25px 0 0; }
+.account-order__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 25px; padding-top: 25px; border-top: 1px solid var(--clr-gray-transparent); }
+/* Raccords au bloc d’adresses natif : contenir les colonnes de Storefront. */
+.restaurant.account-page .account-layout--order-detail .woocommerce-customer-details { display: flow-root; padding: 30px; border: 0; border-radius: 30px; background: var(--bg-card); box-shadow: 0 4px 2px var(--shadow); }
+.restaurant.account-page .account-layout--order-detail .woocommerce-columns--addresses { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px; float: none; width: 100%; margin: 0; }
+.restaurant.account-page .account-layout--order-detail .woocommerce-columns--addresses > .woocommerce-column { float: none; width: auto; min-width: 0; margin: 0; }
+.restaurant.account-page .account-layout--order-detail .woocommerce-customer-details h2 { margin: 0 0 16px; color: var(--fg); font-size: var(--fs-24); font-weight: var(--fw-bold); line-height: var(--lh-32); }
+.restaurant.account-page .account-layout--order-detail .woocommerce-customer-details address { margin: 0; padding: 0; border: 0; color: var(--fg-desc); font-style: normal; overflow-wrap: anywhere; }
+.account-order-result { text-align: center; }
+.account-order-result__description { margin: 25px 0 0; color: var(--fg-desc); font-size: var(--fs-16); line-height: var(--lh-24); }
+.account-order-result__actions { margin-top: 25px; padding-top: 25px; border-top: 1px solid var(--clr-gray-transparent); }
+.account-order-result__details { display: inline-block; margin-top: 16px; color: var(--fg); font-size: var(--fs-14); line-height: var(--lh-24); }
+.account-order-notes { margin-top: 24px; }
+.account-order-notes h2 { color: var(--fg); font-size: var(--fs-24); line-height: var(--lh-32); }
+.account-order-notes__item { margin-top: 16px; padding: 20px; border: 1px solid var(--clr-light-gray); border-radius: 16px; color: var(--fg-desc); }
+.account-order-notes__item p { margin: 0 0 8px; }
+.account-cancel { display: none; scroll-margin-top: 24px; }
+.account-cancel--requested { display: block; max-width: 521px; margin: 24px auto 0; }
+.account-cancel__dialog { width: calc(100% - 32px); max-width: 521px; max-height: calc(100% - 32px); margin: auto; padding: 0; overflow: auto; border: 0; border-radius: 30px; background: var(--bg-card); color: var(--fg); }
+.account-cancel__dialog::backdrop { background: rgba(17, 24, 39, .65); }
+.restaurant .account-cancel__panel { box-shadow: none; }
+.restaurant .account-cancel__panel:focus { outline: none; }
+.restaurant .account-cancel__title { margin: 0; color: var(--fg); font-size: var(--fs-18); font-weight: var(--fw-bold); line-height: var(--lh-28); }
+.account-cancel__description { margin: 20px 0 0; color: var(--fg-desc); font-size: var(--fs-16); line-height: var(--lh-24); }
+.account-cancel__form { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin: 20px 0 0; padding-top: 20px; border-top: 1px solid var(--clr-gray-transparent); }
+@media (max-width: 1200px) {
+  .account-layout--orders, .account-layout--order-detail, .account-layout--order-result { column-gap: 32px; }
+  .account-orders__row { gap: 20px; }
+  .account-orders__fields { gap: 12px; }
+}
+@media (max-width: 1000px) {
+  .account-orders__row { flex-direction: column; align-items: stretch; }
+  .account-orders__fields { flex-basis: auto; }
+  .account-orders__actions { align-items: stretch; }
+}
+@media (max-width: 800px) {
+  .account-layout--orders, .account-layout--order-detail, .account-layout--order-result { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+}
+@media (max-width: 599px) {
+  .restaurant.account-page .account-layout--order-detail .woocommerce-customer-details { padding: 20px; }
+  .restaurant.account-page .account-layout--order-detail .woocommerce-columns--addresses { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .account-orders__fields { display: flex; flex-direction: column; gap: 8px; }
+  .account-orders__field { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; font-size: var(--fs-16); line-height: var(--lh-24); }
+  .account-orders__field dt { flex: 0 0 90px; margin: 0; }
+  .account-orders__field dd { min-width: 0; text-align: right; }
+  .restaurant.account-page .account-order__table th:first-child, .restaurant.account-page .account-order__table td:first-child { width: 65%; padding-right: 12px; }
+  .restaurant.account-page .account-order__table tfoot th:first-child { width: 50%; }
+  .restaurant.account-page .account-order__table tfoot td:last-child { width: 50%; }
+  .restaurant .account-order-result__actions .account-orders__button { width: 100%; }
+  .account-cancel__form { gap: 12px; }
+  .account-cancel__form .account-orders__button { max-width: 100%; }
+}

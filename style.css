@@ -335,6 +335,13 @@ body.restaurant {
 .restaurant a {
   color: var(--fg);
 }
+/* Remplacer l’accent de focus du parent par le vert de la D.A. */
+.restaurant :is(a, button, summary, input, select, textarea):focus {
+  outline-color: var(--fg);
+}
+.restaurant :is(a, button, summary, input, select, textarea):focus:not(:focus-visible) {
+  outline: none;
+}
 .restaurant a:focus-visible,
 .restaurant button:focus-visible,
 .restaurant summary:focus-visible,

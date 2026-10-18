@@ -3,7 +3,7 @@
 defined( 'ABSPATH' ) || exit;
 $logout = 'deconnexion' === thaimoon_account_view();
 ?>
-<div class="account-layout<?php echo $logout ? ' account-layout--logout' : ''; ?>">
+<div class="account-layout<?php echo $logout ? ' account-layout--logout' : esc_attr( thaimoon_orders_layout_class() ); ?>">
     <?php do_action( 'woocommerce_account_navigation' ); ?>
     <div class="woocommerce-MyAccount-content account-layout__content">
         <?php if ( $logout ) : ?>

@@ -239,3 +239,6 @@ function thaimoon_account_profile_field( $label, $value, $url ) {
     </div>
     <?php
 }
+
+// Historique, détails et demandes d'annulation — maquette V1.3.
+require_once __DIR__ . '/account-orders.php';
