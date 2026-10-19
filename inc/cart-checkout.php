@@ -2,9 +2,8 @@
 /** Panier et validation classiques WooCommerce, présentation Figma V1.2. */
 defined( 'ABSPATH' ) || exit;
 
-// Désactivation temporaire : aucun formulaire ni application de code promo.
-// Les codes existants restent enregistrés dans WordPress.
-add_filter( 'woocommerce_coupons_enabled', '__return_false' );
+// Codes promo V1.3 : formulaires, validations et calculs natifs de WooCommerce.
+require_once __DIR__ . '/coupons.php';
 
 add_action( 'wp_enqueue_scripts', 'thaimoon_radio_assets', 50 );
 function thaimoon_radio_assets() {

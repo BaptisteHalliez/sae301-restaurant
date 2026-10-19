@@ -30,13 +30,6 @@ foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) :
 			<td><?php wc_cart_totals_subtotal_html(); ?></td>
 		</tr>
 
-		<?php foreach ( WC()->cart->get_coupons() as $code => $coupon ) : ?>
-			<tr class="cart-discount coupon-<?php echo esc_attr( sanitize_title( $code ) ); ?>">
-				<th><?php wc_cart_totals_coupon_label( $coupon ); ?></th>
-				<td><?php wc_cart_totals_coupon_html( $coupon ); ?></td>
-			</tr>
-		<?php endforeach; ?>
-
 		<?php if ( WC()->cart->needs_shipping() && WC()->cart->show_shipping() ) : ?>
 
 			<?php do_action( 'woocommerce_review_order_before_shipping' ); ?>
@@ -46,6 +39,13 @@ foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) :
 			<?php do_action( 'woocommerce_review_order_after_shipping' ); ?>
 
 		<?php endif; ?>
+
+		<?php foreach ( WC()->cart->get_coupons() as $code => $coupon ) : ?>
+			<tr class="cart-discount coupon-<?php echo esc_attr( sanitize_title( $code ) ); ?>">
+				<th><?php echo esc_html( thaimoon_coupon_label( $coupon ) ); ?></th>
+				<td><?php wc_cart_totals_coupon_html( $coupon ); ?></td>
+			</tr>
+		<?php endforeach; ?>
 
 		<?php foreach ( WC()->cart->get_fees() as $fee ) : ?>
 			<tr class="fee">
@@ -81,5 +81,6 @@ foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) :
 
 	</tfoot>
 </table>
+<?php thaimoon_coupon_removal_notice(); ?>
 <?php wc_get_template( 'checkout/place-order.php' ); ?>
 </div>

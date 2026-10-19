@@ -73,6 +73,7 @@
 .restaurant .commerce-summary .checkout-button, .restaurant .commerce-summary #place_order { display: block; width: 100%; min-height: 44px; margin: 0; padding: 10px 20px; border: 0; border-radius: 50px; background: var(--bg-btn); color: var(--fg-btn); font-size: var(--fs-16); font-weight: var(--fw-semibold); line-height: var(--lh-24); text-align: center; text-decoration: none; }
 .restaurant .commerce-summary .checkout-button::after { display: none; }
 .restaurant .commerce-summary .checkout-button:hover, .restaurant .commerce-summary #place_order:hover { background: var(--clr-green-800); color: var(--fg-btn); }
+.restaurant.woocommerce-cart .return-to-shop .button:not(:hover) { color: var(--clr-white); }
 .restaurant .commerce-delivery-table { margin: 0; border: 0; border-radius: 0; overflow: visible; }
 .restaurant .commerce-delivery-table th { display: none; }
 .restaurant .commerce-delivery-table td { padding: 0; border: 0; background: transparent; text-align: left; }

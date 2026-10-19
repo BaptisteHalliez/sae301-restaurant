@@ -27,6 +27,7 @@ defined( 'ABSPATH' ) || exit;
     </section>
     <aside class="commerce-summary"><h2 class="commerce-summary__title">Récapitulatif</h2>
     <?php thaimoon_commerce_shipping_summary(); ?>
+    <?php thaimoon_coupon_panel(); ?>
 
 	<table cellspacing="0" class="shop_table shop_table_responsive commerce-totals">
 
@@ -34,13 +35,6 @@ defined( 'ABSPATH' ) || exit;
 			<th><?php esc_html_e( 'Subtotal', 'woocommerce' ); ?></th>
 			<td data-title="<?php esc_attr_e( 'Subtotal', 'woocommerce' ); ?>"><?php wc_cart_totals_subtotal_html(); ?></td>
 		</tr>
-
-		<?php foreach ( WC()->cart->get_coupons() as $code => $coupon ) : ?>
-			<tr class="cart-discount coupon-<?php echo esc_attr( sanitize_title( $code ) ); ?>">
-				<th><?php wc_cart_totals_coupon_label( $coupon ); ?></th>
-				<td data-title="<?php echo esc_attr( wc_cart_totals_coupon_label( $coupon, false ) ); ?>"><?php wc_cart_totals_coupon_html( $coupon ); ?></td>
-			</tr>
-		<?php endforeach; ?>
 
 		<?php if ( WC()->cart->needs_shipping() && WC()->cart->show_shipping() ) : ?>
 
@@ -58,6 +52,13 @@ defined( 'ABSPATH' ) || exit;
 			</tr>
 
 		<?php endif; ?>
+
+		<?php foreach ( WC()->cart->get_coupons() as $code => $coupon ) : ?>
+			<tr class="cart-discount coupon-<?php echo esc_attr( sanitize_title( $code ) ); ?>">
+				<th><?php echo esc_html( thaimoon_coupon_label( $coupon ) ); ?></th>
+				<td data-title="<?php echo esc_attr( thaimoon_coupon_label( $coupon ) ); ?>"><?php wc_cart_totals_coupon_html( $coupon ); ?></td>
+			</tr>
+		<?php endforeach; ?>
 
 		<?php foreach ( WC()->cart->get_fees() as $fee ) : ?>
 			<tr class="fee">
