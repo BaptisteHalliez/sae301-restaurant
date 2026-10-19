@@ -214,6 +214,7 @@ function thaimoon_footer() {
                 <a class="footer__home" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="Thaï Moon — Accueil"><img class="footer__logo" src="<?php echo esc_url( thaimoon_image_url( 'logo.png' ) ); ?>" width="156" height="156" alt="Thaï Moon" loading="lazy"></a>
                 <p class="footer__description"><?php echo esc_html( get_theme_mod( 'thaimoon_description', "Plongez dans l'univers de la cuisine thaïlandaise sous la lueur de la lune. Chaque plat raconte une histoire, chaque saveur éveille vos sens." ) ); ?></p>
             </div>
+            <div class="footer__information">
             <section class="footer__section" aria-labelledby="footer-information">
                 <h2 class="footer__title" id="footer-information">Informations</h2>
                 <p class="footer__detail"><?php thaimoon_footer_icon( 'location' ); ?><a class="footer__link" href="<?php echo esc_url( thaimoon_directions_url() ); ?>"><?php echo nl2br( esc_html( get_theme_mod( 'thaimoon_address', "8 rue des Chevaliers\n45190 Beaugency" ) ) ); ?></a></p>
@@ -224,6 +225,17 @@ function thaimoon_footer() {
                 <p class="footer__detail"><?php thaimoon_footer_icon( 'clock' ); ?><span class="footer__schedule"><strong class="footer__day"><?php echo esc_html( get_theme_mod( 'thaimoon_days', 'Lundi – Dimanche' ) ); ?></strong><span class="footer__hours"><?php echo esc_html( get_theme_mod( 'thaimoon_hours', '12h – 14h30 • 18h – 22h30' ) ); ?></span></span></p>
                 <p class="footer__detail"><?php thaimoon_footer_icon( 'clock' ); ?><span class="footer__schedule"><strong class="footer__day">Samedi</strong><span class="footer__hours"><?php echo esc_html( get_theme_mod( 'thaimoon_saturday_hours', '11h – 14h30 • 18h – 22h30' ) ); ?></span></span></p>
             </section>
+                <?php $team_url = get_post_type_archive_link( 'membre' ); ?>
+                <?php if ( $team_url ) : ?>
+                    <section class="footer__section footer__section--team" aria-labelledby="footer-team">
+                        <h2 class="footer__title" id="footer-team">Infos Bonus</h2>
+                        <a class="footer__link footer__team-link" href="<?php echo esc_url( $team_url ); ?>">
+                            <img class="footer__team-icon" src="<?php echo esc_url( thaimoon_image_url( 'team.svg' ) ); ?>" width="32" height="32" alt="" loading="lazy">
+                            <span>L’Équipe</span>
+                        </a>
+                    </section>
+                <?php endif; ?>
+            </div>
         </div>
         <div class="footer__bottom">
             <p class="footer__copyright">© <?php echo esc_html( wp_date( 'Y' ) ); ?> Thaï Moon. Tous droits réservés.</p>
@@ -254,3 +266,6 @@ function thaimoon_customize( $customizer ) {
 
 // Cartes de la boutique : réglages séparés pour garder ce fichier lisible.
 require_once get_stylesheet_directory() . '/inc/woocommerce.php';
+
+// Équipe et fiches membres, maquette Figma V1.4.
+require_once get_stylesheet_directory() . '/inc/team.php';

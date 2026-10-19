@@ -517,8 +517,31 @@ Text Domain: thaimoon-restaurant
   .footer__content {
     padding: 4rem 7.69rem 3rem;
     display: grid;
-    grid-template-columns: 22.5rem 22.5rem minmax(0, 1fr);
+    grid-template-columns: 22.5rem minmax(0, 1fr);
     gap: 3.31rem;
+  }
+  .footer__information {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-content: start;
+    gap: 0.63rem 3.31rem;
+    min-width: 0;
+  }
+  .footer__section--team {
+    grid-column: 1 / -1;
+  }
+  .footer__team-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 2.75rem;
+    align-self: flex-start;
+  }
+  .footer__team-icon {
+    display: block;
+    flex: none;
+    max-width: none;
+    margin: 0;
   }
   .footer__brand {
     display: flex;
@@ -647,7 +670,7 @@ Text Domain: thaimoon-restaurant
     }
     .footer__content {
       padding-inline: 3.75rem;
-      grid-template-columns: 1.2fr 1fr 1fr;
+      grid-template-columns: 1.2fr 2fr;
       gap: 2.5rem;
     }
     .footer__bottom {
@@ -748,7 +771,7 @@ Text Domain: thaimoon-restaurant
   @media (max-width: 56.25rem) {
     .footer__content {
       padding: 3rem 2rem;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
       gap: 2.5rem;
     }
     .footer__brand {
@@ -765,9 +788,17 @@ Text Domain: thaimoon-restaurant
       padding-inline: 1.25rem;
     }
     .footer__content {
-      padding: 3rem 1.5rem 2rem;
+      padding: 3rem 1.5rem 2.5rem;
       grid-template-columns: 1fr;
       gap: 2rem;
+    }
+    .footer__information {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 2rem;
+    }
+    .footer__logo {
+      width: 6.88rem;
+      height: 6.88rem;
     }
     .footer__brand {
       grid-column: auto;

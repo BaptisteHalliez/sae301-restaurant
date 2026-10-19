@@ -1,0 +1,298 @@
+/* Équipe et membres — Figma V1.4. Les couleurs et polices viennent du thème. */
+.restaurant.team-page .site-content > .col-full {
+  max-width: 90rem;
+  padding-inline: 0;
+}
+
+.restaurant.team-page .team-page__content {
+  margin-bottom: 0;
+}
+
+.restaurant.team-page .team-page__main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+  margin: 0;
+  padding: 3.94rem 3.13rem 2.5rem;
+}
+
+.restaurant.team-page .team-page__main--archive {
+  gap: 2.25rem;
+}
+
+.team-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 40rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.restaurant.team-page .team-heading__title {
+  margin: 0;
+  color: var(--fg);
+  font-size: var(--fs-48);
+  line-height: var(--lh-48);
+}
+
+.restaurant.team-page .team-heading__subtitle {
+  margin: 0;
+  color: var(--fg);
+  font-size: var(--fs-36);
+  line-height: var(--lh-48);
+}
+
+.team-heading__description {
+  margin: 0;
+  color: var(--fg-desc);
+  font-size: var(--fs-16);
+  line-height: var(--lh-24);
+}
+
+.team-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 70.13rem;
+  padding: 0;
+  margin: 0 auto;
+  list-style: none;
+}
+
+.team-grid__item {
+  display: flex;
+  flex: 0 1 calc(50% - 0.63rem);
+  min-width: 0;
+}
+
+.restaurant .member-card {
+  display: flex;
+  align-items: center;
+  gap: 0.94rem;
+  width: 100%;
+  min-height: 14.19rem;
+  padding: 1.25rem 0.94rem;
+  border-radius: 30px;
+  background-color: var(--bg-card);
+  box-shadow: 0 0.25rem 0.13rem var(--shadow);
+  color: var(--fg);
+  text-decoration: none;
+}
+
+.restaurant .member-card:hover .member-card__name {
+  text-decoration: underline;
+  text-underline-offset: 0.25rem;
+}
+
+.member-card__portrait {
+  display: block;
+  flex: 0 0 9.38rem;
+  width: 9.38rem;
+  height: 9.38rem;
+  margin: 0;
+  border-radius: 20px;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.member-card__content {
+  flex: 1;
+  min-width: 0;
+  padding-block: 0.63rem;
+}
+
+.restaurant .member-card__name {
+  margin: 0 0 0.94rem;
+  color: var(--fg);
+  font-size: var(--fs-24);
+  line-height: var(--lh-32);
+  overflow-wrap: anywhere;
+}
+
+.member-card__description {
+  margin: 0;
+  color: var(--fg-desc);
+  font-size: var(--fs-16);
+  line-height: var(--lh-24);
+  overflow-wrap: anywhere;
+}
+
+.member-profile {
+  display: flex;
+  align-items: center;
+  gap: 6.25rem;
+  width: 100%;
+  max-width: 53rem;
+}
+
+.member-profile__portrait {
+  display: block;
+  flex: 0 0 17.5rem;
+  width: 17.5rem;
+  height: 20.75rem;
+  margin: 0;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.member-profile__biography {
+  flex: 0 1 21.75rem;
+  min-width: 0;
+  color: var(--fg-desc);
+  font-size: var(--fs-18);
+  line-height: var(--lh-28);
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.member-profile__biography p {
+  margin: 0 0 1rem;
+}
+
+.member-profile__biography p:last-child {
+  margin-bottom: 0;
+}
+
+.member-recommendations,
+.team-page__others {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  align-items: center;
+  width: 100%;
+}
+
+.restaurant.team-page ul.products.member-recommendations__products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 83.69rem;
+  margin: 0;
+  padding: 0;
+}
+
+.restaurant.team-page ul.products.member-recommendations__products > li.product {
+  flex: 0 1 calc((100% - 2.5rem) / 3);
+  max-width: 27.06rem;
+  min-width: 0;
+}
+
+.restaurant.team-page .member-recommendations__products .product-card__button {
+  margin-top: auto;
+}
+
+.restaurant.team-page .member-recommendations__products .product-card > .woocommerce-LoopProduct-link {
+  margin-bottom: 2.56rem;
+}
+
+.restaurant.team-page .member-recommendations__products .product-card__price .price {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.13rem;
+}
+
+.team-page__empty {
+  color: var(--fg-desc);
+  text-align: center;
+}
+
+.team-page__pagination:empty {
+  display: none;
+}
+
+.restaurant.team-page #colophon {
+  margin-top: 0;
+}
+
+@media (max-width: 74.94rem) {
+  .restaurant.team-page ul.products.member-recommendations__products > li.product {
+    flex-basis: calc(50% - 0.63rem);
+  }
+}
+
+@media (max-width: 56.25rem) {
+  .restaurant.team-page .team-page__main {
+    padding-inline: 1.25rem;
+  }
+
+  .team-grid {
+    max-width: 20.94rem;
+    gap: 1.5rem;
+  }
+
+  .team-grid__item {
+    flex-basis: 100%;
+  }
+
+  .restaurant .member-card {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .member-card__content {
+    width: 100%;
+  }
+
+  .member-profile {
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 40rem;
+  }
+
+  .member-profile__portrait {
+    flex-basis: auto;
+    max-width: 100%;
+  }
+
+  .member-profile__biography {
+    flex-basis: auto;
+    width: 100%;
+    font-size: var(--fs-16);
+    line-height: var(--lh-24);
+  }
+}
+
+@media (max-width: 37.44rem) {
+  .restaurant.team-page .team-page__main,
+  .restaurant.team-page .team-page__main--archive {
+    gap: 2.5rem;
+    padding-block: 2.5rem;
+  }
+
+  .restaurant.team-page .team-heading__title {
+    font-size: var(--fs-36);
+    line-height: 2.5rem;
+  }
+
+  .restaurant.team-page .team-heading__subtitle {
+    font-size: var(--fs-24);
+    line-height: var(--lh-32);
+  }
+
+  .member-recommendations,
+  .team-page__others {
+    gap: 1.5rem;
+  }
+
+  .restaurant.team-page ul.products.member-recommendations__products {
+    max-width: 20.94rem;
+    gap: 1.5rem;
+  }
+
+  .restaurant.team-page ul.products.member-recommendations__products > li.product {
+    flex-basis: 100%;
+    max-width: none;
+  }
+
+  .restaurant.team-page .member-recommendations__products .product-card > .woocommerce-LoopProduct-link {
+    margin-bottom: 1.25rem;
+  }
+}
