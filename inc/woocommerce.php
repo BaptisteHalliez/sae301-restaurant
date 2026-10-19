@@ -29,6 +29,15 @@ function thaimoon_product_button_classes( $args ) {
     return $args;
 }
 
+// Libellé du lien vers la fiche des produits à options.
+add_filter( 'woocommerce_product_add_to_cart_text', 'thaimoon_product_card_button_text', 10, 2 );
+function thaimoon_product_card_button_text( $text, $product ) {
+    if ( $product->is_type( 'variable' ) && $product->is_purchasable() ) {
+        return __( 'Voir le produit', 'restaurant' );
+    }
+    return $text;
+}
+
 // Organisation de la boutique par catégories.
 require_once __DIR__ . '/shop-catalogue.php';
 
