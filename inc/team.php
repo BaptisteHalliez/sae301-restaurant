@@ -6,13 +6,6 @@ function thaimoon_is_team_page() {
     return is_post_type_archive( 'membre' ) || is_singular( 'membre' );
 }
 
-add_action( 'wp_enqueue_scripts', 'thaimoon_team_assets', 45 );
-function thaimoon_team_assets() {
-    if ( thaimoon_is_team_page() ) {
-        wp_enqueue_style( 'thaimoon-team', get_stylesheet_directory_uri() . '/assets/css/team.css', array( 'storefront-child-style' ), (string) filemtime( get_stylesheet_directory() . '/assets/css/team.css' ) );
-    }
-}
-
 add_filter( 'body_class', 'thaimoon_team_body_class' );
 function thaimoon_team_body_class( $classes ) {
     if ( thaimoon_is_team_page() ) {

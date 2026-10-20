@@ -5,15 +5,6 @@ defined( 'ABSPATH' ) || exit;
 // Codes promo V1.3 : formulaires, validations et calculs natifs de WooCommerce.
 require_once __DIR__ . '/coupons.php';
 
-add_action( 'wp_enqueue_scripts', 'thaimoon_radio_assets', 50 );
-function thaimoon_radio_assets() {
-    $dependencies = array( 'storefront-child-style' );
-    if ( is_cart() || is_checkout() ) {
-        $dependencies[] = 'thaimoon-commerce';
-    }
-    wp_enqueue_style( 'thaimoon-radio-options', get_stylesheet_directory_uri() . '/assets/css/radio-options.css', $dependencies, (string) filemtime( get_stylesheet_directory() . '/assets/css/radio-options.css' ) );
-}
-
 add_action( 'wp_enqueue_scripts', 'thaimoon_commerce_assets', 45 );
 function thaimoon_commerce_assets() {
     if ( ! is_cart() && ! is_checkout() ) {
@@ -21,7 +12,6 @@ function thaimoon_commerce_assets() {
     }
     $path = get_stylesheet_directory();
     $uri  = get_stylesheet_directory_uri();
-    wp_enqueue_style( 'thaimoon-commerce', $uri . '/assets/css/cart-checkout.css', array( 'storefront-child-style' ), (string) filemtime( $path . '/assets/css/cart-checkout.css' ) );
     // Les pages enregistrées en blocs retirent ces scripts à la priorité 20.
     // Réactiver le moteur classique pour les formulaires rendus par ce thème.
     $engine = is_cart() ? 'wc-cart' : 'wc-checkout';

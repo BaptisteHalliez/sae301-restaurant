@@ -2,12 +2,6 @@
 /** Espace client Thaï Moon — maquette Figma V1.2, formulaires WooCommerce natifs. */
 defined( 'ABSPATH' ) || exit;
 
-add_action( 'wp_enqueue_scripts', 'thaimoon_account_assets', 45 );
-function thaimoon_account_assets() {
-    if ( is_account_page() ) {
-        wp_enqueue_style( 'thaimoon-account', get_stylesheet_directory_uri() . '/assets/css/account.css', array( 'storefront-child-style' ), (string) filemtime( get_stylesheet_directory() . '/assets/css/account.css' ) );
-    }
-}
 add_filter( 'body_class', 'thaimoon_account_body_class' );
 function thaimoon_account_body_class( $classes ) {
     if ( is_account_page() ) {

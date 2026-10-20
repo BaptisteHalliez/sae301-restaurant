@@ -7,7 +7,6 @@ function thaimoon_coupon_assets() {
     if ( ! is_cart() && ! is_checkout() ) { return; }
     $path = get_stylesheet_directory();
     $uri = get_stylesheet_directory_uri();
-    wp_enqueue_style( 'thaimoon-coupons', $uri . '/assets/css/coupons.css', array( 'thaimoon-commerce' ), (string) filemtime( $path . '/assets/css/coupons.css' ) );
     wp_enqueue_script( 'thaimoon-coupons', $uri . '/assets/js/coupons.js', array( 'jquery', is_cart() ? 'wc-cart' : 'wc-checkout' ), (string) filemtime( $path . '/assets/js/coupons.js' ), true );
 }
 // Le champ est dans le panier ; éviter un second formulaire déroulant en haut du checkout.

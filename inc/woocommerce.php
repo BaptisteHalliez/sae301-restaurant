@@ -58,3 +58,9 @@ require_once __DIR__ . '/account.php';
 
 // Suggestions complémentaires sur la fiche produit.
 require_once __DIR__ . '/related-products.php';
+
+// Avis produit, maquette Figma V1.5.
+require_once __DIR__ . '/product-reviews.php';
+
+// Frais de préparation administrables depuis la page SCF Tarification (itération 15).
+require_once __DIR__ . '/preparation-fees.php';

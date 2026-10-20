@@ -27,26 +27,26 @@ Text Domain: thaimoon-restaurant
     --clr-green-900: #2d4f19;
     --clr-green-950: #142b08;
     --clr-green: var(--clr-green-900);
-    
+
     /* Neutre */
     --clr-white: #f9fafb;
     --clr-light-gray: #e5e7eb;
     --clr-gray: #4b5563;
     --clr-dark-gray: #111827;
     --clr-black: #000000;
-    
+
     /* Transparent */
     --clr-green-transparent: #2d4f1980;
     --clr-green-dark-transparent: #142b08b3;
     --clr-gray-transparent: #e5e7eb48;
     --clr-shadow-dark: #11182733;
-    
+
     --ff-poppins: "Poppins", sans-serif;
-    
+
     --fw-regular: 400;
     --fw-semibold: 600;
     --fw-bold: 700;
-    
+
     --fs-12: 0.75rem;
     --fs-14: 0.88rem;
     --fs-16: 1rem;
@@ -54,16 +54,16 @@ Text Domain: thaimoon-restaurant
     --fs-24: 1.5rem;
     --fs-36: 2.25rem;
     --fs-48: 3rem;
-    
+
     --lh-16: 1rem;
     --lh-20: 1.25rem;
     --lh-24: 1.5rem;
     --lh-28: 1.75rem;
     --lh-32: 2rem;
     --lh-48: 3rem;
-    
+
     /* Tokens Sémentiques */
-    
+
     --bg: var(--clr-white);
     --bg-btn: var(--clr-green);
     --bg-btn-indispo: var(--clr-green-transparent);
@@ -71,7 +71,7 @@ Text Domain: thaimoon-restaurant
     --bg-choice: var(--clr-green-50);
     --bg-price: var(--clr-light-gray);
     --bg-navbar: var(--clr-green-950);
-    
+
     --fg: var(--clr-green);
     --fg-btn: var(--clr-light-gray);
     --fg-desc: var(--clr-gray);
@@ -81,7 +81,7 @@ Text Domain: thaimoon-restaurant
     --shadow: var(--clr-shadow-dark);
     --radius-card: 24px;
     --shadow-card: 0 0.31rem 1rem #11182714;
-    
+
     --hover-bg-btn: var(--clr-gray-transparent);
     --hover-fg-btn: var(--clr-green);
   }
@@ -276,7 +276,6 @@ Text Domain: thaimoon-restaurant
 
 /* Style */
 @layer base {
-
   body.restaurant {
     margin: 0;
     background-color: var(--bg);
@@ -1640,5 +1639,3173 @@ Text Domain: thaimoon-restaurant
     form.cart
     .single_add_to_cart_button.purchase__unavailable:disabled {
     opacity: 1 !important;
+  }
+}
+
+@layer components {
+  .restaurant .storefront-sticky-add-to-cart__content-button:not(:hover) {
+    color: var(--clr-white);
+  }
+}
+
+.restaurant:is(.woocommerce-cart, .woocommerce-checkout)
+  .site-content
+  > .col-full {
+  max-width: 90rem;
+  padding-inline: 2.5rem;
+}
+
+.restaurant:is(.woocommerce-cart, .woocommerce-checkout)
+  .storefront-breadcrumb {
+  margin-bottom: 2.5rem;
+  padding-block: 2.5rem 0;
+}
+
+.restaurant:is(.woocommerce-cart, .woocommerce-checkout) .site-main {
+  padding-top: 0;
+}
+
+.restaurant:is(.woocommerce-cart, .woocommerce-checkout) .entry-header {
+  display: none;
+}
+
+.restaurant.woocommerce-order-received .entry-header,
+.restaurant.woocommerce-order-pay .entry-header {
+  display: block;
+}
+
+.restaurant .commerce-heading {
+  margin: 0 0 2.5rem;
+}
+
+.restaurant .commerce-heading__title {
+  margin: 0 0 0.75rem;
+  color: var(--fg);
+  font-size: var(--fs-36);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-48);
+}
+
+.commerce-heading__description {
+  margin: 0;
+  color: var(--fg-desc);
+  font-size: var(--fs-16);
+  line-height: var(--lh-24);
+}
+
+.cart-layout,
+.restaurant form.commerce-checkout {
+  display: grid;
+  grid-template-columns: minmax(0, 51.25rem) 25rem;
+  align-items: start;
+  gap: 2.5rem;
+  max-width: 78.75rem;
+}
+
+.restaurant .cart-layout__form {
+  grid-column: 1;
+  grid-row: 1;
+  float: none;
+  width: 100%;
+  margin: 0;
+}
+
+.restaurant .cart-layout > .cart-collaterals,
+.restaurant .cart-layout__totals {
+  display: contents;
+}
+
+.cart-delivery {
+  grid-column: 1;
+  grid-row: 2;
+  min-width: 0;
+}
+
+.cart-layout .commerce-summary {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+
+.restaurant .commerce-summary {
+  min-width: 0;
+  margin: 0;
+  padding: 1.88rem;
+  border: 0;
+  border-radius: 30px;
+  background: var(--bg-card);
+  box-shadow: 0 0.25rem 0.13rem var(--shadow);
+}
+
+.restaurant .commerce-summary__title,
+.restaurant .cart-delivery__title,
+.restaurant .commerce-checkout__title {
+  margin: 0 0 1.5rem;
+  color: var(--fg);
+  font-size: var(--fs-24);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-32);
+}
+
+.restaurant .commerce-summary #order_review_heading {
+  float: none;
+  width: 100%;
+  margin: 0 0 1.5rem;
+  padding: 0;
+}
+
+.restaurant table.cart-lines {
+  display: block;
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  overflow: visible;
+}
+
+.cart-lines thead {
+  position: absolute;
+  width: 0.06rem;
+  height: 0.06rem;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+.cart-lines tbody {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.restaurant table.cart-lines tr.cart-line {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr) 5.63rem;
+  grid-template-rows: auto auto 1fr;
+  gap: 0.75rem 1.25rem;
+  min-height: 10rem;
+  padding: 1.25rem;
+  background: var(--bg-card);
+  border-radius: 30px;
+  box-shadow: 0 0.25rem 0.13rem var(--shadow);
+}
+
+.restaurant table.cart-lines .cart-line > td {
+  display: block;
+  width: auto;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+}
+
+.restaurant table.cart-lines .cart-line > td::before {
+  display: none;
+}
+
+.restaurant table.cart-lines td.product-thumbnail {
+  grid-column: 1;
+  grid-row: 1 / span 3;
+}
+
+.restaurant table.cart-lines td.product-thumbnail img {
+  display: block;
+  width: 7.5rem;
+  height: 7.5rem;
+  max-width: 100%;
+  margin: 0;
+  border-radius: 20px;
+  object-fit: contain;
+}
+
+.restaurant table.cart-lines td.product-name {
+  grid-column: 2;
+  grid-row: 1 / span 3;
+}
+
+.cart-line__heading {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.cart-line__name {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.cart-line__name,
+.cart-line__name a,
+.cart-line__unit-price {
+  color: var(--fg);
+  font-size: var(--fs-18);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-28);
+  text-decoration: none;
+}
+
+.cart-line__unit-price {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.cart-line__description {
+  margin: 0 0 0.5rem;
+  color: var(--fg-desc);
+  font-size: var(--fs-16);
+  line-height: var(--lh-24);
+}
+
+.restaurant table.cart-lines td.product-quantity {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: end;
+}
+
+.restaurant table.cart-lines td.product-subtotal {
+  grid-column: 3;
+  grid-row: 2;
+  justify-self: end;
+  color: var(--fg);
+  font-size: var(--fs-18);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-28);
+}
+
+.restaurant table.cart-lines td.product-remove {
+  grid-column: 3;
+  grid-row: 3;
+  justify-self: end;
+  align-self: end;
+}
+
+.restaurant table.cart-lines a.remove {
+  display: block;
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  color: var(--fg-desc);
+  font-size: 0;
+  font-weight: var(--fw-regular);
+  text-decoration: underline;
+}
+
+.restaurant table.cart-lines a.remove::before {
+  content: "Retirer";
+  font-family: var(--ff-poppins);
+  color: var(--fg-desc);
+  font-size: var(--fs-12);
+}
+
+.cart-quantity {
+  display: flex;
+  align-items: center;
+  gap: 0.63rem;
+}
+
+.restaurant .cart-quantity .quantity {
+  float: none;
+  margin: 0;
+}
+
+.restaurant .cart-quantity input.qty {
+  width: 1.75rem;
+  min-width: 0;
+  height: 1.63rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--fg);
+  box-shadow: none;
+  font-size: var(--fs-14);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-20);
+  text-align: center;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.cart-quantity input::-webkit-inner-spin-button,
+.cart-quantity input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.restaurant .cart-quantity__button {
+  flex: 0 0 1.63rem;
+  width: 1.63rem;
+  height: 1.63rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+.cart-quantity__button img {
+  display: block;
+  width: 1.63rem;
+  height: 1.63rem;
+  max-width: none;
+  margin: 0;
+}
+
+.cart-quantity__button[hidden] {
+  display: none;
+}
+
+.restaurant .cart-quantity__button:hover {
+  background: transparent;
+  opacity: 0.8;
+}
+
+.restaurant .cart-quantity__button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.restaurant table.cart-lines .actions {
+  padding: 0.75rem 0 0;
+  border: 0;
+  background: transparent;
+}
+
+.restaurant table.cart-lines .actions .coupon {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.63rem;
+  margin: 0 0 1rem;
+  padding: 0;
+  border: 0;
+}
+
+.restaurant table.cart-lines .actions .coupon .input-text {
+  float: none;
+  min-width: 0;
+  margin: 0;
+}
+
+.restaurant .cart-line dl.variation,
+.restaurant .checkout-item dl.variation {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 0.25rem 0.38rem;
+  margin: 0;
+  color: var(--fg-desc);
+  font-size: var(--fs-14);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-20);
+  text-align: left;
+}
+
+.restaurant .cart-line dl.variation dt,
+.restaurant .checkout-item dl.variation dt {
+  float: none;
+  margin: 0;
+}
+
+.restaurant .cart-line dl.variation dd,
+.restaurant .checkout-item dl.variation dd {
+  min-width: 0;
+  margin: 0;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+.restaurant .cart-line dl.variation p,
+.restaurant .checkout-item dl.variation p {
+  margin: 0;
+}
+
+.restaurant .commerce-summary .shipping-choice {
+  margin-bottom: 1.5rem;
+}
+
+.restaurant .shipping-choice__heading,
+.restaurant .checkout-payment__title,
+.restaurant .checkout-instructions__heading {
+  margin: 0 0 1rem;
+  color: var(--fg);
+  font-size: var(--fs-18);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-28);
+}
+
+.shipping-choice__card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  border: 0.13rem solid var(--fg);
+  border-radius: 12px;
+}
+
+.shipping-choice__card + .shipping-choice__card {
+  margin-top: 0.75rem;
+}
+
+.restaurant .shipping-choice__icon {
+  display: block;
+  flex: 0 0 1.25rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  max-width: none;
+  margin: 0;
+}
+
+.shipping-choice__details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.restaurant .shipping-choice__details p {
+  margin: 0;
+}
+
+.shipping-choice__name {
+  color: var(--fg);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-24);
+}
+
+.shipping-choice__address,
+.shipping-choice__pending {
+  color: var(--fg-desc);
+  font-size: var(--fs-16);
+  line-height: var(--lh-24);
+}
+
+.shipping-choice__price {
+  color: var(--fg-desc);
+  font-size: var(--fs-14);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-20);
+}
+
+.restaurant table.commerce-totals {
+  width: 100%;
+  margin: 1.5rem 0 0;
+  border: 0;
+  border-top: 0.06rem solid var(--clr-gray-transparent);
+  border-radius: 0;
+  overflow: visible;
+}
+
+.restaurant table.commerce-totals th,
+.restaurant table.commerce-totals td {
+  display: table-cell;
+  width: auto;
+  padding: 0.38rem 0;
+  border: 0;
+  background: transparent;
+  color: var(--fg);
+  font-size: var(--fs-16);
+  line-height: var(--lh-24);
+  text-align: right;
+  vertical-align: top;
+}
+
+.restaurant table.commerce-totals th {
+  width: 40%;
+  color: var(--fg-desc);
+  font-weight: var(--fw-regular);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.restaurant table.commerce-totals td {
+  font-weight: var(--fw-semibold);
+}
+
+.restaurant table.commerce-totals tr:first-child > * {
+  padding-top: 1.5rem;
+}
+
+.restaurant table.commerce-totals td::before {
+  display: none;
+}
+
+.restaurant table.commerce-totals .order-total > * {
+  padding-top: 0.75rem;
+  color: var(--fg);
+  font-size: var(--fs-24);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-32);
+}
+
+.restaurant table.commerce-totals small {
+  display: block;
+  white-space: normal;
+  font-size: var(--fs-12);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-20);
+}
+
+.restaurant .commerce-summary .wc-proceed-to-checkout {
+  margin: 1.5rem 0 0;
+  padding: 0;
+}
+
+.restaurant .commerce-summary .checkout-button,
+.restaurant .commerce-summary #place_order {
+  display: block;
+  width: 100%;
+  min-height: 2.75rem;
+  margin: 0;
+  padding: 0.63rem 1.25rem;
+  border: 0;
+  border-radius: 50px;
+  background: var(--bg-btn);
+  color: var(--fg-btn);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-24);
+  text-align: center;
+  text-decoration: none;
+}
+
+.restaurant .commerce-summary .checkout-button::after {
+  display: none;
+}
+
+.restaurant .commerce-summary .checkout-button:hover,
+.restaurant .commerce-summary #place_order:hover {
+  background: var(--clr-green-800);
+  color: var(--fg-btn);
+}
+
+.restaurant.woocommerce-cart .return-to-shop .button:not(:hover) {
+  color: var(--clr-white);
+}
+
+.restaurant .commerce-delivery-table {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  overflow: visible;
+}
+
+.restaurant .commerce-delivery-table th {
+  display: none;
+}
+
+.restaurant .commerce-delivery-table td {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+}
+
+.restaurant .commerce-delivery-table td::before {
+  display: none;
+}
+
+.restaurant .woocommerce-shipping-methods {
+  margin: 0;
+  list-style: none;
+}
+
+.restaurant .woocommerce-shipping-methods li {
+  margin: 0 0 0.63rem;
+}
+
+.restaurant .woocommerce-shipping-methods label {
+  display: inline;
+  color: var(--fg);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-24);
+  cursor: pointer;
+}
+
+.restaurant .woocommerce-shipping-methods input[type="radio"] {
+  width: 1.13rem;
+  height: 1.13rem;
+  margin-right: 0.63rem;
+  accent-color: var(--fg);
+}
+
+.restaurant .commerce-delivery-table .woocommerce-shipping-destination,
+.restaurant .commerce-delivery-table .shipping-calculator-button {
+  color: var(--fg-desc);
+  font-size: var(--fs-14);
+}
+
+.commerce-shipping-choices {
+  margin-top: 0.5rem;
+  font-size: var(--fs-14);
+  line-height: var(--lh-20);
+  text-align: left;
+}
+
+.commerce-shipping-choices summary {
+  color: var(--fg);
+  cursor: pointer;
+}
+
+.commerce-shipping-choices .woocommerce-shipping-methods {
+  margin-top: 0.75rem;
+}
+
+.restaurant form.commerce-checkout #customer_details {
+  grid-column: 1;
+  grid-row: 1;
+  float: none;
+  width: 100%;
+  margin: 0;
+}
+
+.restaurant form.commerce-checkout #customer_details > .col-1,
+.restaurant form.commerce-checkout #customer_details > .col-2 {
+  float: none;
+  width: 100%;
+  margin: 0;
+}
+
+.restaurant form.commerce-checkout #order_review {
+  display: contents;
+}
+
+.restaurant form.commerce-checkout .commerce-summary {
+  grid-column: 2;
+  grid-row: 1 / span 3;
+}
+
+.restaurant form.commerce-checkout .checkout-payment {
+  grid-column: 1;
+  grid-row: 2;
+  float: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.restaurant .commerce-checkout .woocommerce-billing-fields > h3,
+.restaurant .commerce-checkout .woocommerce-additional-fields > h3 {
+  display: none;
+}
+
+.restaurant .commerce-checkout .woocommerce-billing-fields__field-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.restaurant
+  .commerce-checkout
+  .woocommerce-billing-fields__field-wrapper::before,
+.restaurant
+  .commerce-checkout
+  .woocommerce-billing-fields__field-wrapper::after {
+  display: none;
+}
+
+.restaurant
+  .commerce-checkout
+  .woocommerce-billing-fields__field-wrapper
+  > .form-row {
+  order: 50;
+}
+
+.restaurant .commerce-checkout #billing_last_name_field {
+  order: 10;
+  grid-column: auto;
+}
+
+.restaurant .commerce-checkout #billing_first_name_field {
+  order: 20;
+  grid-column: auto;
+}
+
+.restaurant .commerce-checkout #billing_email_field {
+  order: 30;
+  grid-column: auto;
+}
+
+.restaurant .commerce-checkout #billing_phone_field {
+  order: 40;
+  grid-column: auto;
+}
+
+.restaurant .commerce-checkout .form-row {
+  float: none;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.restaurant .commerce-checkout .form-row-wide {
+  grid-column: 1 / -1;
+}
+
+.restaurant .commerce-checkout .form-row label {
+  display: block;
+  margin: 0 0 0.5rem;
+  color: var(--fg);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-24);
+}
+
+.restaurant .commerce-checkout .form-row .input-text,
+.restaurant .commerce-checkout .form-row select {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.75rem;
+  border: 0.06rem solid var(--clr-light-gray);
+  border-radius: 12px;
+  background: var(--bg-card);
+  color: var(--fg-desc);
+  box-shadow: none;
+  font-size: var(--fs-16);
+  line-height: var(--lh-24);
+}
+
+.restaurant .commerce-checkout .form-row .input-text::placeholder {
+  color: var(--fg-desc);
+  opacity: 1;
+}
+
+.restaurant .commerce-checkout .select2-container .select2-selection {
+  min-height: 3rem;
+  padding: 0.5rem 0.75rem;
+  border: 0.06rem solid var(--clr-light-gray);
+  border-radius: 12px;
+  background: var(--bg-card);
+}
+
+.restaurant .commerce-checkout .select2-selection__arrow {
+  top: 0.75rem;
+}
+
+.restaurant .commerce-checkout .form-row textarea.input-text {
+  min-height: 7.5rem;
+  resize: vertical;
+}
+
+.restaurant .commerce-checkout .woocommerce-shipping-fields {
+  margin-top: 1.5rem;
+}
+
+.restaurant .commerce-checkout #ship-to-different-address {
+  font-size: var(--fs-18);
+}
+
+.restaurant .commerce-checkout .shipping_address .form-row {
+  margin-bottom: 1rem;
+}
+
+.checkout-instructions {
+  margin: 1.5rem 0 1.25rem;
+}
+
+.checkout-instructions p {
+  margin: 0;
+  min-height: 6.25rem;
+  color: var(--fg-desc);
+  font-size: var(--fs-16);
+  line-height: var(--lh-24);
+}
+
+.checkout-instructions [hidden] {
+  display: none;
+}
+
+.restaurant .checkout-payment .payment_methods {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 0;
+}
+
+.restaurant .checkout-payment .payment_methods > li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.63rem;
+  margin: 0 0 0.63rem;
+  padding: 0.75rem 1rem;
+  border: 0;
+  background: transparent;
+}
+
+.restaurant .checkout-payment .payment_methods > li > input.input-radio {
+  display: block;
+  appearance: auto;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: 0;
+  accent-color: var(--fg);
+}
+
+.restaurant .checkout-payment .payment_methods > li > label {
+  display: block;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  color: var(--fg);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-24);
+}
+
+.restaurant .checkout-payment .payment_methods > li > label::before,
+.restaurant .checkout-payment .payment_box::before {
+  display: none;
+}
+
+.restaurant .checkout-payment .payment_box {
+  flex-basis: 100%;
+  padding: 0.75rem 0;
+  margin: 0;
+  background: transparent;
+  color: var(--fg-desc);
+  font-size: var(--fs-14);
+  line-height: var(--lh-24);
+}
+
+.checkout-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.checkout-item {
+  display: flex;
+  align-items: start;
+  gap: 1.25rem;
+  min-width: 0;
+  padding: 1.25rem;
+  border-radius: 20px;
+}
+
+.restaurant .checkout-item__image {
+  flex: 0 0 5rem;
+  width: 5rem;
+  height: 5rem;
+}
+
+.restaurant .checkout-item__image img {
+  display: block;
+  width: 5rem;
+  height: 5rem;
+  margin: 0;
+  border-radius: 12px;
+  object-fit: contain;
+}
+
+.checkout-item__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.checkout-item__heading {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--fg);
+  font-size: var(--fs-18);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-28);
+}
+
+.checkout-item__name {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.checkout-item__price {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.checkout-item__quantity {
+  margin: 0 0 0.5rem;
+  color: var(--fg-desc);
+  font-size: var(--fs-16);
+  line-height: var(--lh-24);
+}
+
+.restaurant .commerce-summary .place-order {
+  float: none;
+  width: 100%;
+  margin: 1.5rem 0 0;
+  padding: 0;
+}
+
+.restaurant .commerce-summary .woocommerce-terms-and-conditions-wrapper {
+  margin: 0 0 1.25rem;
+  color: var(--fg-desc);
+  font-size: var(--fs-14);
+  line-height: var(--lh-24);
+}
+
+.restaurant .commerce-summary .woocommerce-terms-and-conditions-wrapper label {
+  font-size: var(--fs-14);
+}
+
+.restaurant
+  .commerce-summary
+  .woocommerce-terms-and-conditions-wrapper
+  .input-checkbox {
+  margin-right: 0.5rem;
+}
+
+.restaurant .cart-quantity__button:focus-visible,
+.restaurant .commerce-shipping-choices summary:focus-visible {
+  outline: 0.13rem solid var(--fg);
+  outline-offset: 0.19rem;
+}
+
+@media (max-width: 74.94rem) {
+  .cart-layout,
+  .restaurant form.commerce-checkout {
+    grid-template-columns: minmax(0, 1fr) 22.5rem;
+    gap: 1.5rem;
+  }
+  .cart-line__heading {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .restaurant table.cart-lines tr.cart-line {
+    grid-template-columns: 5.63rem minmax(0, 1fr) 5.63rem;
+    gap: 0.75rem;
+  }
+  .restaurant table.cart-lines td.product-thumbnail img {
+    width: 5.63rem;
+    height: 5.63rem;
+  }
+}
+
+@media (max-width: 56.25rem) {
+  .cart-layout,
+  .restaurant form.commerce-checkout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+  }
+  .cart-layout .commerce-summary {
+    grid-column: 1;
+    grid-row: 3;
+  }
+  .restaurant form.commerce-checkout .commerce-summary {
+    grid-column: 1;
+    grid-row: 3;
+  }
+  .restaurant:is(.woocommerce-cart, .woocommerce-checkout)
+    .site-content
+    > .col-full {
+    padding-inline: 1.25rem;
+  }
+  .cart-line__heading {
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 37.44rem) {
+  .restaurant .commerce-heading__title {
+    font-size: var(--fs-36);
+    line-height: 1.5;
+  }
+  .restaurant .commerce-summary {
+    padding: 1.5rem;
+  }
+  .restaurant table.cart-lines tr.cart-line {
+    grid-template-columns: 5rem minmax(0, 1fr) auto;
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+  .restaurant table.cart-lines td.product-thumbnail {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+  .restaurant table.cart-lines td.product-thumbnail img {
+    width: 5rem;
+    height: 5rem;
+  }
+  .restaurant table.cart-lines td.product-name {
+    grid-column: 2 / -1;
+    grid-row: 1;
+  }
+  .restaurant table.cart-lines td.product-quantity {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: start;
+  }
+  .restaurant table.cart-lines td.product-subtotal {
+    grid-column: 3;
+    grid-row: 2;
+  }
+  .restaurant table.cart-lines td.product-remove {
+    grid-column: 2 / -1;
+    grid-row: 3;
+  }
+  .cart-line__heading {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .cart-line__name,
+  .cart-line__name a {
+    font-size: var(--fs-16);
+    line-height: var(--lh-24);
+  }
+  .cart-line__unit-price,
+  .cart-line__description {
+    font-size: var(--fs-14);
+    line-height: var(--lh-20);
+  }
+  .restaurant .commerce-checkout .woocommerce-billing-fields__field-wrapper {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .checkout-item {
+    padding: 0.75rem 0;
+    gap: 0.75rem;
+  }
+  .checkout-item__heading {
+    flex-wrap: wrap;
+    font-size: var(--fs-16);
+    line-height: var(--lh-24);
+  }
+  .checkout-item__name {
+    flex: 1 1 100%;
+  }
+}
+
+.restaurant .commerce-summary .commerce-coupon {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  min-width: 0;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  border: 0;
+}
+
+.restaurant .commerce-coupon__label {
+  display: block;
+  margin: 0;
+  color: var(--fg);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-24);
+}
+
+.commerce-coupon__entry {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  width: 100%;
+  min-width: 0;
+}
+
+.restaurant .commerce-coupon .commerce-coupon__input {
+  display: block;
+  flex: 1 1 11.25rem;
+  width: 100%;
+  min-width: 0;
+  min-height: 3rem;
+  margin: 0;
+  padding: 0.69rem 0.75rem;
+  border: 0.06rem solid var(--clr-light-gray);
+  border-radius: 12px;
+  background: var(--bg-card);
+  color: var(--fg-desc);
+  box-shadow: none;
+  font-family: var(--ff-poppins);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-24);
+}
+
+.restaurant .commerce-coupon__input::placeholder {
+  color: var(--fg-desc);
+  opacity: 1;
+}
+
+.restaurant .commerce-coupon .commerce-coupon__apply {
+  flex: 1 1 6.25rem;
+  min-height: 2.75rem;
+  margin: 0;
+  padding: 0.63rem 1rem;
+  border: 0;
+  border-radius: 50px;
+  background: var(--bg-btn);
+  color: var(--fg-btn);
+  font-family: var(--ff-poppins);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-24);
+  text-align: center;
+}
+
+.restaurant .commerce-coupon .commerce-coupon__apply:hover {
+  background: var(--clr-green-800);
+  color: var(--fg-btn);
+}
+
+.commerce-coupon__states {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.commerce-coupon__states:empty {
+  display: none;
+}
+
+.commerce-coupon__state {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  min-width: 0;
+  color: var(--fg);
+  font-size: var(--fs-16);
+  line-height: var(--lh-24);
+}
+
+.commerce-coupon__success {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.restaurant .commerce-coupon__remove,
+.restaurant .commerce-totals .woocommerce-remove-coupon {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--fg);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-24);
+  text-decoration: none;
+}
+
+.restaurant .commerce-coupon__remove:hover,
+.restaurant .commerce-totals .woocommerce-remove-coupon:hover {
+  color: var(--fg);
+  text-decoration: underline;
+}
+
+.restaurant .commerce-coupon .commerce-coupon__error,
+.restaurant .commerce-coupon .coupon-error-notice {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--fg);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-24);
+  overflow-wrap: anywhere;
+}
+
+.restaurant .commerce-totals .woocommerce-remove-coupon {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: var(--fs-14);
+}
+
+.restaurant table.commerce-totals .cart-discount th {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.restaurant .commerce-coupon :is(input, button, a):focus-visible {
+  outline: 0.13rem solid var(--fg);
+  outline-offset: 0.25rem;
+}
+
+.restaurant .coupon-removal {
+  position: relative;
+  width: 100%;
+  margin: 1.5rem 0 0;
+  padding: 1.88rem;
+  border: 0;
+  border-radius: 30px;
+  background: var(--bg-card);
+  color: var(--fg);
+  box-shadow: 0 0.25rem 0.13rem var(--shadow);
+}
+
+.restaurant .coupon-removal__dialog {
+  width: calc(100% - 2.5rem);
+  max-width: 24.56rem;
+  max-height: calc(100% - 2.5rem);
+  margin: auto;
+  padding: 0;
+  overflow: auto;
+  border: 0;
+  border-radius: 30px;
+  background: var(--bg-card);
+  color: var(--fg);
+  box-shadow: 0 0.25rem 0.13rem var(--shadow);
+}
+
+.coupon-removal__dialog::backdrop {
+  background: rgba(17, 24, 39, 0.65);
+}
+
+.restaurant .coupon-removal__dialog .coupon-removal {
+  margin: 0;
+  box-shadow: none;
+}
+
+.restaurant .coupon-removal__message {
+  margin: 0;
+  color: var(--fg);
+  font-size: var(--fs-18);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-28);
+  text-align: center;
+}
+
+.restaurant .coupon-removal__message:focus {
+  outline: none;
+}
+
+.restaurant .coupon-removal__close {
+  position: absolute;
+  top: 0.88rem;
+  right: 0.88rem;
+  width: 2rem;
+  height: 2rem;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+.restaurant .coupon-removal__close:hover {
+  background: transparent;
+}
+
+.restaurant .coupon-removal__close[hidden] {
+  display: none;
+}
+
+.coupon-removal__close picture,
+.restaurant .coupon-removal__icon {
+  display: block;
+  max-width: none;
+  margin: 0;
+}
+
+.restaurant .coupon-removal__close:focus-visible {
+  outline: 0.13rem solid var(--fg);
+  outline-offset: 0.13rem;
+}
+
+@media (max-width: 37.44rem) {
+  .restaurant .commerce-coupon__label {
+    font-size: var(--fs-14);
+    line-height: var(--lh-20);
+  }
+  .restaurant .commerce-coupon .commerce-coupon__input {
+    min-height: 2.5rem;
+    font-size: var(--fs-12);
+    line-height: 1rem;
+  }
+  .commerce-coupon__state,
+  .restaurant .commerce-coupon .commerce-coupon__error {
+    font-size: var(--fs-12);
+    line-height: 1rem;
+  }
+  .restaurant .commerce-coupon__remove {
+    font-size: var(--fs-14);
+    line-height: var(--lh-20);
+  }
+  .restaurant .coupon-removal__dialog {
+    max-width: 18.69rem;
+  }
+  .restaurant .coupon-removal__close {
+    top: 0.5rem;
+    right: 1.06rem;
+    width: 1.63rem;
+    height: 1.63rem;
+  }
+}
+
+.restaurant.account-page .site-content > .col-full {
+  max-width: 90rem;
+  padding-inline: 2.5rem;
+}
+
+.restaurant.account-page .storefront-breadcrumb {
+  margin-bottom: 2.5rem;
+  padding-block: 2.5rem 0;
+}
+
+.restaurant.account-page .site-main {
+  padding-top: 0;
+}
+
+.restaurant.account-page .entry-header {
+  display: none;
+}
+
+.restaurant .account-heading {
+  margin: 0 0 2.5rem;
+}
+
+.restaurant .account-heading__title {
+  margin: 0 0 0.75rem;
+  color: var(--fg);
+  font-size: var(--fs-36);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-48);
+}
+
+.account-heading__description {
+  margin: 0;
+  color: var(--fg-desc);
+  font-size: var(--fs-16);
+  line-height: var(--lh-24);
+}
+
+.restaurant .account-panel {
+  min-width: 0;
+  margin: 0;
+  padding: 1.88rem;
+  border: 0;
+  border-radius: 30px;
+  background: var(--bg-card);
+  box-shadow: 0 0.25rem 0.13rem var(--shadow);
+}
+
+.restaurant .account-panel__title {
+  margin: 0 0 0.31rem;
+  color: var(--fg);
+  font-size: var(--fs-18);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-28);
+}
+
+.account-panel__description {
+  margin: 0;
+  color: var(--fg-desc);
+  font-size: var(--fs-18);
+  line-height: var(--lh-28);
+}
+
+.account-panel__actions {
+  width: 100%;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 0.06rem solid var(--clr-gray-transparent);
+}
+
+.restaurant.account-page .account-panel__button {
+  display: block;
+  float: none;
+  width: 100%;
+  min-height: 2.75rem;
+  margin: 0;
+  padding: 0.63rem 1.25rem;
+  border: 0;
+  border-radius: 50px;
+  background: var(--bg-btn);
+  color: var(--fg-btn);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-24);
+  text-align: center;
+  text-decoration: none;
+}
+
+.restaurant.account-page .account-panel__button:hover {
+  background: var(--clr-green-800);
+  color: var(--fg-btn);
+}
+
+.account-auth {
+  width: 100%;
+  max-width: 25rem;
+  margin-inline: auto;
+}
+
+.account-auth--register {
+  max-width: 56.25rem;
+}
+
+.restaurant .account-auth__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.account-auth__columns,
+.account-profile__columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.5rem;
+  width: 100%;
+}
+
+.account-auth__column,
+.account-profile__column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-width: 0;
+}
+
+.restaurant.account-page .account-auth__form .form-row {
+  float: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.restaurant.account-page .account-auth__form .form-row::before,
+.restaurant.account-page .account-auth__form .form-row::after {
+  display: none;
+}
+
+.restaurant.account-page .account-form__field label {
+  display: block;
+  margin: 0 0 0.63rem;
+  color: var(--fg);
+  font-size: var(--fs-18);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-28);
+}
+
+.restaurant.account-page .input-text,
+.restaurant.account-page .account-form__field select,
+.restaurant.account-page .woocommerce-address-fields select {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 3rem;
+  padding: 0.75rem;
+  border: 0.06rem solid var(--clr-light-gray);
+  border-radius: 12px;
+  background: var(--bg-card);
+  color: var(--fg-desc);
+  box-shadow: none;
+  font-size: var(--fs-16);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-24);
+}
+
+.restaurant.account-page .input-text::placeholder {
+  color: var(--fg-desc);
+  opacity: 1;
+}
+
+.restaurant.account-page span.password-input {
+  display: block;
+  width: 100%;
+}
+
+.restaurant.account-page span.password-input input {
+  padding-right: 3rem;
+}
+
+.restaurant.account-page .show-password-input {
+  min-width: 2rem;
+  min-height: 2rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--fg-desc);
+}
+
+.account-auth__options {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  padding-top: 1.5rem;
+  border-top: 0.06rem solid var(--clr-gray-transparent);
+}
+
+.restaurant.account-page .account-auth__remember {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  color: var(--fg-desc);
+  font-size: var(--fs-12);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-20);
+}
+
+.account-auth__remember input {
+  margin: 0;
+  accent-color: var(--fg);
+}
+
+.account-auth__link {
+  color: var(--fg);
+  font-size: var(--fs-14);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-20);
+}
+
+.restaurant .account-auth__switch {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.63rem;
+  margin: 1.25rem 0 0;
+  color: var(--fg);
+  font-size: var(--fs-16);
+  line-height: var(--lh-24);
+  text-align: center;
+}
+
+.account-auth__switch a {
+  color: var(--fg);
+  font-weight: var(--fw-semibold);
+}
+
+.account-auth__form .account-panel__actions {
+  margin-top: 0;
+}
+
+.account-auth__form .woocommerce-privacy-policy-text {
+  color: var(--fg-desc);
+  font-size: var(--fs-14);
+  line-height: var(--lh-24);
+}
+
+.account-auth__form .woocommerce-privacy-policy-text p {
+  margin: 0;
+}
+
+.account-layout {
+  display: grid;
+  grid-template-columns: 11.19rem minmax(0, 56.25rem);
+  gap: 5.13rem;
+  align-items: start;
+  max-width: 72.56rem;
+}
+
+.restaurant.account-page .account-layout__content {
+  float: none;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+}
+
+.restaurant.account-page .account-nav {
+  float: none;
+  width: 100%;
+  margin: 0;
+}
+
+.restaurant .account-nav__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.06rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  list-style: none;
+}
+
+.restaurant .account-nav__item {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.restaurant .account-nav__link {
+  display: block;
+  min-height: 2.75rem;
+  padding: 0.63rem 0.75rem;
+  border: 0;
+  border-bottom: 0.06rem solid var(--fg);
+  border-left: 0.19rem solid transparent;
+  border-radius: 0;
+  color: var(--fg);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-24);
+  text-decoration: none;
+}
+
+.restaurant .account-nav__link::before,
+.restaurant .account-nav__link::after {
+  display: none;
+}
+
+.restaurant .account-nav__item--current .account-nav__link {
+  border-left-color: var(--fg);
+  background: var(--bg-choice);
+}
+
+.restaurant .account-nav__link:hover {
+  background: var(--bg-choice);
+}
+
+.account-profile__column {
+  gap: 1.25rem;
+}
+
+.account-profile__field {
+  min-width: 0;
+}
+
+.account-profile__label {
+  margin: 0 0 0.31rem;
+  color: var(--fg);
+  font-size: var(--fs-18);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-28);
+}
+
+.account-profile__value {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-width: 0;
+  min-height: 3.5rem;
+  padding: 0.69rem 0.75rem;
+  border: 0.06rem solid var(--clr-light-gray);
+  border-radius: 12px;
+  color: var(--fg-desc);
+  font-size: var(--fs-16);
+  line-height: var(--lh-24);
+}
+
+.account-profile__value > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.account-profile__edit {
+  display: flex;
+  flex: 0 0 2rem;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+}
+
+.restaurant .account-profile__edit img {
+  display: block;
+  width: 1.54rem;
+  height: 1.54rem;
+  max-width: none;
+  margin: 0;
+}
+
+.account-profile__divider {
+  margin-top: 1.5rem;
+  border-top: 0.06rem solid var(--clr-gray-transparent);
+}
+
+.account-layout--logout {
+  grid-template-columns: 11.19rem 28.75rem;
+  justify-content: space-between;
+  column-gap: 2.5rem;
+  max-width: 56.25rem;
+}
+
+.account-panel--logout {
+  max-width: 28.75rem;
+}
+
+.restaurant.account-page .woocommerce-EditAccountForm,
+.restaurant.account-page .woocommerce-address-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem 2.5rem;
+  padding: 1.88rem;
+  border: 0;
+  border-radius: 30px;
+  background: var(--bg-card);
+  box-shadow: 0 0.25rem 0.13rem var(--shadow);
+}
+
+.restaurant.account-page .woocommerce-EditAccountForm > .clear,
+.restaurant.account-page .woocommerce-EditAccountForm::before,
+.restaurant.account-page .woocommerce-EditAccountForm::after {
+  display: none;
+}
+
+.restaurant.account-page .woocommerce-EditAccountForm > p,
+.restaurant.account-page .woocommerce-EditAccountForm > .form-row {
+  float: none;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.restaurant.account-page .woocommerce-EditAccountForm label,
+.restaurant.account-page .woocommerce-address-fields label {
+  display: block;
+  margin-bottom: 0.63rem;
+  color: var(--fg);
+  font-size: var(--fs-18);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-28);
+}
+
+.restaurant.account-page .woocommerce-EditAccountForm fieldset {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  grid-column: 1 / -1;
+  min-width: 0;
+  width: 100%;
+  margin: 0;
+  padding: 1.5rem 0 0;
+  border: 0;
+  border-top: 0.06rem solid var(--clr-gray-transparent);
+  background: transparent;
+}
+
+.restaurant.account-page .woocommerce-EditAccountForm fieldset legend {
+  color: var(--fg);
+  font-size: var(--fs-18);
+  font-weight: var(--fw-bold);
+}
+
+.restaurant.account-page .woocommerce-EditAccountForm fieldset .form-row {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  float: none;
+  width: 100%;
+  margin: 0;
+}
+
+.restaurant.account-page
+  .woocommerce-EditAccountForm
+  fieldset
+  .form-row:first-of-type {
+  grid-column: 1 / -1;
+}
+
+.restaurant.account-page .woocommerce-EditAccountForm > p:last-of-type {
+  grid-column: 1 / -1;
+}
+
+.restaurant.account-page
+  .woocommerce-EditAccountForm
+  button[name="save_account_details"] {
+  width: 100%;
+  min-height: 2.75rem;
+  margin: 0;
+  border-radius: 50px;
+  font-size: var(--fs-16);
+  line-height: var(--lh-24);
+}
+
+.restaurant.account-page #account_display_name_description {
+  display: block;
+  margin-top: 0.5rem;
+  color: var(--fg-desc);
+  font-size: var(--fs-12);
+  line-height: var(--lh-20);
+}
+
+.restaurant.account-page .woocommerce-address-fields__field-wrapper,
+.restaurant.account-page .woocommerce-address-fields > p {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+.restaurant.account-page .woocommerce-address-fields .form-row {
+  margin-bottom: 1.25rem;
+}
+
+.restaurant.account-page .woocommerce-Address,
+.restaurant.account-page .woocommerce-MyAccount-orders {
+  padding: 1.5rem;
+  border: 0;
+  border-radius: 20px;
+  background: var(--bg-card);
+  box-shadow: 0 0.25rem 0.13rem var(--shadow);
+}
+
+.restaurant.account-page .woocommerce-Addresses .col-1,
+.restaurant.account-page .woocommerce-Addresses .col-2 {
+  float: none;
+  width: 100%;
+  margin: 0 0 1.5rem;
+}
+
+.restaurant.account-page .woocommerce-Address .title h2 {
+  color: var(--fg);
+  font-size: var(--fs-24);
+  line-height: var(--lh-32);
+}
+
+.restaurant.account-page .woocommerce-Address address {
+  margin: 0;
+  color: var(--fg-desc);
+  font-style: normal;
+}
+
+.restaurant.account-page .woocommerce-orders-table {
+  width: 100%;
+  border: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.restaurant.account-page .woocommerce-orders-table th {
+  background: var(--bg-choice);
+  color: var(--fg);
+  font-size: var(--fs-14);
+}
+
+.restaurant.account-page .woocommerce-orders-table td {
+  padding: 1rem 0.75rem;
+  border-bottom: 0.06rem solid var(--clr-light-gray);
+  background: var(--bg-card);
+  color: var(--fg-desc);
+  font-size: var(--fs-14);
+}
+
+.restaurant.account-page .woocommerce-orders-table .button {
+  margin: 0.25rem;
+  padding: 0.5rem 1rem;
+  font-size: var(--fs-14);
+}
+
+.restaurant.account-page .woocommerce-order-details,
+.restaurant.account-page .woocommerce-customer-details {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  border-radius: 20px;
+  background: var(--bg-card);
+  box-shadow: 0 0.25rem 0.13rem var(--shadow);
+}
+
+.restaurant.account-page .woocommerce-ResetPassword {
+  max-width: 28.75rem;
+  margin: 0 auto;
+  padding: 1.88rem;
+  border-radius: 30px;
+  background: var(--bg-card);
+  box-shadow: 0 0.25rem 0.13rem var(--shadow);
+}
+
+.restaurant.account-page .woocommerce-ResetPassword .form-row {
+  float: none;
+  width: 100%;
+}
+
+.restaurant.account-page .woocommerce-ResetPassword label {
+  margin-bottom: 0.63rem;
+  color: var(--fg);
+  font-weight: var(--fw-bold);
+}
+
+.restaurant.account-page .woocommerce-ResetPassword .button {
+  width: 100%;
+}
+
+.restaurant.account-page .account-profile__edit:focus-visible,
+.restaurant.account-page .account-nav__link:focus-visible {
+  outline: 0.13rem solid var(--fg);
+  outline-offset: 0.19rem;
+}
+
+@media (max-width: 68.75rem) {
+  .account-layout {
+    grid-template-columns: 11.19rem minmax(0, 1fr);
+    gap: 2rem;
+  }
+  .account-profile__columns,
+  .account-auth__columns {
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 50rem) {
+  .account-layout,
+  .account-layout--logout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+  }
+  .restaurant.account-page .account-nav {
+    max-width: none;
+  }
+  .account-panel--logout {
+    max-width: none;
+  }
+  .restaurant.account-page .site-content > .col-full {
+    padding-inline: 1.25rem;
+  }
+}
+
+@media (max-width: 37.44rem) {
+  .restaurant .account-heading__title {
+    font-size: 1.88rem;
+    line-height: 2.75rem;
+  }
+  .restaurant .account-panel,
+  .restaurant.account-page .woocommerce-EditAccountForm,
+  .restaurant.account-page .woocommerce-address-fields,
+  .restaurant.account-page .woocommerce-ResetPassword {
+    padding: 1.25rem;
+  }
+  .account-auth__columns,
+  .account-profile__columns,
+  .restaurant.account-page .woocommerce-EditAccountForm,
+  .restaurant.account-page .woocommerce-EditAccountForm fieldset {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .account-auth__options {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .account-profile__value {
+    min-height: 3.5rem;
+  }
+  .restaurant.account-page .woocommerce-orders-table td {
+    display: block;
+    text-align: right;
+  }
+}
+
+.account-layout--orders {
+  max-width: 71.19rem;
+  grid-template-columns: 11.19rem minmax(0, 49.19rem);
+  column-gap: 10.81rem;
+}
+
+.account-layout--order-detail {
+  max-width: 71.19rem;
+  grid-template-columns: 11.19rem minmax(0, 57.88rem);
+  column-gap: 2.13rem;
+}
+
+.account-layout--order-result {
+  max-width: 62.5rem;
+  grid-template-columns: 11.19rem minmax(0, 37.13rem);
+  column-gap: 14.19rem;
+}
+
+.restaurant .account-orders {
+  display: flex;
+  flex-direction: column;
+  gap: 1.56rem;
+}
+
+.account-orders__row {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  min-width: 0;
+  width: 100%;
+}
+
+.account-orders__row + .account-orders__row {
+  padding-top: 1.56rem;
+  border-top: 0.06rem solid var(--clr-gray-transparent);
+}
+
+.account-orders__fields {
+  display: grid;
+  grid-template-columns: 1.3fr 1.1fr 0.9fr 0.7fr;
+  flex: 1 1 0;
+  gap: 1.25rem;
+  min-width: 0;
+  margin: 0;
+}
+
+.account-orders__field {
+  min-width: 0;
+  color: var(--fg);
+  font-size: var(--fs-18);
+  line-height: var(--lh-28);
+  overflow-wrap: anywhere;
+}
+
+.account-orders__field dt {
+  margin: 0 0 1.25rem;
+  font-weight: var(--fw-bold);
+}
+
+.account-orders__field dd {
+  margin: 0;
+  font-weight: var(--fw-regular);
+}
+
+.account-orders__actions {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 0.63rem;
+  align-items: center;
+}
+
+.restaurant.account-page .account-orders__button,
+.restaurant.account-page .account-order .button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  margin: 0;
+  padding: 0.63rem 1.25rem;
+  border: 0;
+  border-radius: 50px;
+  background: var(--bg-btn);
+  color: var(--fg-btn);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-24);
+  text-align: center;
+  text-decoration: none;
+}
+
+.restaurant.account-page .account-orders__button:hover,
+.restaurant.account-page .account-order .button:hover {
+  background: var(--clr-green-800);
+  color: var(--fg-btn);
+}
+
+.restaurant.account-page .account-orders__button:focus-visible,
+.restaurant.account-page .account-order .button:focus-visible {
+  outline: 0.13rem solid var(--fg);
+  outline-offset: 0.25rem;
+}
+
+.account-orders__request-state {
+  display: block;
+  margin-top: 0.5rem;
+  color: var(--fg-desc);
+  font-size: var(--fs-12);
+  line-height: var(--lh-20);
+}
+
+.account-orders__pagination {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.account-orders__empty h2 {
+  color: var(--fg);
+  font-size: var(--fs-24);
+  line-height: var(--lh-32);
+}
+
+.restaurant .account-order__title,
+.restaurant .account-order-result__title {
+  margin: 0;
+  color: var(--fg);
+  font-size: var(--fs-24);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-32);
+}
+
+.account-order__status {
+  margin: 0.75rem 0 1.25rem;
+  color: var(--fg-desc);
+  font-size: var(--fs-14);
+  line-height: var(--lh-24);
+}
+
+.account-order__notice {
+  margin: 0 0 1.25rem;
+  padding: 1rem;
+  border: 0.06rem solid var(--clr-light-gray);
+  border-radius: 12px;
+  background: var(--bg-choice);
+  color: var(--fg);
+  font-size: var(--fs-16);
+  line-height: var(--lh-24);
+}
+
+.restaurant.account-page .account-order__table {
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.restaurant.account-page .account-order__table thead th,
+.restaurant.account-page .account-order__table td,
+.restaurant.account-page .account-order__table tfoot th {
+  padding: 0.63rem 0;
+  border: 0;
+  background: transparent;
+  color: var(--fg);
+  font-size: var(--fs-18);
+  line-height: var(--lh-28);
+  vertical-align: middle;
+  overflow-wrap: anywhere;
+}
+
+.restaurant.account-page .account-order__table thead th {
+  padding-top: 0;
+  padding-bottom: 0.88rem;
+  font-weight: var(--fw-bold);
+}
+
+.restaurant.account-page .account-order__table th:first-child,
+.restaurant.account-page .account-order__table td:first-child {
+  width: 65%;
+  padding-right: 1.25rem;
+}
+
+.restaurant.account-page .account-order__table th:last-child,
+.restaurant.account-page .account-order__table td:last-child {
+  width: 35%;
+  text-align: right;
+}
+
+.restaurant.account-page .account-order__table a {
+  color: var(--fg);
+  text-decoration: none;
+}
+
+.restaurant.account-page .account-order__table a:hover {
+  text-decoration: underline;
+}
+
+.restaurant.account-page .account-order__table .product-quantity {
+  white-space: nowrap;
+  font-weight: var(--fw-bold);
+}
+
+.restaurant.account-page .account-order__table .wc-item-meta {
+  margin: 0.31rem 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--fg-desc);
+  font-size: var(--fs-16);
+  line-height: var(--lh-24);
+}
+
+.restaurant.account-page .account-order__table .wc-item-meta li {
+  margin: 0;
+}
+
+.restaurant.account-page .account-order__table .wc-item-meta p {
+  display: inline;
+  margin: 0;
+}
+
+.restaurant.account-page .account-order__table tfoot tr:first-child th,
+.restaurant.account-page .account-order__table tfoot tr:first-child td {
+  padding-top: 1.25rem;
+  border-top: 0.06rem solid var(--clr-gray-transparent);
+}
+
+.restaurant.account-page .account-order__table tfoot th {
+  font-weight: var(--fw-bold);
+}
+
+.account-order__table small {
+  font-size: var(--fs-12);
+  line-height: var(--lh-20);
+}
+
+.restaurant.account-page .account-order .order-again {
+  display: flex;
+  justify-content: center;
+  margin: 1.56rem 0 0;
+}
+
+.account-order__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.56rem;
+  padding-top: 1.56rem;
+  border-top: 0.06rem solid var(--clr-gray-transparent);
+}
+
+.restaurant.account-page
+  .account-layout--order-detail
+  .woocommerce-customer-details {
+  display: flow-root;
+  padding: 1.88rem;
+  border: 0;
+  border-radius: 30px;
+  background: var(--bg-card);
+  box-shadow: 0 0.25rem 0.13rem var(--shadow);
+}
+
+.restaurant.account-page
+  .account-layout--order-detail
+  .woocommerce-columns--addresses {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.88rem;
+  float: none;
+  width: 100%;
+  margin: 0;
+}
+
+.restaurant.account-page
+  .account-layout--order-detail
+  .woocommerce-columns--addresses
+  > .woocommerce-column {
+  float: none;
+  width: auto;
+  min-width: 0;
+  margin: 0;
+}
+
+.restaurant.account-page
+  .account-layout--order-detail
+  .woocommerce-customer-details
+  h2 {
+  margin: 0 0 1rem;
+  color: var(--fg);
+  font-size: var(--fs-24);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-32);
+}
+
+.restaurant.account-page
+  .account-layout--order-detail
+  .woocommerce-customer-details
+  address {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: var(--fg-desc);
+  font-style: normal;
+  overflow-wrap: anywhere;
+}
+
+.account-order-result {
+  text-align: center;
+}
+
+.account-order-result__description {
+  margin: 1.56rem 0 0;
+  color: var(--fg-desc);
+  font-size: var(--fs-16);
+  line-height: var(--lh-24);
+}
+
+.account-order-result__actions {
+  margin-top: 1.56rem;
+  padding-top: 1.56rem;
+  border-top: 0.06rem solid var(--clr-gray-transparent);
+}
+
+.account-order-result__details {
+  display: inline-block;
+  margin-top: 1rem;
+  color: var(--fg);
+  font-size: var(--fs-14);
+  line-height: var(--lh-24);
+}
+
+.account-order-notes {
+  margin-top: 1.5rem;
+}
+
+.account-order-notes h2 {
+  color: var(--fg);
+  font-size: var(--fs-24);
+  line-height: var(--lh-32);
+}
+
+.account-order-notes__item {
+  margin-top: 1rem;
+  padding: 1.25rem;
+  border: 0.06rem solid var(--clr-light-gray);
+  border-radius: 16px;
+  color: var(--fg-desc);
+}
+
+.account-order-notes__item p {
+  margin: 0 0 0.5rem;
+}
+
+.account-cancel {
+  display: none;
+  scroll-margin-top: 1.5rem;
+}
+
+.account-cancel--requested {
+  display: block;
+  max-width: 32.56rem;
+  margin: 1.5rem auto 0;
+}
+
+.account-cancel__dialog {
+  width: calc(100% - 2rem);
+  max-width: 32.56rem;
+  max-height: calc(100% - 2rem);
+  margin: auto;
+  padding: 0;
+  overflow: auto;
+  border: 0;
+  border-radius: 30px;
+  background: var(--bg-card);
+  color: var(--fg);
+}
+
+.account-cancel__dialog::backdrop {
+  background: rgba(17, 24, 39, 0.65);
+}
+
+.restaurant .account-cancel__panel {
+  box-shadow: none;
+}
+
+.restaurant .account-cancel__panel:focus {
+  outline: none;
+}
+
+.restaurant .account-cancel__title {
+  margin: 0;
+  color: var(--fg);
+  font-size: var(--fs-18);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-28);
+}
+
+.account-cancel__description {
+  margin: 1.25rem 0 0;
+  color: var(--fg-desc);
+  font-size: var(--fs-16);
+  line-height: var(--lh-24);
+}
+
+.account-cancel__form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.25rem;
+  margin: 1.25rem 0 0;
+  padding-top: 1.25rem;
+  border-top: 0.06rem solid var(--clr-gray-transparent);
+}
+
+@media (max-width: 75rem) {
+  .account-layout--orders,
+  .account-layout--order-detail,
+  .account-layout--order-result {
+    column-gap: 2rem;
+  }
+  .account-orders__row {
+    gap: 1.25rem;
+  }
+  .account-orders__fields {
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 62.5rem) {
+  .account-orders__row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .account-orders__fields {
+    flex-basis: auto;
+  }
+  .account-orders__actions {
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 50rem) {
+  .account-layout--orders,
+  .account-layout--order-detail,
+  .account-layout--order-result {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 37.44rem) {
+  .restaurant.account-page
+    .account-layout--order-detail
+    .woocommerce-customer-details {
+    padding: 1.25rem;
+  }
+  .restaurant.account-page
+    .account-layout--order-detail
+    .woocommerce-columns--addresses {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+  .account-orders__fields {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .account-orders__field {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: var(--fs-16);
+    line-height: var(--lh-24);
+  }
+  .account-orders__field dt {
+    flex: 0 0 5.63rem;
+    margin: 0;
+  }
+  .account-orders__field dd {
+    min-width: 0;
+    text-align: right;
+  }
+  .restaurant.account-page .account-order__table th:first-child,
+  .restaurant.account-page .account-order__table td:first-child {
+    width: 65%;
+    padding-right: 0.75rem;
+  }
+  .restaurant.account-page .account-order__table tfoot th:first-child {
+    width: 50%;
+  }
+  .restaurant.account-page .account-order__table tfoot td:last-child {
+    width: 50%;
+  }
+  .restaurant .account-order-result__actions .account-orders__button {
+    width: 100%;
+  }
+  .account-cancel__form {
+    gap: 0.75rem;
+  }
+  .account-cancel__form .account-orders__button {
+    max-width: 100%;
+  }
+}
+
+.restaurant.team-page .site-content > .col-full {
+  max-width: 90rem;
+  padding-inline: 0;
+}
+
+.restaurant.team-page .team-page__content {
+  margin-bottom: 0;
+}
+
+.restaurant.team-page .team-page__main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+  margin: 0;
+  padding: 3.94rem 3.13rem 2.5rem;
+}
+
+.restaurant.team-page .team-page__main--archive {
+  gap: 2.25rem;
+}
+
+.team-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 40rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.restaurant.team-page .team-heading__title {
+  margin: 0;
+  color: var(--fg);
+  font-size: var(--fs-48);
+  line-height: var(--lh-48);
+}
+
+.restaurant.team-page .team-heading__subtitle {
+  margin: 0;
+  color: var(--fg);
+  font-size: var(--fs-36);
+  line-height: var(--lh-48);
+}
+
+.team-heading__description {
+  margin: 0;
+  color: var(--fg-desc);
+  font-size: var(--fs-16);
+  line-height: var(--lh-24);
+}
+
+.team-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 70.13rem;
+  padding: 0;
+  margin: 0 auto;
+  list-style: none;
+}
+
+.team-grid__item {
+  display: flex;
+  flex: 0 1 calc(50% - 0.63rem);
+  min-width: 0;
+}
+
+.restaurant .member-card {
+  display: flex;
+  align-items: center;
+  gap: 0.94rem;
+  width: 100%;
+  min-height: 14.19rem;
+  padding: 1.25rem 0.94rem;
+  border-radius: 30px;
+  background-color: var(--bg-card);
+  box-shadow: 0 0.25rem 0.13rem var(--shadow);
+  color: var(--fg);
+  text-decoration: none;
+}
+
+.restaurant .member-card:hover .member-card__name {
+  text-decoration: underline;
+  text-underline-offset: 0.25rem;
+}
+
+.member-card__portrait {
+  display: block;
+  flex: 0 0 9.38rem;
+  width: 9.38rem;
+  height: 9.38rem;
+  margin: 0;
+  border-radius: 20px;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.member-card__content {
+  flex: 1;
+  min-width: 0;
+  padding-block: 0.63rem;
+}
+
+.restaurant .member-card__name {
+  margin: 0 0 0.94rem;
+  color: var(--fg);
+  font-size: var(--fs-24);
+  line-height: var(--lh-32);
+  overflow-wrap: anywhere;
+}
+
+.member-card__description {
+  margin: 0;
+  color: var(--fg-desc);
+  font-size: var(--fs-16);
+  line-height: var(--lh-24);
+  overflow-wrap: anywhere;
+}
+
+.member-profile {
+  display: flex;
+  align-items: center;
+  gap: 6.25rem;
+  width: 100%;
+  max-width: 53rem;
+}
+
+.member-profile__portrait {
+  display: block;
+  flex: 0 0 17.5rem;
+  width: 17.5rem;
+  height: 20.75rem;
+  margin: 0;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.member-profile__biography {
+  flex: 0 1 21.75rem;
+  min-width: 0;
+  color: var(--fg-desc);
+  font-size: var(--fs-18);
+  line-height: var(--lh-28);
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.member-profile__biography p {
+  margin: 0 0 1rem;
+}
+
+.member-profile__biography p:last-child {
+  margin-bottom: 0;
+}
+
+.member-recommendations,
+.team-page__others {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  align-items: center;
+  width: 100%;
+}
+
+.restaurant.team-page ul.products.member-recommendations__products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 83.69rem;
+  margin: 0;
+  padding: 0;
+}
+
+.restaurant.team-page
+  ul.products.member-recommendations__products
+  > li.product {
+  flex: 0 1 calc((100% - 2.5rem) / 3);
+  max-width: 27.06rem;
+  min-width: 0;
+}
+
+.restaurant.team-page .member-recommendations__products .product-card__button {
+  margin-top: auto;
+}
+
+.restaurant.team-page
+  .member-recommendations__products
+  .product-card
+  > .woocommerce-LoopProduct-link {
+  margin-bottom: 2.56rem;
+}
+
+.restaurant.team-page
+  .member-recommendations__products
+  .product-card__price
+  .price {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.13rem;
+}
+
+.team-page__empty {
+  color: var(--fg-desc);
+  text-align: center;
+}
+
+.team-page__pagination:empty {
+  display: none;
+}
+
+.restaurant.team-page #colophon {
+  margin-top: 0;
+}
+
+@media (max-width: 74.94rem) {
+  .restaurant.team-page
+    ul.products.member-recommendations__products
+    > li.product {
+    flex-basis: calc(50% - 0.63rem);
+  }
+}
+
+@media (max-width: 56.25rem) {
+  .restaurant.team-page .team-page__main {
+    padding-inline: 1.25rem;
+  }
+  .team-grid {
+    max-width: 20.94rem;
+    gap: 1.5rem;
+  }
+  .team-grid__item {
+    flex-basis: 100%;
+  }
+  .restaurant .member-card {
+    flex-direction: column;
+    align-items: center;
+  }
+  .member-card__content {
+    width: 100%;
+  }
+  .member-profile {
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 40rem;
+  }
+  .member-profile__portrait {
+    flex-basis: auto;
+    max-width: 100%;
+  }
+  .member-profile__biography {
+    flex-basis: auto;
+    width: 100%;
+    font-size: var(--fs-16);
+    line-height: var(--lh-24);
+  }
+}
+
+@media (max-width: 37.44rem) {
+  .restaurant.team-page .team-page__main,
+  .restaurant.team-page .team-page__main--archive {
+    gap: 2.5rem;
+    padding-block: 2.5rem;
+  }
+  .restaurant.team-page .team-heading__title {
+    font-size: var(--fs-36);
+    line-height: 2.5rem;
+  }
+  .restaurant.team-page .team-heading__subtitle {
+    font-size: var(--fs-24);
+    line-height: var(--lh-32);
+  }
+  .member-recommendations,
+  .team-page__others {
+    gap: 1.5rem;
+  }
+  .restaurant.team-page ul.products.member-recommendations__products {
+    max-width: 20.94rem;
+    gap: 1.5rem;
+  }
+  .restaurant.team-page
+    ul.products.member-recommendations__products
+    > li.product {
+    flex-basis: 100%;
+    max-width: none;
+  }
+  .restaurant.team-page
+    .member-recommendations__products
+    .product-card
+    > .woocommerce-LoopProduct-link {
+    margin-bottom: 1.25rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Avis clients et notes des produits
+   -------------------------------------------------------------------------- */
+
+/* Avis Figma V1.5 : classes natives conservées pour les interactions WooCommerce. */
+.restaurant .product-reviews {
+  --review-star-empty: url("./assets/images/review-star-empty.svg");
+  padding: 2.19rem 0.63rem 0;
+  min-width: 0;
+}
+
+.product-reviews__comments {
+  min-width: 0;
+}
+
+.restaurant #reviews .product-reviews__title,
+.restaurant #reviews .product-reviews__form-title {
+  display: block;
+  margin: 0 0 0.63rem;
+  color: var(--fg);
+  font-size: var(--fs-24);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-32);
+}
+
+.restaurant #reviews ol.product-reviews__list {
+  display: flex;
+  align-items: stretch;
+  gap: 1.25rem;
+  width: 100%;
+  padding: 0.63rem 1.25rem;
+  margin: 0 0 0.63rem;
+  list-style: none;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scroll-snap-type: x proximity;
+  scrollbar-color: var(--fg) var(--bg-price);
+  scrollbar-width: thin;
+}
+
+.restaurant #reviews .product-reviews__list > .review-card {
+  display: block;
+  float: none;
+  flex: 0 0 31.25rem;
+  max-width: 100%;
+  min-height: 14.19rem;
+  padding: 1.88rem 0.94rem;
+  margin: 0;
+  border: 0;
+  border-radius: 30px;
+  background-color: var(--bg-card);
+  box-shadow: 0 0.25rem 0.13rem var(--shadow);
+  scroll-snap-align: start;
+}
+
+.review-card__body {
+  min-width: 0;
+}
+
+.review-card__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.63rem;
+  margin-bottom: 0.94rem;
+}
+
+.restaurant #reviews .review-card__author,
+.review-card__separator {
+  margin: 0;
+  color: var(--fg);
+  font-size: var(--fs-24);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-32);
+  overflow-wrap: anywhere;
+}
+
+.review-rating {
+  display: inline-flex;
+  flex: none;
+  gap: 0.06rem;
+}
+
+.review-rating__star {
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  background-color: var(--fg);
+  mask: url("./assets/images/review-star-full.svg") center / contain no-repeat;
+}
+
+.review-rating__star--empty {
+  mask-image: url("./assets/images/review-star-empty.svg");
+}
+
+.review-card__text,
+.review-card__moderation {
+  color: var(--fg-desc);
+  font-size: var(--fs-16);
+  line-height: var(--lh-24);
+  overflow-wrap: anywhere;
+}
+
+.review-card__text p,
+.review-card__text .description {
+  margin: 0 0 0.75rem;
+}
+
+.review-card__text p:last-child,
+.review-card__text .description:last-child {
+  margin-bottom: 0;
+}
+
+.restaurant #reviews .product-reviews__notice {
+  margin: 0 0 1.25rem;
+  padding: 1rem 1.25rem 1rem 3.5rem;
+  border: 0;
+  border-radius: 12px;
+  background-color: var(--bg-btn);
+  color: var(--clr-white);
+  font-size: var(--fs-16);
+  line-height: var(--lh-24);
+}
+
+.restaurant #reviews .product-reviews__notice a {
+  color: var(--clr-white);
+  text-decoration: underline;
+}
+
+.restaurant #reviews .product-reviews__notice::before {
+  position: absolute;
+  top: 1rem;
+  left: 1.25rem;
+  color: var(--clr-white);
+}
+
+.restaurant #reviews .product-reviews__notice--restriction {
+  padding-inline: 1.25rem;
+}
+
+.restaurant #reviews .product-reviews__respond {
+  padding: 0.63rem 0;
+  margin: 0;
+  border: 0;
+  background: none;
+}
+
+.product-reviews__form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.63rem 1.25rem;
+  margin: 0;
+}
+
+.product-reviews__rating {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.63rem;
+  width: 100%;
+}
+
+.product-reviews__rating label {
+  margin: 0;
+  color: var(--fg);
+  font-size: var(--fs-18);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-28);
+}
+
+.product-reviews__separator {
+  margin-left: 0.63rem;
+}
+
+.restaurant #reviews .product-reviews__rating p.stars {
+  display: inline-flex;
+  margin: 0;
+  line-height: 1;
+}
+
+.product-reviews__rating .stars > span {
+  display: inline-flex;
+  gap: 0.06rem;
+}
+
+.restaurant #reviews .product-reviews__rating p.stars a {
+  position: relative;
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  padding: 0;
+  margin: 0;
+  font-size: 1rem;
+  color: var(--fg);
+  overflow: hidden;
+  text-indent: -999rem;
+}
+
+.restaurant #reviews .product-reviews__rating p.stars a::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 1rem;
+  height: 1rem;
+  background-color: var(--fg);
+  mask: var(--review-star-empty) center / contain no-repeat;
+  opacity: 1;
+}
+
+.restaurant #reviews .product-reviews__rating p.stars.selected a::before,
+.restaurant #reviews .product-reviews__rating p.stars:hover a::before,
+.restaurant #reviews .product-reviews__rating p.stars.selected:hover a::before {
+  mask-image: url("./assets/images/review-star-full.svg");
+}
+
+.restaurant
+  #reviews
+  .product-reviews__rating
+  p.stars.selected:not(:hover)
+  a.active
+  ~ a::before,
+.restaurant #reviews .product-reviews__rating p.stars:hover a:hover ~ a::before,
+.restaurant
+  #reviews
+  .product-reviews__rating
+  p.stars.selected:hover
+  a:hover
+  ~ a::before {
+  mask-image: var(--review-star-empty);
+}
+
+.product-reviews__field,
+.product-reviews__actions {
+  width: 100%;
+  margin: 0;
+}
+
+.restaurant #reviews textarea.product-reviews__textarea {
+  display: block;
+  width: 100%;
+  height: 9.25rem;
+  min-height: 9.25rem;
+  margin: 0;
+  padding: 0.75rem;
+  border: 0.06rem solid var(--clr-light-gray);
+  border-radius: 12px;
+  background-color: var(--bg);
+  box-shadow: none;
+  color: var(--fg-desc);
+  font-family: var(--ff-poppins);
+  font-size: var(--fs-16);
+  line-height: var(--lh-24);
+  resize: vertical;
+}
+
+.product-reviews__textarea::placeholder {
+  color: var(--fg-desc);
+  opacity: 1;
+}
+
+.product-reviews__identity {
+  flex: 1 1 calc(50% - 0.63rem);
+  min-width: 0;
+  margin: 0;
+}
+
+.product-reviews__identity input {
+  width: 100%;
+}
+
+.product-reviews__form .comment-form-cookies-consent {
+  width: 100%;
+}
+
+.restaurant #reviews .product-reviews__submit {
+  display: inline-flex;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0.63rem 1.25rem;
+  border: 0;
+  border-radius: 50px;
+  background-color: var(--bg-btn);
+  color: var(--clr-white);
+  font-family: var(--ff-poppins);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-24);
+  cursor: pointer;
+}
+
+.restaurant #reviews .product-reviews__submit:hover {
+  background-color: var(--hover-bg-btn);
+  color: var(--hover-fg-btn);
+}
+
+@media (max-width: 37.44rem) {
+  .restaurant .product-reviews {
+    --review-star-empty: url("./assets/images/review-star-empty-mobile.svg");
+    padding: 0;
+  }
+  .restaurant #reviews .product-reviews__title,
+  .restaurant #reviews .product-reviews__form-title {
+    margin-bottom: 1.25rem;
+  }
+  .restaurant #reviews ol.product-reviews__list {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+    padding: 0.63rem 0;
+    margin-bottom: 1.25rem;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+  .restaurant #reviews .product-reviews__list > .review-card {
+    width: 100%;
+    min-height: 0;
+  }
+  .review-card__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .restaurant #reviews .review-card__author {
+    font-size: var(--fs-18);
+    line-height: var(--lh-28);
+  }
+  .review-card__separator {
+    display: none;
+  }
+  .product-reviews__form {
+    gap: 0.88rem;
+  }
+  .product-reviews__rating .stars > span {
+    gap: 0.38rem;
+  }
+  .restaurant #reviews .product-reviews__rating p.stars a,
+  .restaurant #reviews .product-reviews__rating p.stars a::before {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  .product-reviews__identity {
+    flex-basis: 100%;
+  }
+  .restaurant #reviews .product-reviews__submit {
+    width: 100%;
+  }
+}
+
+.restaurant .summary .woocommerce-product-rating .star-rating span::before {
+  color: var(--fg);
+}
+
+.restaurant .summary .woocommerce-product-rating .woocommerce-review-link {
+  display: none;
+}
+
+.restaurant input[type="radio"],
+.restaurant .cutlery-options__input,
+.restaurant .woocommerce-shipping-methods input[type="radio"],
+.restaurant .checkout-payment .payment_methods > li > input.input-radio {
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-block;
+  flex: 0 0 1.25rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  min-width: 1.25rem;
+  padding: 0;
+  border: 0.13rem solid var(--fg-desc);
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: none;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.restaurant input[type="radio"]:checked,
+.restaurant .cutlery-options__input:checked,
+.restaurant .woocommerce-shipping-methods input[type="radio"]:checked,
+.restaurant
+  .checkout-payment
+  .payment_methods
+  > li
+  > input.input-radio:checked {
+  border-color: transparent;
+  border-radius: 0;
+  background: transparent url("./assets/images/commerce-check.svg") center /
+    1.25rem 1.25rem no-repeat;
+  background-origin: border-box;
+}
+
+.restaurant input[type="radio"]:focus-visible {
+  outline: 0.13rem solid var(--fg);
+  outline-offset: 0.25rem;
+}
+
+.restaurant input[type="radio"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (forced-colors: active) {
+  .restaurant input[type="radio"],
+  .restaurant .cutlery-options__input,
+  .restaurant .woocommerce-shipping-methods input[type="radio"],
+  .restaurant .checkout-payment .payment_methods > li > input.input-radio {
+    appearance: auto;
+    -webkit-appearance: auto;
+    background: none;
   }
 }

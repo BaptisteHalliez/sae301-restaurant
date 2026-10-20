@@ -6,7 +6,6 @@ add_action( 'wp_enqueue_scripts', 'thaimoon_orders_assets', 46 );
 function thaimoon_orders_assets() {
     if ( is_account_page() ) {
         $path = get_stylesheet_directory();
-        wp_enqueue_style( 'thaimoon-account-orders', get_stylesheet_directory_uri() . '/assets/css/account-orders.css', array( 'thaimoon-account' ), (string) filemtime( $path . '/assets/css/account-orders.css' ) );
         wp_enqueue_script( 'thaimoon-account-orders', get_stylesheet_directory_uri() . '/assets/js/account-orders.js', array(), (string) filemtime( $path . '/assets/js/account-orders.js' ), true );
     }
 }
