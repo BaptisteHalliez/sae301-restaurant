@@ -55,3 +55,6 @@ require_once __DIR__ . '/cart-checkout.php';
 
 // Connexion, inscription et espace client, maquette V1.2.
 require_once __DIR__ . '/account.php';
+
+// Suggestions complémentaires sur la fiche produit.
+require_once __DIR__ . '/related-products.php';
