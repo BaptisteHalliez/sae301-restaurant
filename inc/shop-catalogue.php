@@ -1,9 +1,9 @@
 <?php
-/** Boutique et pages de catégories, maquette Figma V1.0. */
+/** Boutique, catégories, collections et recherches avec les cartes Figma. */
 defined( 'ABSPATH' ) || exit;
 
 function thaimoon_is_shop_catalogue() {
-    return function_exists( 'is_shop' ) && ( is_shop() || is_product_category() ) && ! is_search() && ! is_filtered();
+    return function_exists( 'is_shop' ) && ( is_shop() || is_product_category() || is_tax( 'collection' ) || ( is_search() && 'product' === get_query_var( 'post_type' ) ) );
 }
 
 add_filter( 'body_class', 'thaimoon_shop_catalogue_class' );
@@ -47,6 +47,7 @@ function thaimoon_shop_catalogue_controls() {
 }
 
 function thaimoon_get_shop_catalogue() {
+    global $wp_query;
     $defaults = array(
         'entrees' => array( 'title' => '', 'description' => 'Démarrez votre repas avec nos délicieuses entrées traditionnelles' ),
         'plats' => array( 'title' => 'Plats Principaux', 'description' => 'Nos plats traditionnels thaïlandais préparés avec des ingrédients frais' ),
@@ -54,6 +55,7 @@ function thaimoon_get_shop_catalogue() {
         'desserts' => array( 'title' => '', 'description' => 'Terminez votre repas en douceur avec nos desserts traditionnels thaïlandais' ),
     );
     $current_category = is_product_category() ? get_queried_object() : null;
+    $collection = is_tax( 'collection' ) ? get_queried_object() : null;
     $categories = $current_category instanceof WP_Term
         ? array( $current_category )
         : get_terms( array( 'taxonomy' => 'product_cat', 'hide_empty' => true, 'orderby' => 'name', 'order' => 'ASC' ) );
@@ -73,7 +75,13 @@ function thaimoon_get_shop_catalogue() {
         $groups[ $category->term_id ] = $category;
     }
     $sections = array();
+    if ( $collection instanceof WP_Term ) {
+        $sections['collection'] = array( 'id' => 'collection-' . $collection->slug, 'title' => $collection->name, 'description' => $collection->description, 'products' => array() );
+    }
     foreach ( $groups as $id => $category ) {
+        if ( $collection instanceof WP_Term ) {
+            break;
+        }
         $settings = isset( $defaults[ $category->slug ] ) ? $defaults[ $category->slug ] : array( 'title' => '', 'description' => '' );
         $sections[ $id ] = array(
             'id' => 'categorie-' . $category->slug,
@@ -82,23 +90,9 @@ function thaimoon_get_shop_catalogue() {
             'products' => array(),
         );
     }
-    $tax_query = WC()->query->get_tax_query();
-    if ( $current_category instanceof WP_Term ) {
-        $tax_query[] = array( 'taxonomy' => 'product_cat', 'field' => 'term_id', 'terms' => array( $current_category->term_id ), 'include_children' => true );
-    }
-    // Une requête pour la carte, ou uniquement pour la catégorie visitée et ses sous-catégories.
-    $catalogue = new WP_Query( array(
-        'post_type' => 'product',
-        'post_status' => 'publish',
-        'posts_per_page' => -1,
-        'no_found_rows' => true,
-        'ignore_sticky_posts' => true,
-        'orderby' => array( 'title' => 'ASC', 'ID' => 'ASC' ),
-        'tax_query' => $tax_query,
-        'meta_query' => WC()->query->get_meta_query(),
-    ) );
+    // Les filtres et la recherche agissent sur cette même requête principale.
     $sorted_products = array();
-    foreach ( $catalogue->posts as $position => $product_post ) {
+    foreach ( $wp_query->posts as $position => $product_post ) {
         $catalogue_product = wc_get_product( $product_post->ID );
         if ( ! $catalogue_product || ! $catalogue_product->is_visible() ) {
             continue;
@@ -112,6 +106,10 @@ function thaimoon_get_shop_catalogue() {
     }
     usort( $sorted_products, 'thaimoon_compare_catalogue_products' );
     foreach ( $sorted_products as $entry ) {
+        if ( $collection instanceof WP_Term ) {
+            $sections['collection']['products'][] = $entry['post'];
+            continue;
+        }
         $section_id = $current_category instanceof WP_Term ? $current_category->term_id : 'other';
         foreach ( $groups as $id => $category ) {
             if ( $current_category instanceof WP_Term || in_array( $id, $entry['category_ids'], true ) ) {
@@ -124,8 +122,8 @@ function thaimoon_get_shop_catalogue() {
         }
         $sections[ $section_id ]['products'][] = $entry['post'];
     }
-    return array_filter( $sections, static function ( $section ) use ( $current_category ) {
-        return $current_category instanceof WP_Term || ! empty( $section['products'] );
+    return array_filter( $sections, static function ( $section ) {
+        return ! empty( $section['products'] );
     } );
 }
 

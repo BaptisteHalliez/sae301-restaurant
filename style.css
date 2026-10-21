@@ -275,14 +275,38 @@ Text Domain: thaimoon-restaurant
 }
 
 /* Style */
+
+@layer tokens {
+  .restaurant {
+    --space-xxs: 0.25rem;
+    --space-xs: 0.5rem;
+    --space-sm: 0.75rem;
+    --space-md: 1rem;
+    --space-lg: 1.25rem;
+    --space-xl: 1.5rem;
+    --space-2xl: 2rem;
+    --space-3xl: 2.5rem;
+    --space-4xl: 3rem;
+    --focus-color: var(--fg);
+    --border-width: 0.06rem;
+    --border-width-strong: 0.13rem;
+    --radius-field: 12px;
+    --radius-media: 20px;
+    --radius-surface: 30px;
+    --radius-button: 50px;
+    --shadow-surface: 0 0.25rem 0.13rem var(--shadow);
+    --bg-overlay: rgba(17, 24, 39, 0.65);
+  }
+}
+
 @layer base {
   body.restaurant {
     margin: 0;
-    background-color: var(--bg);
     color: var(--fg);
     font-family: var(--ff-poppins);
     font-size: var(--fs-16);
     line-height: var(--lh-24);
+    background-color: var(--bg);
   }
   .restaurant button,
   .restaurant input,
@@ -290,33 +314,7 @@ Text Domain: thaimoon-restaurant
   .restaurant textarea {
     font-family: var(--ff-poppins);
   }
-}
 
-@layer layout {
-  .restaurant .site {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-  .restaurant .site-content {
-    flex: 1;
-  }
-  .restaurant .col-full {
-    max-width: 80rem;
-    padding-inline: 2.5rem;
-    margin-inline: auto;
-  }
-  .restaurant .content-area {
-    width: 100%;
-    float: none;
-    margin-right: 0;
-  }
-  .restaurant .site-main {
-    padding-top: 2.5rem;
-  }
-}
-
-@layer base {
   .restaurant h1,
   .restaurant h2,
   .restaurant h3,
@@ -331,6 +329,17 @@ Text Domain: thaimoon-restaurant
   .restaurant a {
     color: var(--fg);
   }
+  /* Sur les surfaces sombres, le focus utilise le blanc du site. */
+  .restaurant
+    :is(
+      .header,
+      .footer,
+      .woocommerce-info,
+      .woocommerce-message,
+      .woocommerce-error
+    ) {
+    --focus-color: var(--clr-white);
+  }
   .restaurant :is(a, button, summary, input, select, textarea):focus {
     outline-color: var(--fg);
   }
@@ -338,39 +347,59 @@ Text Domain: thaimoon-restaurant
     :is(a, button, summary, input, select, textarea):focus:not(:focus-visible) {
     outline: none;
   }
-  .restaurant a:focus-visible,
-  .restaurant button:focus-visible,
-  .restaurant summary:focus-visible,
-  .restaurant input:focus-visible,
-  .restaurant select:focus-visible,
-  .restaurant textarea:focus-visible {
-    outline: 0.13rem solid var(--clr-green-500);
+  .restaurant :is(a, button, summary, input, select, textarea):focus-visible {
+    outline: var(--border-width-strong) solid var(--focus-color);
     outline-offset: 0.25rem;
   }
 }
 
+@layer layout {
+  .restaurant .site {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+  .restaurant .site-content {
+    flex: 1;
+  }
+  .restaurant .col-full {
+    max-width: 80rem;
+    padding-inline: var(--space-3xl);
+    margin-inline: auto;
+  }
+  .restaurant .content-area {
+    float: none;
+    width: 100%;
+    margin-right: 0;
+  }
+  .restaurant .site-main {
+    padding-top: var(--space-3xl);
+  }
+}
+
+/* Header et navigation */
 @layer components {
   .restaurant #masthead {
     padding: 0;
     margin-bottom: 0;
+    color: var(--clr-white);
     border: 0;
     background-color: var(--bg-navbar);
-    color: var(--clr-white);
   }
   .restaurant #masthead::before,
   .restaurant #masthead::after {
     display: none;
   }
   .header {
+    display: flex;
+    position: relative;
     max-width: 90rem;
     min-height: 5rem;
     margin-inline: auto;
     padding-inline: 5rem;
-    display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 2rem;
-    position: relative;
+    gap: var(--space-2xl);
   }
   .header__brand {
     display: flex;
@@ -415,23 +444,23 @@ Text Domain: thaimoon-restaurant
     display: flex;
     align-items: center;
     gap: 1.88rem;
-    list-style: none;
     margin: 0;
     padding: 0;
+    list-style: none;
   }
   .navigation__item {
     margin: 0;
     padding: 0;
   }
-  .restaurant #masthead .navigation__link,
-  .restaurant #masthead .navigation__order {
+  .restaurant .navigation__link,
+  .restaurant .navigation__order {
+    display: inline-flex;
+    align-items: center;
     color: var(--clr-white);
     font-weight: var(--fw-semibold);
     text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    border-radius: 50px;
     white-space: nowrap;
+    border-radius: var(--radius-button);
   }
   .navigation__link {
     padding: 0.31rem 0.63rem;
@@ -440,7 +469,7 @@ Text Domain: thaimoon-restaurant
   }
   .navigation__order {
     gap: 0.63rem;
-    padding: 0.63rem 1.25rem;
+    padding: 0.63rem var(--space-lg);
     font-size: var(--fs-16);
     line-height: var(--lh-24);
   }
@@ -454,18 +483,18 @@ Text Domain: thaimoon-restaurant
     display: flex;
     flex-shrink: 0;
     align-items: center;
-    gap: 0.75rem;
+    gap: var(--space-sm);
   }
-  .restaurant #masthead .navigation__icon-link {
+  .restaurant .navigation__icon-link {
     display: inline-flex;
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
     width: 2.75rem;
     height: 2.75rem;
-    border-radius: 50%;
     color: var(--clr-white);
     text-decoration: none;
+    border-radius: 50%;
   }
   .navigation__icon {
     display: block;
@@ -475,23 +504,27 @@ Text Domain: thaimoon-restaurant
     max-width: none;
     margin: 0;
   }
-  .restaurant #masthead .navigation__icon-link:hover,
-  .restaurant #masthead .navigation__icon-link[aria-current="page"] {
+  .restaurant .navigation__icon-link:hover,
+  .restaurant .navigation__icon-link[aria-current="page"] {
     background-color: var(--hover-bg-btn);
   }
-  .restaurant #masthead .navigation__icon-link:focus-visible {
-    outline: 0.13rem solid var(--clr-white);
+  .restaurant .navigation__icon-link:focus-visible {
+    outline: var(--border-width-strong) solid var(--clr-white);
     outline-offset: 0.19rem;
   }
-  .restaurant #masthead .navigation__link:hover,
-  .restaurant #masthead .navigation__order:hover {
+  .restaurant .navigation__link:hover,
+  .restaurant .navigation__order:hover {
     background-color: var(--hover-bg-btn);
   }
   .navigation__order:hover .navigation__arrow {
     opacity: 0.7;
   }
 
+  /* Footer */
   .restaurant #colophon {
+    padding: 0;
+    margin-top: 3.5rem;
+    color: var(--clr-light-gray);
     background-color: var(--clr-dark-gray);
     background-image: linear-gradient(
       159.716deg,
@@ -500,9 +533,6 @@ Text Domain: thaimoon-restaurant
       var(--clr-dark-gray) 67.72%,
       var(--clr-black) 90.341%
     );
-    color: var(--clr-light-gray);
-    padding: 0;
-    margin-top: 3.5rem;
   }
   .restaurant #colophon > .col-full {
     max-width: none;
@@ -514,8 +544,8 @@ Text Domain: thaimoon-restaurant
     margin-inline: auto;
   }
   .footer__content {
-    padding: 4rem 7.69rem 3rem;
     display: grid;
+    padding: 4rem 7.69rem var(--space-4xl);
     grid-template-columns: 22.5rem minmax(0, 1fr);
     gap: 3.31rem;
   }
@@ -532,7 +562,7 @@ Text Domain: thaimoon-restaurant
   .footer__team-link {
     display: inline-flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: var(--space-sm);
     min-height: 2.75rem;
     align-self: flex-start;
   }
@@ -546,7 +576,7 @@ Text Domain: thaimoon-restaurant
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.25rem;
+    gap: var(--space-lg);
   }
   .footer__home {
     display: block;
@@ -560,18 +590,18 @@ Text Domain: thaimoon-restaurant
   .footer__description {
     margin: 0;
     color: var(--clr-light-gray);
-    opacity: 0.75;
     font-size: var(--fs-16);
     line-height: var(--lh-24);
+    opacity: 0.75;
   }
   .footer__section {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 1.25rem;
+    gap: var(--space-lg);
     min-width: 0;
   }
-  .restaurant #colophon .footer__title {
+  .restaurant .footer__title {
     margin: 0;
     color: var(--clr-white);
     font-size: var(--fs-18);
@@ -581,14 +611,14 @@ Text Domain: thaimoon-restaurant
   .footer__detail {
     display: flex;
     align-items: flex-start;
-    gap: 0.75rem;
+    gap: var(--space-sm);
     margin: 0;
     font-size: var(--fs-14);
     line-height: 1.38rem;
   }
   .footer__icon {
-    position: relative;
     display: flex;
+    position: relative;
     align-items: center;
     justify-content: center;
     flex: 0 0 1.13rem;
@@ -596,18 +626,18 @@ Text Domain: thaimoon-restaurant
     height: 1.13rem;
   }
   .footer__icon img {
-    flex-shrink: 0;
     display: block;
+    flex-shrink: 0;
     max-width: none;
     margin: 0;
   }
-  .restaurant #colophon .footer__link,
-  .restaurant #colophon .footer__links a {
+  .restaurant .footer__link,
+  .restaurant .footer__links a {
     color: var(--clr-light-gray);
     text-decoration: none;
   }
-  .restaurant #colophon .footer__link:hover,
-  .restaurant #colophon .footer__links a:hover {
+  .restaurant .footer__link:hover,
+  .restaurant .footer__links a:hover {
     color: var(--clr-green-300);
     text-decoration: underline;
   }
@@ -626,16 +656,16 @@ Text Domain: thaimoon-restaurant
     opacity: 0.75;
   }
   .footer__bottom {
-    border-top: 0.06rem solid var(--border-footer);
-    margin-inline: 7.69rem;
-    padding: 2rem 0 3.94rem;
     display: flex;
+    margin-inline: 7.69rem;
+    padding: var(--space-2xl) 0 3.94rem;
     flex-direction: column;
     align-items: center;
     gap: 0.38rem;
     font-size: 0.81rem;
-    line-height: 1.25rem;
+    line-height: var(--lh-20);
     text-align: center;
+    border-top: var(--border-width) solid var(--border-footer);
   }
   .footer__copyright,
   .footer__credit {
@@ -649,10 +679,10 @@ Text Domain: thaimoon-restaurant
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 0.5rem 1.5rem;
-    list-style: none;
+    gap: var(--space-xs) var(--space-xl);
     padding: 0;
-    margin: 0.75rem 0 0;
+    margin: var(--space-sm) 0 0;
+    list-style: none;
     font-size: var(--fs-12);
   }
   .footer__links:empty {
@@ -661,16 +691,16 @@ Text Domain: thaimoon-restaurant
 
   @media (max-width: 78.13rem) {
     .header {
-      padding-inline: 2.5rem;
+      padding-inline: var(--space-3xl);
     }
     .navigation,
     .navigation__list {
-      gap: 1rem;
+      gap: var(--space-md);
     }
     .footer__content {
       padding-inline: 3.75rem;
       grid-template-columns: 1.2fr 2fr;
-      gap: 2.5rem;
+      gap: var(--space-3xl);
     }
     .footer__bottom {
       margin-inline: 3.75rem;
@@ -679,7 +709,7 @@ Text Domain: thaimoon-restaurant
   @media (max-width: 64rem) {
     .header {
       min-height: 4rem;
-      padding-inline: 1.25rem;
+      padding-inline: var(--space-lg);
     }
     .header__moon {
       width: 2rem;
@@ -698,13 +728,13 @@ Text Domain: thaimoon-restaurant
       margin-left: auto;
     }
     .header__toggle {
-      list-style: none;
+      display: flex;
       width: 2rem;
       height: 2rem;
-      cursor: pointer;
-      display: flex;
       align-items: center;
       justify-content: center;
+      list-style: none;
+      cursor: pointer;
     }
     .header__toggle::-webkit-details-marker {
       display: none;
@@ -750,7 +780,7 @@ Text Domain: thaimoon-restaurant
       left: 0;
       right: 0;
       z-index: 100;
-      padding: 2rem;
+      padding: var(--space-2xl);
       background-color: var(--bg-navbar);
       box-shadow: 0 0.5rem 1rem var(--shadow);
     }
@@ -769,9 +799,9 @@ Text Domain: thaimoon-restaurant
   }
   @media (max-width: 56.25rem) {
     .footer__content {
-      padding: 3rem 2rem;
+      padding: var(--space-4xl) var(--space-2xl);
       grid-template-columns: 1fr;
-      gap: 2.5rem;
+      gap: var(--space-3xl);
     }
     .footer__brand {
       grid-column: 1 / -1;
@@ -779,21 +809,21 @@ Text Domain: thaimoon-restaurant
       margin-inline: auto;
     }
     .footer__bottom {
-      margin-inline: 2rem;
+      margin-inline: var(--space-2xl);
     }
   }
   @media (max-width: 37.44rem) {
     .restaurant .col-full {
-      padding-inline: 1.25rem;
+      padding-inline: var(--space-lg);
     }
     .footer__content {
-      padding: 3rem 1.5rem 2.5rem;
+      padding: var(--space-4xl) var(--space-xl) var(--space-3xl);
       grid-template-columns: 1fr;
-      gap: 2rem;
+      gap: var(--space-2xl);
     }
     .footer__information {
       grid-template-columns: minmax(0, 1fr);
-      gap: 2rem;
+      gap: var(--space-2xl);
     }
     .footer__logo {
       width: 6.88rem;
@@ -803,55 +833,56 @@ Text Domain: thaimoon-restaurant
       grid-column: auto;
     }
     .footer__bottom {
-      margin-inline: 1.5rem;
-      padding-bottom: 2.5rem;
+      margin-inline: var(--space-xl);
+      padding-bottom: var(--space-3xl);
     }
     .restaurant .site-main {
       padding-top: 1.75rem;
     }
   }
 
+  /* Catalogue et cartes produit */
   .restaurant.post-type-archive-product .site-content > .col-full,
   .restaurant.tax-product_cat .site-content > .col-full,
   .restaurant.tax-product_tag .site-content > .col-full,
   .restaurant.tax-collection .site-content > .col-full {
     max-width: 90rem;
   }
-  .restaurant ul.products.product-grid {
+  .restaurant .products.product-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1.88rem;
-    margin: 0 0 2.5rem;
+    margin: 0 0 var(--space-3xl);
     padding: 0;
     list-style: none;
   }
-  .restaurant ul.products.product-grid::before,
-  .restaurant ul.products.product-grid::after {
+  .restaurant .products.product-grid::before,
+  .restaurant .products.product-grid::after {
     display: none;
   }
-  .restaurant ul.products.product-grid > li.product {
-    width: auto;
+  .restaurant .products.product-grid > .product {
     float: none;
     clear: none;
+    width: auto;
     margin: 0;
   }
-  .restaurant ul.products li.product.product-card {
+  .restaurant .product-card {
     display: flex;
     flex-direction: column;
     min-width: 0;
-    padding: 1.25rem 0.94rem;
-    border-radius: 30px;
-    background-color: var(--bg-card);
-    box-shadow: 0 0.25rem 0.13rem var(--shadow);
+    padding: var(--space-lg) 0.94rem;
     overflow: visible;
     text-align: left;
+    border-radius: var(--radius-surface);
+    background-color: var(--bg-card);
+    box-shadow: var(--shadow-surface);
   }
   .product-card > .woocommerce-LoopProduct-link {
     display: block;
     flex: 1;
+    min-width: 0;
     color: inherit;
     text-decoration: none;
-    min-width: 0;
   }
   .product-card__information {
     display: flex;
@@ -864,7 +895,7 @@ Text Domain: thaimoon-restaurant
     width: 9.38rem;
     height: 9.38rem;
   }
-  .restaurant ul.products li.product.product-card .product-card__visual > img {
+  .restaurant .product-card .product-card__visual > img {
     display: block;
     width: 100%;
     height: 100%;
@@ -876,40 +907,40 @@ Text Domain: thaimoon-restaurant
     min-width: 0;
     padding-block: 0.63rem;
   }
-  .restaurant ul.products li.product.product-card .product-card__title {
+  .restaurant .product-card .product-card__title {
     margin: 0 0 0.94rem;
+    overflow-wrap: anywhere;
     color: var(--fg);
     font-size: var(--fs-24);
     font-weight: var(--fw-bold);
     line-height: var(--lh-32);
-    overflow-wrap: anywhere;
   }
   .product-card__description {
     margin: 0;
+    overflow-wrap: anywhere;
     color: var(--fg-desc);
     font-size: var(--fs-16);
     font-weight: var(--fw-regular);
     line-height: var(--lh-24);
-    overflow-wrap: anywhere;
   }
   .product-card__price {
+    display: flex;
     position: absolute;
     right: 0;
     bottom: -0.94rem;
     z-index: 1;
-    display: flex;
     align-items: center;
     justify-content: center;
     width: max-content;
     min-width: 5.31rem;
     max-width: 9.38rem;
     padding: 0.63rem;
-    border-radius: 15px;
-    background-color: var(--bg-price);
     color: var(--fg);
     text-align: center;
+    border-radius: 15px;
+    background-color: var(--bg-price);
   }
-  .restaurant ul.products li.product.product-card .product-card__price .price {
+  .restaurant .product-card .product-card__price .price {
     display: block;
     margin: 0;
     color: inherit;
@@ -924,44 +955,44 @@ Text Domain: thaimoon-restaurant
   .product-card__price ins {
     display: block;
   }
-  .restaurant ul.products li.product.product-card .product-card__button {
+  .restaurant .product-card .product-card__button {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
     min-height: 2.75rem;
-    margin: 1.25rem 0 0;
-    padding: 0.63rem 1.25rem;
-    border: 0;
-    border-radius: 50px;
-    background-color: var(--bg-btn);
+    margin: var(--space-lg) 0 0;
+    padding: 0.63rem var(--space-lg);
     color: var(--fg-btn);
     font-size: var(--fs-16);
     font-weight: var(--fw-semibold);
     line-height: var(--lh-24);
     text-align: center;
     text-decoration: none;
+    border: 0;
+    border-radius: var(--radius-button);
+    background-color: var(--bg-btn);
   }
-  .restaurant ul.products li.product.product-card .product-card__button:hover {
-    background-color: var(--hover-bg-btn);
+  .restaurant .product-card .product-card__button:hover {
     color: var(--hover-fg-btn);
+    background-color: var(--hover-bg-btn);
   }
-  .restaurant ul.products li.product.product-card .onsale {
+  .restaurant .product-card .onsale {
     position: absolute;
     top: 0;
     left: 0;
-    margin: 0;
     z-index: 2;
-    padding: 0.25rem 0.5rem;
-    background-color: var(--bg-card);
+    margin: 0;
+    padding: var(--space-xxs) var(--space-xs);
     font-size: var(--fs-12);
+    background-color: var(--bg-card);
   }
   .product-card .added_to_cart {
     align-self: center;
-    margin-top: 0.75rem;
+    margin-top: var(--space-sm);
   }
   @media (max-width: 74.94rem) {
-    .restaurant ul.products.product-grid {
+    .restaurant .products.product-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
@@ -983,7 +1014,7 @@ Text Domain: thaimoon-restaurant
     }
   }
   @media (max-width: 37.44rem) {
-    .restaurant ul.products.product-grid {
+    .restaurant .products.product-grid {
       grid-template-columns: minmax(0, 1fr);
       gap: 0.63rem;
     }
@@ -1028,13 +1059,13 @@ Text Domain: thaimoon-restaurant
     flex-direction: column;
     align-items: center;
     gap: 1.13rem;
-    margin-bottom: 1.25rem;
+    margin-bottom: var(--space-lg);
     text-align: center;
   }
   .restaurant .catalogue__title {
     margin: 0;
     color: var(--fg);
-    font-size: var(--fs-48);
+    font-size: clamp(var(--fs-36), calc(1.5rem + 2vw), var(--fs-48));
     font-weight: var(--fw-bold);
     line-height: var(--lh-48);
   }
@@ -1056,23 +1087,22 @@ Text Domain: thaimoon-restaurant
     margin: 0;
   }
   .catalogue__description p + p {
-    margin-top: 0.5rem;
+    margin-top: var(--space-xs);
   }
-  .restaurant .catalogue ul.products.product-grid {
+  .restaurant .catalogue .products.product-grid {
     margin-bottom: 0;
   }
   @media (max-width: 37.44rem) {
     .restaurant.shop-catalogue .storefront-breadcrumb {
-      padding-top: 1.5rem;
+      padding-top: var(--space-xl);
     }
     .restaurant.shop-catalogue .site-main {
-      padding-top: 2.5rem;
+      padding-top: var(--space-3xl);
     }
     .catalogue {
       gap: 3.13rem;
     }
     .restaurant .catalogue__title {
-      font-size: var(--fs-36);
       line-height: 1.25;
     }
     .catalogue__underline {
@@ -1084,11 +1114,12 @@ Text Domain: thaimoon-restaurant
     }
   }
 
+  /* Fiche produit : informations, stock et options d'achat */
   .restaurant.single-product .summary .product-information {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-    margin: 0 0 2rem;
+    gap: var(--space-xl);
+    margin: 0 0 var(--space-2xl);
     padding: 0;
     font-size: var(--fs-18);
     line-height: var(--lh-28);
@@ -1110,10 +1141,10 @@ Text Domain: thaimoon-restaurant
     min-width: 0;
     margin: 0;
     padding: 0;
+    overflow-wrap: anywhere;
     color: var(--fg-desc);
     font-weight: var(--fw-regular);
     white-space: pre-line;
-    overflow-wrap: anywhere;
   }
   @media (max-width: 29.94rem) {
     .product-information__row {
@@ -1134,13 +1165,13 @@ Text Domain: thaimoon-restaurant
     min-width: 6.38rem;
     max-width: 100%;
     padding: 0.31rem 0.94rem;
-    margin: 0 0 1rem;
-    border-radius: 50px;
-    background-color: var(--fg);
+    margin: 0 0 var(--space-md);
     color: var(--clr-white);
     font-size: var(--fs-14);
     font-weight: var(--fw-bold);
     line-height: var(--lh-20);
+    border-radius: var(--radius-button);
+    background-color: var(--fg);
   }
   .stock-badge--card {
     position: absolute;
@@ -1165,17 +1196,17 @@ Text Domain: thaimoon-restaurant
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 1rem;
+    gap: var(--space-md);
     width: 100%;
     min-width: 0;
-    margin: 0 0 1.25rem;
+    margin: 0 0 var(--space-lg);
     padding: 0;
+    color: var(--fg);
     border: 0;
     background: transparent;
-    color: var(--fg);
   }
   .cutlery-options__legend {
-    margin: 0 0 1rem;
+    margin: 0 0 var(--space-md);
     padding: 0;
     color: var(--fg);
     font-size: var(--fs-14);
@@ -1191,19 +1222,19 @@ Text Domain: thaimoon-restaurant
     cursor: pointer;
   }
   .restaurant .cutlery-options__input {
-    appearance: auto;
-    -webkit-appearance: radio;
     flex: 0 0 1rem;
     width: 1rem;
     height: 1rem;
     margin: 0;
     padding: 0;
+    appearance: auto;
+    -webkit-appearance: radio;
     accent-color: var(--fg);
     box-shadow: none;
     cursor: pointer;
   }
   .cutlery-options__input:focus-visible {
-    outline: 0.13rem solid var(--fg);
+    outline: var(--border-width-strong) solid var(--fg);
     outline-offset: 0.25rem;
   }
   .cutlery-options__label {
@@ -1213,13 +1244,10 @@ Text Domain: thaimoon-restaurant
     line-height: var(--lh-20);
   }
   .restaurant .purchase__unavailable,
-  .restaurant
-    ul.products
-    li.product.product-card
-    .purchase__unavailable:disabled,
+  .restaurant .product-card .purchase__unavailable:disabled,
   .restaurant.single-product .summary .purchase__unavailable {
-    background-color: var(--bg-btn-indispo);
     color: var(--fg-btn);
+    background-color: var(--bg-btn-indispo);
     cursor: not-allowed;
   }
   .restaurant.single-product .summary .variations_form > .stock.out-of-stock {
@@ -1252,26 +1280,26 @@ Text Domain: thaimoon-restaurant
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.75rem;
+    gap: var(--space-sm);
     margin: 0;
     max-width: 100%;
   }
   .restaurant.single-product .summary .purchase__amount {
+    max-width: 100%;
     color: var(--fg);
     font-size: var(--fs-48);
     font-weight: var(--fw-bold);
     line-height: var(--lh-48);
-    max-width: 100%;
   }
   .purchase__amount del {
     display: inline-block;
-    opacity: 0.6;
     font-size: var(--fs-24);
     line-height: var(--lh-32);
+    opacity: 0.6;
   }
   .purchase__amount ins {
     display: inline-block;
-    margin-left: 0.5rem;
+    margin-left: var(--space-xs);
     text-decoration: none;
   }
   .purchase__unit {
@@ -1284,8 +1312,7 @@ Text Domain: thaimoon-restaurant
     float: none;
     margin: 0;
   }
-  .restaurant.single-product .summary form.cart .quantity[hidden] {
-  }
+
   .quantity-control {
     display: inline-flex;
     align-items: center;
@@ -1299,8 +1326,8 @@ Text Domain: thaimoon-restaurant
     width: 1.63rem;
     height: 1.63rem;
     padding: 0;
-    border: 0;
     margin: 0;
+    border: 0;
     border-radius: 50%;
     background-color: transparent;
     box-shadow: none;
@@ -1327,43 +1354,43 @@ Text Domain: thaimoon-restaurant
     min-width: 0.81rem;
     height: 1.63rem;
     padding: 0;
-    border: 0;
-    border-radius: 0;
-    background-color: transparent;
     color: var(--fg);
-    box-shadow: none;
     font-size: var(--fs-14);
     font-weight: var(--fw-semibold);
     line-height: var(--lh-20);
     text-align: center;
+    border: 0;
+    border-radius: 0;
+    background-color: transparent;
+    box-shadow: none;
     appearance: textfield;
     -moz-appearance: textfield;
   }
   .quantity-control__input::-webkit-inner-spin-button,
   .quantity-control__input::-webkit-outer-spin-button {
-    -webkit-appearance: none;
     margin: 0;
+    -webkit-appearance: none;
   }
   .restaurant.single-product .summary .single_add_to_cart_button,
   .restaurant.single-product .summary .purchase__submit {
     float: none;
     min-width: 13.25rem;
     min-height: 2.75rem;
-    padding: 0.63rem 1.25rem;
+    padding: 0.63rem var(--space-lg);
     margin-top: 0.88rem;
     font-size: var(--fs-16);
     font-weight: var(--fw-semibold);
     line-height: var(--lh-24);
     border: 0;
-    border-radius: 50px;
+    border-radius: var(--radius-button);
   }
   .restaurant.single-product
     .summary
     form.cart
     .single_add_to_cart_button.purchase__unavailable:disabled {
+    color: var(--fg-btn);
     border: 0;
     background-color: var(--bg-btn-indispo);
-    color: var(--fg-btn);
   }
   .restaurant.single-product .summary .woocommerce-variation-price {
     display: none;
@@ -1373,14 +1400,14 @@ Text Domain: thaimoon-restaurant
     font-size: var(--fs-14);
   }
   .restaurant.single-product .summary table.variations {
+    margin: 0 0 var(--space-lg);
     border: 0;
-    margin: 0 0 1.25rem;
   }
   .restaurant.single-product .summary table.variations tr {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-md);
   }
   .restaurant.single-product .summary table.variations th,
   .restaurant.single-product .summary table.variations td {
@@ -1397,7 +1424,7 @@ Text Domain: thaimoon-restaurant
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.75rem;
+    gap: var(--space-sm);
   }
   .portion-select {
     display: inline-flex;
@@ -1412,34 +1439,34 @@ Text Domain: thaimoon-restaurant
     width: 0.5rem;
     height: 0.5rem;
     border: solid var(--fg);
-    border-width: 0 0.13rem 0.13rem 0;
-    transform: rotate(45deg);
+    border-width: 0 var(--border-width-strong) var(--border-width-strong) 0;
     pointer-events: none;
+    transform: rotate(45deg);
   }
   .restaurant.single-product .summary .portion-select select {
-    appearance: none;
-    -webkit-appearance: none;
     width: 100%;
     min-height: 3rem;
     max-width: 100%;
     margin: 0;
-    padding: 0.75rem 2.75rem 0.75rem 1.25rem;
-    border: 0.06rem solid var(--fg);
-    border-radius: 50px;
-    background-color: var(--bg-card);
+    padding: var(--space-sm) 2.75rem var(--space-sm) var(--space-lg);
     color: var(--fg);
     font-size: var(--fs-14);
     font-weight: var(--fw-semibold);
     line-height: var(--lh-24);
+    appearance: none;
+    -webkit-appearance: none;
+    border: var(--border-width) solid var(--fg);
+    border-radius: var(--radius-button);
+    background-color: var(--bg-card);
     cursor: pointer;
   }
   .portion-select select option {
-    background-color: var(--bg-card);
     color: var(--fg);
+    background-color: var(--bg-card);
   }
   .restaurant.single-product .summary .reset_variations {
     margin: 0;
-    padding: 0.5rem 0;
+    padding: var(--space-xs) 0;
     color: var(--fg-desc);
     font-size: var(--fs-14);
     text-decoration: underline;
@@ -1467,18 +1494,19 @@ Text Domain: thaimoon-restaurant
   }
 }
 
+/* Classes et éléments fournis par Storefront / WooCommerce */
 @layer storefront {
   .entry-header {
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--space-xl);
   }
   .entry-title {
     color: var(--fg);
   }
   .woocommerce-breadcrumb {
-    color: var(--fg-desc);
     margin-bottom: 0;
-    padding: 1.5rem 0 0;
-    font-size: 0.75rem;
+    padding: var(--space-xl) 0 0;
+    color: var(--fg-desc);
+    font-size: var(--fs-12);
   }
   .woocommerce-breadcrumb a {
     color: var(--fg);
@@ -1491,15 +1519,15 @@ Text Domain: thaimoon-restaurant
   body .wp-element-button,
   body .wp-block-button__link,
   body .wc-block-components-button {
-    background-color: var(--bg-btn);
+    padding: var(--space-sm) var(--space-xl);
     color: var(--fg-btn);
-    border: 0.06rem solid transparent;
-    border-radius: 999px;
-    padding: 0.75rem 1.5rem;
-    font-weight: 600;
-    font-size: 0.88rem;
+    font-weight: var(--fw-semibold);
+    font-size: var(--fs-14);
     line-height: 1.4;
     text-decoration: none;
+    background-color: var(--bg-btn);
+    border: var(--border-width) solid transparent;
+    border-radius: 999px;
     box-shadow: none;
   }
   body .button:hover,
@@ -1510,22 +1538,22 @@ Text Domain: thaimoon-restaurant
   body .wp-element-button:hover,
   body .wp-block-button__link:hover,
   body .wc-block-components-button:hover {
-    background-color: var(--hover-bg-btn);
     color: var(--hover-fg-btn);
     text-decoration: none;
+    background-color: var(--hover-bg-btn);
   }
   body .button.alt,
   body button.alt,
   body input[type="submit"].alt {
-    background-color: var(--bg-btn);
     color: var(--fg-btn);
+    background-color: var(--bg-btn);
   }
   body .button.alt:hover,
   body button.alt:hover,
   body input[type="submit"].alt:hover {
-    background-color: var(--hover-bg-btn);
     color: var(--hover-fg-btn);
     text-decoration: none;
+    background-color: var(--hover-bg-btn);
   }
   body button:disabled,
   body .button.disabled,
@@ -1542,14 +1570,14 @@ Text Domain: thaimoon-restaurant
   body input[type="url"],
   body textarea,
   body select {
+    padding: var(--space-sm) var(--space-md);
+    max-width: 100%;
     color: var(--fg-desc);
+    font-size: var(--fs-14);
     background-color: var(--bg);
-    border: 0.06rem solid var(--clr-light-gray);
+    border: var(--border-width) solid var(--clr-light-gray);
     box-shadow: none;
     border-radius: 8px;
-    padding: 0.75rem 1rem;
-    max-width: 100%;
-    font-size: 0.88rem;
   }
   body input[type="checkbox"],
   body input[type="radio"] {
@@ -1557,30 +1585,30 @@ Text Domain: thaimoon-restaurant
   }
   label {
     color: var(--fg);
-    font-weight: 600;
+    font-weight: var(--fw-semibold);
   }
   body .onsale {
+    margin-inline: var(--space-lg);
     color: var(--fg);
     border-color: var(--fg);
     border-radius: 999px;
-    margin-inline: 1.25rem;
   }
   .woocommerce-product-details__short-description {
     color: var(--fg-desc);
   }
   body .woocommerce-info,
   body .woocommerce-message {
-    background-color: var(--bg-btn);
     color: var(--fg-btn);
-    border-radius: 12px;
+    background-color: var(--bg-btn);
+    border-radius: var(--radius-field);
   }
   body .woocommerce-error {
-    border-radius: 12px;
+    border-radius: var(--radius-field);
   }
   .woocommerce-form-login,
   .woocommerce-form-register {
     padding: 1.75rem;
-    border: 0.06rem solid var(--clr-light-gray);
+    border: var(--border-width) solid var(--clr-light-gray);
     border-radius: var(--radius-card);
     box-shadow: var(--shadow-card);
   }
@@ -1588,16 +1616,16 @@ Text Domain: thaimoon-restaurant
     border: 0;
   }
   .woocommerce-MyAccount-navigation li a {
-    border-radius: 12px;
     padding: 0.88rem 1.13rem;
+    border-radius: var(--radius-field);
   }
   .woocommerce-MyAccount-navigation li.is-active a {
-    background-color: var(--bg-choice);
     color: var(--fg);
+    background-color: var(--bg-choice);
   }
   body table.shop_table {
-    border-radius: 16px;
     overflow: hidden;
+    border-radius: 16px;
   }
   body table th {
     color: var(--fg);
@@ -1607,7 +1635,7 @@ Text Domain: thaimoon-restaurant
     background-color: var(--bg);
   }
   .storefront-sorting {
-    font-size: 0.88rem;
+    font-size: var(--fs-14);
   }
 }
 
@@ -1622,12 +1650,10 @@ Text Domain: thaimoon-restaurant
   }
 }
 
+/* Priorités requises pour les styles natifs des contrôles désactivés. */
 @layer reset {
   .restaurant .purchase__unavailable,
-  .restaurant
-    ul.products
-    li.product.product-card
-    .purchase__unavailable:disabled,
+  .restaurant .product-card .purchase__unavailable:disabled,
   .restaurant.single-product .summary .purchase__unavailable {
     opacity: 1 !important;
   }
@@ -1648,17 +1674,18 @@ Text Domain: thaimoon-restaurant
   }
 }
 
+/* Pages panier et validation de commande. */
 .restaurant:is(.woocommerce-cart, .woocommerce-checkout)
   .site-content
   > .col-full {
   max-width: 90rem;
-  padding-inline: 2.5rem;
+  padding-inline: var(--space-3xl);
 }
 
 .restaurant:is(.woocommerce-cart, .woocommerce-checkout)
   .storefront-breadcrumb {
-  margin-bottom: 2.5rem;
-  padding-block: 2.5rem 0;
+  margin-bottom: var(--space-3xl);
+  padding-block: var(--space-3xl) 0;
 }
 
 .restaurant:is(.woocommerce-cart, .woocommerce-checkout) .site-main {
@@ -1675,11 +1702,11 @@ Text Domain: thaimoon-restaurant
 }
 
 .restaurant .commerce-heading {
-  margin: 0 0 2.5rem;
+  margin: 0 0 var(--space-3xl);
 }
 
 .restaurant .commerce-heading__title {
-  margin: 0 0 0.75rem;
+  margin: 0 0 var(--space-sm);
   color: var(--fg);
   font-size: var(--fs-36);
   font-weight: var(--fw-bold);
@@ -1698,14 +1725,14 @@ Text Domain: thaimoon-restaurant
   display: grid;
   grid-template-columns: minmax(0, 51.25rem) 25rem;
   align-items: start;
-  gap: 2.5rem;
+  gap: var(--space-3xl);
   max-width: 78.75rem;
 }
 
 .restaurant .cart-layout__form {
+  float: none;
   grid-column: 1;
   grid-row: 1;
-  float: none;
   width: 100%;
   margin: 0;
 }
@@ -1731,15 +1758,15 @@ Text Domain: thaimoon-restaurant
   margin: 0;
   padding: 1.88rem;
   border: 0;
-  border-radius: 30px;
+  border-radius: var(--radius-surface);
   background: var(--bg-card);
-  box-shadow: 0 0.25rem 0.13rem var(--shadow);
+  box-shadow: var(--shadow-surface);
 }
 
 .restaurant .commerce-summary__title,
 .restaurant .cart-delivery__title,
 .restaurant .commerce-checkout__title {
-  margin: 0 0 1.5rem;
+  margin: 0 0 var(--space-xl);
   color: var(--fg);
   font-size: var(--fs-24);
   font-weight: var(--fw-bold);
@@ -1749,7 +1776,7 @@ Text Domain: thaimoon-restaurant
 .restaurant .commerce-summary #order_review_heading {
   float: none;
   width: 100%;
-  margin: 0 0 1.5rem;
+  margin: 0 0 var(--space-xl);
   padding: 0;
 }
 
@@ -1757,9 +1784,9 @@ Text Domain: thaimoon-restaurant
   display: block;
   width: 100%;
   margin: 0;
+  overflow: visible;
   border: 0;
   border-radius: 0;
-  overflow: visible;
 }
 
 .cart-lines thead {
@@ -1773,19 +1800,19 @@ Text Domain: thaimoon-restaurant
 .cart-lines tbody {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: var(--space-xl);
 }
 
 .restaurant table.cart-lines tr.cart-line {
   display: grid;
   grid-template-columns: 7.5rem minmax(0, 1fr) 5.63rem;
   grid-template-rows: auto auto 1fr;
-  gap: 0.75rem 1.25rem;
+  gap: var(--space-sm) var(--space-lg);
   min-height: 10rem;
-  padding: 1.25rem;
+  padding: var(--space-lg);
   background: var(--bg-card);
-  border-radius: 30px;
-  box-shadow: 0 0.25rem 0.13rem var(--shadow);
+  border-radius: var(--radius-surface);
+  box-shadow: var(--shadow-surface);
 }
 
 .restaurant table.cart-lines .cart-line > td {
@@ -1794,9 +1821,9 @@ Text Domain: thaimoon-restaurant
   min-width: 0;
   margin: 0;
   padding: 0;
+  text-align: left;
   border: 0;
   background: transparent;
-  text-align: left;
 }
 
 .restaurant table.cart-lines .cart-line > td::before {
@@ -1814,8 +1841,8 @@ Text Domain: thaimoon-restaurant
   height: 7.5rem;
   max-width: 100%;
   margin: 0;
-  border-radius: 20px;
   object-fit: contain;
+  border-radius: var(--radius-media);
 }
 
 .restaurant table.cart-lines td.product-name {
@@ -1827,8 +1854,8 @@ Text Domain: thaimoon-restaurant
   display: flex;
   align-items: start;
   justify-content: space-between;
-  gap: 0.75rem;
-  margin-bottom: 0.75rem;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
 }
 
 .cart-line__name {
@@ -1852,7 +1879,7 @@ Text Domain: thaimoon-restaurant
 }
 
 .cart-line__description {
-  margin: 0 0 0.5rem;
+  margin: 0 0 var(--space-xs);
   color: var(--fg-desc);
   font-size: var(--fs-16);
   line-height: var(--lh-24);
@@ -1885,11 +1912,11 @@ Text Domain: thaimoon-restaurant
   display: block;
   width: auto;
   height: auto;
-  border-radius: 0;
   color: var(--fg-desc);
   font-size: 0;
   font-weight: var(--fw-regular);
   text-decoration: underline;
+  border-radius: 0;
 }
 
 .restaurant table.cart-lines a.remove::before {
@@ -1915,23 +1942,23 @@ Text Domain: thaimoon-restaurant
   min-width: 0;
   height: 1.63rem;
   padding: 0;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
   color: var(--fg);
-  box-shadow: none;
   font-size: var(--fs-14);
   font-weight: var(--fw-semibold);
   line-height: var(--lh-20);
   text-align: center;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
   appearance: textfield;
   -moz-appearance: textfield;
 }
 
 .cart-quantity input::-webkit-inner-spin-button,
 .cart-quantity input::-webkit-outer-spin-button {
-  -webkit-appearance: none;
   margin: 0;
+  -webkit-appearance: none;
 }
 
 .restaurant .cart-quantity__button {
@@ -1970,7 +1997,7 @@ Text Domain: thaimoon-restaurant
 }
 
 .restaurant table.cart-lines .actions {
-  padding: 0.75rem 0 0;
+  padding: var(--space-sm) 0 0;
   border: 0;
   background: transparent;
 }
@@ -1980,7 +2007,7 @@ Text Domain: thaimoon-restaurant
   flex-wrap: wrap;
   align-items: center;
   gap: 0.63rem;
-  margin: 0 0 1rem;
+  margin: 0 0 var(--space-md);
   padding: 0;
   border: 0;
 }
@@ -1995,7 +2022,7 @@ Text Domain: thaimoon-restaurant
 .restaurant .checkout-item dl.variation {
   display: grid;
   grid-template-columns: max-content minmax(0, 1fr);
-  gap: 0.25rem 0.38rem;
+  gap: var(--space-xxs) 0.38rem;
   margin: 0;
   color: var(--fg-desc);
   font-size: var(--fs-14);
@@ -2014,8 +2041,8 @@ Text Domain: thaimoon-restaurant
 .restaurant .checkout-item dl.variation dd {
   min-width: 0;
   margin: 0;
-  text-align: left;
   overflow-wrap: anywhere;
+  text-align: left;
 }
 
 .restaurant .cart-line dl.variation p,
@@ -2024,13 +2051,13 @@ Text Domain: thaimoon-restaurant
 }
 
 .restaurant .commerce-summary .shipping-choice {
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--space-xl);
 }
 
 .restaurant .shipping-choice__heading,
 .restaurant .checkout-payment__title,
 .restaurant .checkout-instructions__heading {
-  margin: 0 0 1rem;
+  margin: 0 0 var(--space-md);
   color: var(--fg);
   font-size: var(--fs-18);
   font-weight: var(--fw-bold);
@@ -2040,14 +2067,14 @@ Text Domain: thaimoon-restaurant
 .shipping-choice__card {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 1rem;
-  border: 0.13rem solid var(--fg);
-  border-radius: 12px;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  border: var(--border-width-strong) solid var(--fg);
+  border-radius: var(--radius-field);
 }
 
 .shipping-choice__card + .shipping-choice__card {
-  margin-top: 0.75rem;
+  margin-top: var(--space-sm);
 }
 
 .restaurant .shipping-choice__icon {
@@ -2062,7 +2089,7 @@ Text Domain: thaimoon-restaurant
 .shipping-choice__details {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: var(--space-xxs);
   min-width: 0;
 }
 
@@ -2093,11 +2120,11 @@ Text Domain: thaimoon-restaurant
 
 .restaurant table.commerce-totals {
   width: 100%;
-  margin: 1.5rem 0 0;
-  border: 0;
-  border-top: 0.06rem solid var(--clr-gray-transparent);
-  border-radius: 0;
+  margin: var(--space-xl) 0 0;
   overflow: visible;
+  border: 0;
+  border-top: var(--border-width) solid var(--clr-gray-transparent);
+  border-radius: 0;
 }
 
 .restaurant table.commerce-totals th,
@@ -2105,13 +2132,13 @@ Text Domain: thaimoon-restaurant
   display: table-cell;
   width: auto;
   padding: 0.38rem 0;
-  border: 0;
-  background: transparent;
   color: var(--fg);
   font-size: var(--fs-16);
   line-height: var(--lh-24);
   text-align: right;
   vertical-align: top;
+  border: 0;
+  background: transparent;
 }
 
 .restaurant table.commerce-totals th {
@@ -2127,7 +2154,7 @@ Text Domain: thaimoon-restaurant
 }
 
 .restaurant table.commerce-totals tr:first-child > * {
-  padding-top: 1.5rem;
+  padding-top: var(--space-xl);
 }
 
 .restaurant table.commerce-totals td::before {
@@ -2135,7 +2162,7 @@ Text Domain: thaimoon-restaurant
 }
 
 .restaurant table.commerce-totals .order-total > * {
-  padding-top: 0.75rem;
+  padding-top: var(--space-sm);
   color: var(--fg);
   font-size: var(--fs-24);
   font-weight: var(--fw-bold);
@@ -2151,7 +2178,7 @@ Text Domain: thaimoon-restaurant
 }
 
 .restaurant .commerce-summary .wc-proceed-to-checkout {
-  margin: 1.5rem 0 0;
+  margin: var(--space-xl) 0 0;
   padding: 0;
 }
 
@@ -2161,16 +2188,16 @@ Text Domain: thaimoon-restaurant
   width: 100%;
   min-height: 2.75rem;
   margin: 0;
-  padding: 0.63rem 1.25rem;
-  border: 0;
-  border-radius: 50px;
-  background: var(--bg-btn);
+  padding: 0.63rem var(--space-lg);
   color: var(--fg-btn);
   font-size: var(--fs-16);
   font-weight: var(--fw-semibold);
   line-height: var(--lh-24);
   text-align: center;
   text-decoration: none;
+  border: 0;
+  border-radius: var(--radius-button);
+  background: var(--bg-btn);
 }
 
 .restaurant .commerce-summary .checkout-button::after {
@@ -2179,8 +2206,8 @@ Text Domain: thaimoon-restaurant
 
 .restaurant .commerce-summary .checkout-button:hover,
 .restaurant .commerce-summary #place_order:hover {
-  background: var(--clr-green-800);
   color: var(--fg-btn);
+  background: var(--clr-green-800);
 }
 
 .restaurant.woocommerce-cart .return-to-shop .button:not(:hover) {
@@ -2189,9 +2216,9 @@ Text Domain: thaimoon-restaurant
 
 .restaurant .commerce-delivery-table {
   margin: 0;
+  overflow: visible;
   border: 0;
   border-radius: 0;
-  overflow: visible;
 }
 
 .restaurant .commerce-delivery-table th {
@@ -2200,9 +2227,9 @@ Text Domain: thaimoon-restaurant
 
 .restaurant .commerce-delivery-table td {
   padding: 0;
+  text-align: left;
   border: 0;
   background: transparent;
-  text-align: left;
 }
 
 .restaurant .commerce-delivery-table td::before {
@@ -2241,7 +2268,7 @@ Text Domain: thaimoon-restaurant
 }
 
 .commerce-shipping-choices {
-  margin-top: 0.5rem;
+  margin-top: var(--space-xs);
   font-size: var(--fs-14);
   line-height: var(--lh-20);
   text-align: left;
@@ -2253,13 +2280,13 @@ Text Domain: thaimoon-restaurant
 }
 
 .commerce-shipping-choices .woocommerce-shipping-methods {
-  margin-top: 0.75rem;
+  margin-top: var(--space-sm);
 }
 
 .restaurant form.commerce-checkout #customer_details {
+  float: none;
   grid-column: 1;
   grid-row: 1;
-  float: none;
   width: 100%;
   margin: 0;
 }
@@ -2281,9 +2308,9 @@ Text Domain: thaimoon-restaurant
 }
 
 .restaurant form.commerce-checkout .checkout-payment {
+  float: none;
   grid-column: 1;
   grid-row: 2;
-  float: none;
   width: 100%;
   margin: 0;
   padding: 0;
@@ -2298,7 +2325,7 @@ Text Domain: thaimoon-restaurant
 .restaurant .commerce-checkout .woocommerce-billing-fields__field-wrapper {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.25rem;
+  gap: var(--space-lg);
 }
 
 .restaurant
@@ -2351,7 +2378,7 @@ Text Domain: thaimoon-restaurant
 
 .restaurant .commerce-checkout .form-row label {
   display: block;
-  margin: 0 0 0.5rem;
+  margin: 0 0 var(--space-xs);
   color: var(--fg);
   font-size: var(--fs-16);
   font-weight: var(--fw-semibold);
@@ -2362,14 +2389,14 @@ Text Domain: thaimoon-restaurant
 .restaurant .commerce-checkout .form-row select {
   width: 100%;
   min-height: 3rem;
-  padding: 0.75rem;
-  border: 0.06rem solid var(--clr-light-gray);
-  border-radius: 12px;
-  background: var(--bg-card);
+  padding: var(--space-sm);
   color: var(--fg-desc);
-  box-shadow: none;
   font-size: var(--fs-16);
   line-height: var(--lh-24);
+  border: var(--border-width) solid var(--clr-light-gray);
+  border-radius: var(--radius-field);
+  background: var(--bg-card);
+  box-shadow: none;
 }
 
 .restaurant .commerce-checkout .form-row .input-text::placeholder {
@@ -2379,9 +2406,9 @@ Text Domain: thaimoon-restaurant
 
 .restaurant .commerce-checkout .select2-container .select2-selection {
   min-height: 3rem;
-  padding: 0.5rem 0.75rem;
-  border: 0.06rem solid var(--clr-light-gray);
-  border-radius: 12px;
+  padding: var(--space-xs) var(--space-sm);
+  border: var(--border-width) solid var(--clr-light-gray);
+  border-radius: var(--radius-field);
   background: var(--bg-card);
 }
 
@@ -2395,7 +2422,7 @@ Text Domain: thaimoon-restaurant
 }
 
 .restaurant .commerce-checkout .woocommerce-shipping-fields {
-  margin-top: 1.5rem;
+  margin-top: var(--space-xl);
 }
 
 .restaurant .commerce-checkout #ship-to-different-address {
@@ -2403,11 +2430,11 @@ Text Domain: thaimoon-restaurant
 }
 
 .restaurant .commerce-checkout .shipping_address .form-row {
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-md);
 }
 
 .checkout-instructions {
-  margin: 1.5rem 0 1.25rem;
+  margin: var(--space-xl) 0 var(--space-lg);
 }
 
 .checkout-instructions p {
@@ -2435,17 +2462,17 @@ Text Domain: thaimoon-restaurant
   align-items: center;
   gap: 0.63rem;
   margin: 0 0 0.63rem;
-  padding: 0.75rem 1rem;
+  padding: var(--space-sm) var(--space-md);
   border: 0;
   background: transparent;
 }
 
 .restaurant .checkout-payment .payment_methods > li > input.input-radio {
   display: block;
-  appearance: auto;
   width: 1.25rem;
   height: 1.25rem;
   margin: 0;
+  appearance: auto;
   accent-color: var(--fg);
 }
 
@@ -2467,27 +2494,27 @@ Text Domain: thaimoon-restaurant
 
 .restaurant .checkout-payment .payment_box {
   flex-basis: 100%;
-  padding: 0.75rem 0;
+  padding: var(--space-sm) 0;
   margin: 0;
-  background: transparent;
   color: var(--fg-desc);
   font-size: var(--fs-14);
   line-height: var(--lh-24);
+  background: transparent;
 }
 
 .checkout-items {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: var(--space-md);
 }
 
 .checkout-item {
   display: flex;
   align-items: start;
-  gap: 1.25rem;
+  gap: var(--space-lg);
   min-width: 0;
-  padding: 1.25rem;
-  border-radius: 20px;
+  padding: var(--space-lg);
+  border-radius: var(--radius-media);
 }
 
 .restaurant .checkout-item__image {
@@ -2501,8 +2528,8 @@ Text Domain: thaimoon-restaurant
   width: 5rem;
   height: 5rem;
   margin: 0;
-  border-radius: 12px;
   object-fit: contain;
+  border-radius: var(--radius-field);
 }
 
 .checkout-item__info {
@@ -2514,8 +2541,8 @@ Text Domain: thaimoon-restaurant
   display: flex;
   align-items: start;
   justify-content: space-between;
-  gap: 0.25rem;
-  margin-bottom: 0.5rem;
+  gap: var(--space-xxs);
+  margin-bottom: var(--space-xs);
   color: var(--fg);
   font-size: var(--fs-18);
   font-weight: var(--fw-bold);
@@ -2533,7 +2560,7 @@ Text Domain: thaimoon-restaurant
 }
 
 .checkout-item__quantity {
-  margin: 0 0 0.5rem;
+  margin: 0 0 var(--space-xs);
   color: var(--fg-desc);
   font-size: var(--fs-16);
   line-height: var(--lh-24);
@@ -2542,12 +2569,12 @@ Text Domain: thaimoon-restaurant
 .restaurant .commerce-summary .place-order {
   float: none;
   width: 100%;
-  margin: 1.5rem 0 0;
+  margin: var(--space-xl) 0 0;
   padding: 0;
 }
 
 .restaurant .commerce-summary .woocommerce-terms-and-conditions-wrapper {
-  margin: 0 0 1.25rem;
+  margin: 0 0 var(--space-lg);
   color: var(--fg-desc);
   font-size: var(--fs-14);
   line-height: var(--lh-24);
@@ -2561,12 +2588,12 @@ Text Domain: thaimoon-restaurant
   .commerce-summary
   .woocommerce-terms-and-conditions-wrapper
   .input-checkbox {
-  margin-right: 0.5rem;
+  margin-right: var(--space-xs);
 }
 
 .restaurant .cart-quantity__button:focus-visible,
 .restaurant .commerce-shipping-choices summary:focus-visible {
-  outline: 0.13rem solid var(--fg);
+  outline: var(--border-width-strong) solid var(--fg);
   outline-offset: 0.19rem;
 }
 
@@ -2574,15 +2601,15 @@ Text Domain: thaimoon-restaurant
   .cart-layout,
   .restaurant form.commerce-checkout {
     grid-template-columns: minmax(0, 1fr) 22.5rem;
-    gap: 1.5rem;
+    gap: var(--space-xl);
   }
   .cart-line__heading {
     flex-direction: column;
-    gap: 0.25rem;
+    gap: var(--space-xxs);
   }
   .restaurant table.cart-lines tr.cart-line {
     grid-template-columns: 5.63rem minmax(0, 1fr) 5.63rem;
-    gap: 0.75rem;
+    gap: var(--space-sm);
   }
   .restaurant table.cart-lines td.product-thumbnail img {
     width: 5.63rem;
@@ -2594,7 +2621,7 @@ Text Domain: thaimoon-restaurant
   .cart-layout,
   .restaurant form.commerce-checkout {
     grid-template-columns: minmax(0, 1fr);
-    gap: 2rem;
+    gap: var(--space-2xl);
   }
   .cart-layout .commerce-summary {
     grid-column: 1;
@@ -2607,7 +2634,7 @@ Text Domain: thaimoon-restaurant
   .restaurant:is(.woocommerce-cart, .woocommerce-checkout)
     .site-content
     > .col-full {
-    padding-inline: 1.25rem;
+    padding-inline: var(--space-lg);
   }
   .cart-line__heading {
     flex-direction: row;
@@ -2620,12 +2647,12 @@ Text Domain: thaimoon-restaurant
     line-height: 1.5;
   }
   .restaurant .commerce-summary {
-    padding: 1.5rem;
+    padding: var(--space-xl);
   }
   .restaurant table.cart-lines tr.cart-line {
     grid-template-columns: 5rem minmax(0, 1fr) auto;
-    gap: 0.75rem;
-    padding: 1rem;
+    gap: var(--space-sm);
+    padding: var(--space-md);
   }
   .restaurant table.cart-lines td.product-thumbnail {
     grid-column: 1;
@@ -2654,7 +2681,7 @@ Text Domain: thaimoon-restaurant
   }
   .cart-line__heading {
     flex-direction: column;
-    gap: 0.25rem;
+    gap: var(--space-xxs);
   }
   .cart-line__name,
   .cart-line__name a {
@@ -2670,8 +2697,8 @@ Text Domain: thaimoon-restaurant
     grid-template-columns: minmax(0, 1fr);
   }
   .checkout-item {
-    padding: 0.75rem 0;
-    gap: 0.75rem;
+    padding: var(--space-sm) 0;
+    gap: var(--space-sm);
   }
   .checkout-item__heading {
     flex-wrap: wrap;
@@ -2683,13 +2710,14 @@ Text Domain: thaimoon-restaurant
   }
 }
 
+/* Codes promo */
 .restaurant .commerce-summary .commerce-coupon {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--space-xs);
   width: 100%;
   min-width: 0;
-  margin: 1.5rem 0 0;
+  margin: var(--space-xl) 0 0;
   padding: 0;
   border: 0;
 }
@@ -2706,7 +2734,7 @@ Text Domain: thaimoon-restaurant
 .commerce-coupon__entry {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: var(--space-xs);
   width: 100%;
   min-width: 0;
 }
@@ -2718,16 +2746,16 @@ Text Domain: thaimoon-restaurant
   min-width: 0;
   min-height: 3rem;
   margin: 0;
-  padding: 0.69rem 0.75rem;
-  border: 0.06rem solid var(--clr-light-gray);
-  border-radius: 12px;
-  background: var(--bg-card);
+  padding: 0.69rem var(--space-sm);
   color: var(--fg-desc);
-  box-shadow: none;
   font-family: var(--ff-poppins);
   font-size: var(--fs-16);
   font-weight: var(--fw-regular);
   line-height: var(--lh-24);
+  border: var(--border-width) solid var(--clr-light-gray);
+  border-radius: var(--radius-field);
+  background: var(--bg-card);
+  box-shadow: none;
 }
 
 .restaurant .commerce-coupon__input::placeholder {
@@ -2739,27 +2767,27 @@ Text Domain: thaimoon-restaurant
   flex: 1 1 6.25rem;
   min-height: 2.75rem;
   margin: 0;
-  padding: 0.63rem 1rem;
-  border: 0;
-  border-radius: 50px;
-  background: var(--bg-btn);
+  padding: 0.63rem var(--space-md);
   color: var(--fg-btn);
   font-family: var(--ff-poppins);
   font-size: var(--fs-16);
   font-weight: var(--fw-semibold);
   line-height: var(--lh-24);
   text-align: center;
+  border: 0;
+  border-radius: var(--radius-button);
+  background: var(--bg-btn);
 }
 
 .restaurant .commerce-coupon .commerce-coupon__apply:hover {
-  background: var(--clr-green-800);
   color: var(--fg-btn);
+  background: var(--clr-green-800);
 }
 
 .commerce-coupon__states {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--space-xs);
 }
 
 .commerce-coupon__states:empty {
@@ -2771,7 +2799,7 @@ Text Domain: thaimoon-restaurant
   flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
-  gap: 0.5rem 1rem;
+  gap: var(--space-xs) var(--space-md);
   min-width: 0;
   color: var(--fg);
   font-size: var(--fs-16);
@@ -2786,13 +2814,13 @@ Text Domain: thaimoon-restaurant
 .restaurant .commerce-coupon__remove,
 .restaurant .commerce-totals .woocommerce-remove-coupon {
   padding: 0;
-  border: 0;
-  background: transparent;
   color: var(--fg);
   font-size: var(--fs-16);
   font-weight: var(--fw-semibold);
   line-height: var(--lh-24);
   text-decoration: none;
+  border: 0;
+  background: transparent;
 }
 
 .restaurant .commerce-coupon__remove:hover,
@@ -2805,41 +2833,41 @@ Text Domain: thaimoon-restaurant
 .restaurant .commerce-coupon .coupon-error-notice {
   margin: 0;
   padding: 0;
-  border: 0;
-  background: transparent;
+  overflow-wrap: anywhere;
   color: var(--fg);
   font-size: var(--fs-16);
   font-weight: var(--fw-semibold);
   line-height: var(--lh-24);
-  overflow-wrap: anywhere;
+  border: 0;
+  background: transparent;
 }
 
 .restaurant .commerce-totals .woocommerce-remove-coupon {
   display: block;
-  margin-top: 0.25rem;
+  margin-top: var(--space-xxs);
   font-size: var(--fs-14);
 }
 
 .restaurant table.commerce-totals .cart-discount th {
-  white-space: normal;
   overflow-wrap: anywhere;
+  white-space: normal;
 }
 
 .restaurant .commerce-coupon :is(input, button, a):focus-visible {
-  outline: 0.13rem solid var(--fg);
+  outline: var(--border-width-strong) solid var(--fg);
   outline-offset: 0.25rem;
 }
 
 .restaurant .coupon-removal {
   position: relative;
   width: 100%;
-  margin: 1.5rem 0 0;
+  margin: var(--space-xl) 0 0;
   padding: 1.88rem;
-  border: 0;
-  border-radius: 30px;
-  background: var(--bg-card);
   color: var(--fg);
-  box-shadow: 0 0.25rem 0.13rem var(--shadow);
+  border: 0;
+  border-radius: var(--radius-surface);
+  background: var(--bg-card);
+  box-shadow: var(--shadow-surface);
 }
 
 .restaurant .coupon-removal__dialog {
@@ -2849,15 +2877,15 @@ Text Domain: thaimoon-restaurant
   margin: auto;
   padding: 0;
   overflow: auto;
-  border: 0;
-  border-radius: 30px;
-  background: var(--bg-card);
   color: var(--fg);
-  box-shadow: 0 0.25rem 0.13rem var(--shadow);
+  border: 0;
+  border-radius: var(--radius-surface);
+  background: var(--bg-card);
+  box-shadow: var(--shadow-surface);
 }
 
 .coupon-removal__dialog::backdrop {
-  background: rgba(17, 24, 39, 0.65);
+  background: var(--bg-overlay);
 }
 
 .restaurant .coupon-removal__dialog .coupon-removal {
@@ -2909,8 +2937,8 @@ Text Domain: thaimoon-restaurant
 }
 
 .restaurant .coupon-removal__close:focus-visible {
-  outline: 0.13rem solid var(--fg);
-  outline-offset: 0.13rem;
+  outline: var(--border-width-strong) solid var(--fg);
+  outline-offset: var(--border-width-strong);
 }
 
 @media (max-width: 37.44rem) {
@@ -2921,12 +2949,12 @@ Text Domain: thaimoon-restaurant
   .restaurant .commerce-coupon .commerce-coupon__input {
     min-height: 2.5rem;
     font-size: var(--fs-12);
-    line-height: 1rem;
+    line-height: var(--lh-16);
   }
   .commerce-coupon__state,
   .restaurant .commerce-coupon .commerce-coupon__error {
     font-size: var(--fs-12);
-    line-height: 1rem;
+    line-height: var(--lh-16);
   }
   .restaurant .commerce-coupon__remove {
     font-size: var(--fs-14);
@@ -2943,14 +2971,15 @@ Text Domain: thaimoon-restaurant
   }
 }
 
+/* Pages connexion, inscription et informations du compte */
 .restaurant.account-page .site-content > .col-full {
   max-width: 90rem;
-  padding-inline: 2.5rem;
+  padding-inline: var(--space-3xl);
 }
 
 .restaurant.account-page .storefront-breadcrumb {
-  margin-bottom: 2.5rem;
-  padding-block: 2.5rem 0;
+  margin-bottom: var(--space-3xl);
+  padding-block: var(--space-3xl) 0;
 }
 
 .restaurant.account-page .site-main {
@@ -2962,11 +2991,11 @@ Text Domain: thaimoon-restaurant
 }
 
 .restaurant .account-heading {
-  margin: 0 0 2.5rem;
+  margin: 0 0 var(--space-3xl);
 }
 
 .restaurant .account-heading__title {
-  margin: 0 0 0.75rem;
+  margin: 0 0 var(--space-sm);
   color: var(--fg);
   font-size: var(--fs-36);
   font-weight: var(--fw-bold);
@@ -2985,9 +3014,9 @@ Text Domain: thaimoon-restaurant
   margin: 0;
   padding: 1.88rem;
   border: 0;
-  border-radius: 30px;
+  border-radius: var(--radius-surface);
   background: var(--bg-card);
-  box-shadow: 0 0.25rem 0.13rem var(--shadow);
+  box-shadow: var(--shadow-surface);
 }
 
 .restaurant .account-panel__title {
@@ -3007,9 +3036,9 @@ Text Domain: thaimoon-restaurant
 
 .account-panel__actions {
   width: 100%;
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
-  border-top: 0.06rem solid var(--clr-gray-transparent);
+  margin-top: var(--space-xl);
+  padding-top: var(--space-xl);
+  border-top: var(--border-width) solid var(--clr-gray-transparent);
 }
 
 .restaurant.account-page .account-panel__button {
@@ -3018,21 +3047,21 @@ Text Domain: thaimoon-restaurant
   width: 100%;
   min-height: 2.75rem;
   margin: 0;
-  padding: 0.63rem 1.25rem;
-  border: 0;
-  border-radius: 50px;
-  background: var(--bg-btn);
+  padding: 0.63rem var(--space-lg);
   color: var(--fg-btn);
   font-size: var(--fs-16);
   font-weight: var(--fw-semibold);
   line-height: var(--lh-24);
   text-align: center;
   text-decoration: none;
+  border: 0;
+  border-radius: var(--radius-button);
+  background: var(--bg-btn);
 }
 
 .restaurant.account-page .account-panel__button:hover {
-  background: var(--clr-green-800);
   color: var(--fg-btn);
+  background: var(--clr-green-800);
 }
 
 .account-auth {
@@ -3048,14 +3077,14 @@ Text Domain: thaimoon-restaurant
 .restaurant .account-auth__form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: var(--space-xl);
 }
 
 .account-auth__columns,
 .account-profile__columns {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 2.5rem;
+  gap: var(--space-3xl);
   width: 100%;
 }
 
@@ -3063,7 +3092,7 @@ Text Domain: thaimoon-restaurant
 .account-profile__column {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: var(--space-xl);
   min-width: 0;
 }
 
@@ -3095,15 +3124,15 @@ Text Domain: thaimoon-restaurant
   width: 100%;
   min-width: 0;
   min-height: 3rem;
-  padding: 0.75rem;
-  border: 0.06rem solid var(--clr-light-gray);
-  border-radius: 12px;
-  background: var(--bg-card);
+  padding: var(--space-sm);
   color: var(--fg-desc);
-  box-shadow: none;
   font-size: var(--fs-16);
   font-weight: var(--fw-regular);
   line-height: var(--lh-24);
+  border: var(--border-width) solid var(--clr-light-gray);
+  border-radius: var(--radius-field);
+  background: var(--bg-card);
+  box-shadow: none;
 }
 
 .restaurant.account-page .input-text::placeholder {
@@ -3117,7 +3146,7 @@ Text Domain: thaimoon-restaurant
 }
 
 .restaurant.account-page span.password-input input {
-  padding-right: 3rem;
+  padding-right: var(--space-4xl);
 }
 
 .restaurant.account-page .show-password-input {
@@ -3125,9 +3154,9 @@ Text Domain: thaimoon-restaurant
   min-height: 2rem;
   margin: 0;
   padding: 0;
+  color: var(--fg-desc);
   border: 0;
   background: transparent;
-  color: var(--fg-desc);
 }
 
 .account-auth__options {
@@ -3135,16 +3164,16 @@ Text Domain: thaimoon-restaurant
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 0.75rem;
+  gap: var(--space-sm);
   width: 100%;
-  padding-top: 1.5rem;
-  border-top: 0.06rem solid var(--clr-gray-transparent);
+  padding-top: var(--space-xl);
+  border-top: var(--border-width) solid var(--clr-gray-transparent);
 }
 
 .restaurant.account-page .account-auth__remember {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--space-xs);
   margin: 0;
   color: var(--fg-desc);
   font-size: var(--fs-12);
@@ -3169,7 +3198,7 @@ Text Domain: thaimoon-restaurant
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.63rem;
-  margin: 1.25rem 0 0;
+  margin: var(--space-lg) 0 0;
   color: var(--fg);
   font-size: var(--fs-16);
   line-height: var(--lh-24);
@@ -3222,8 +3251,8 @@ Text Domain: thaimoon-restaurant
   gap: 0.06rem;
   margin: 0;
   padding: 0;
-  border: 0;
   list-style: none;
+  border: 0;
 }
 
 .restaurant .account-nav__item {
@@ -3235,16 +3264,16 @@ Text Domain: thaimoon-restaurant
 .restaurant .account-nav__link {
   display: block;
   min-height: 2.75rem;
-  padding: 0.63rem 0.75rem;
-  border: 0;
-  border-bottom: 0.06rem solid var(--fg);
-  border-left: 0.19rem solid transparent;
-  border-radius: 0;
+  padding: 0.63rem var(--space-sm);
   color: var(--fg);
   font-size: var(--fs-16);
   font-weight: var(--fw-semibold);
   line-height: var(--lh-24);
   text-decoration: none;
+  border: 0;
+  border-bottom: var(--border-width) solid var(--fg);
+  border-left: 0.19rem solid transparent;
+  border-radius: 0;
 }
 
 .restaurant .account-nav__link::before,
@@ -3262,7 +3291,7 @@ Text Domain: thaimoon-restaurant
 }
 
 .account-profile__column {
-  gap: 1.25rem;
+  gap: var(--space-lg);
 }
 
 .account-profile__field {
@@ -3281,15 +3310,15 @@ Text Domain: thaimoon-restaurant
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.75rem;
+  gap: var(--space-sm);
   min-width: 0;
   min-height: 3.5rem;
-  padding: 0.69rem 0.75rem;
-  border: 0.06rem solid var(--clr-light-gray);
-  border-radius: 12px;
+  padding: 0.69rem var(--space-sm);
   color: var(--fg-desc);
   font-size: var(--fs-16);
   line-height: var(--lh-24);
+  border: var(--border-width) solid var(--clr-light-gray);
+  border-radius: var(--radius-field);
 }
 
 .account-profile__value > span {
@@ -3315,14 +3344,14 @@ Text Domain: thaimoon-restaurant
 }
 
 .account-profile__divider {
-  margin-top: 1.5rem;
-  border-top: 0.06rem solid var(--clr-gray-transparent);
+  margin-top: var(--space-xl);
+  border-top: var(--border-width) solid var(--clr-gray-transparent);
 }
 
 .account-layout--logout {
   grid-template-columns: 11.19rem 28.75rem;
   justify-content: space-between;
-  column-gap: 2.5rem;
+  column-gap: var(--space-3xl);
   max-width: 56.25rem;
 }
 
@@ -3334,12 +3363,12 @@ Text Domain: thaimoon-restaurant
 .restaurant.account-page .woocommerce-address-fields {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.5rem 2.5rem;
+  gap: var(--space-xl) var(--space-3xl);
   padding: 1.88rem;
   border: 0;
-  border-radius: 30px;
+  border-radius: var(--radius-surface);
   background: var(--bg-card);
-  box-shadow: 0 0.25rem 0.13rem var(--shadow);
+  box-shadow: var(--shadow-surface);
 }
 
 .restaurant.account-page .woocommerce-EditAccountForm > .clear,
@@ -3370,14 +3399,14 @@ Text Domain: thaimoon-restaurant
 .restaurant.account-page .woocommerce-EditAccountForm fieldset {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.25rem;
+  gap: var(--space-lg);
   grid-column: 1 / -1;
   min-width: 0;
   width: 100%;
   margin: 0;
-  padding: 1.5rem 0 0;
+  padding: var(--space-xl) 0 0;
   border: 0;
-  border-top: 0.06rem solid var(--clr-gray-transparent);
+  border-top: var(--border-width) solid var(--clr-gray-transparent);
   background: transparent;
 }
 
@@ -3389,9 +3418,9 @@ Text Domain: thaimoon-restaurant
 
 .restaurant.account-page .woocommerce-EditAccountForm fieldset .form-row {
   display: flex;
+  float: none;
   flex-direction: column;
   justify-content: flex-end;
-  float: none;
   width: 100%;
   margin: 0;
 }
@@ -3413,14 +3442,14 @@ Text Domain: thaimoon-restaurant
   width: 100%;
   min-height: 2.75rem;
   margin: 0;
-  border-radius: 50px;
   font-size: var(--fs-16);
   line-height: var(--lh-24);
+  border-radius: var(--radius-button);
 }
 
 .restaurant.account-page #account_display_name_description {
   display: block;
-  margin-top: 0.5rem;
+  margin-top: var(--space-xs);
   color: var(--fg-desc);
   font-size: var(--fs-12);
   line-height: var(--lh-20);
@@ -3433,23 +3462,23 @@ Text Domain: thaimoon-restaurant
 }
 
 .restaurant.account-page .woocommerce-address-fields .form-row {
-  margin-bottom: 1.25rem;
+  margin-bottom: var(--space-lg);
 }
 
 .restaurant.account-page .woocommerce-Address,
 .restaurant.account-page .woocommerce-MyAccount-orders {
-  padding: 1.5rem;
+  padding: var(--space-xl);
   border: 0;
-  border-radius: 20px;
+  border-radius: var(--radius-media);
   background: var(--bg-card);
-  box-shadow: 0 0.25rem 0.13rem var(--shadow);
+  box-shadow: var(--shadow-surface);
 }
 
 .restaurant.account-page .woocommerce-Addresses .col-1,
 .restaurant.account-page .woocommerce-Addresses .col-2 {
   float: none;
   width: 100%;
-  margin: 0 0 1.5rem;
+  margin: 0 0 var(--space-xl);
 }
 
 .restaurant.account-page .woocommerce-Address .title h2 {
@@ -3466,49 +3495,49 @@ Text Domain: thaimoon-restaurant
 
 .restaurant.account-page .woocommerce-orders-table {
   width: 100%;
-  border: 0;
   border-collapse: separate;
   border-spacing: 0;
-  border-radius: 20px;
   overflow: hidden;
+  border: 0;
+  border-radius: var(--radius-media);
 }
 
 .restaurant.account-page .woocommerce-orders-table th {
-  background: var(--bg-choice);
   color: var(--fg);
   font-size: var(--fs-14);
+  background: var(--bg-choice);
 }
 
 .restaurant.account-page .woocommerce-orders-table td {
-  padding: 1rem 0.75rem;
-  border-bottom: 0.06rem solid var(--clr-light-gray);
-  background: var(--bg-card);
+  padding: var(--space-md) var(--space-sm);
   color: var(--fg-desc);
   font-size: var(--fs-14);
+  border-bottom: var(--border-width) solid var(--clr-light-gray);
+  background: var(--bg-card);
 }
 
 .restaurant.account-page .woocommerce-orders-table .button {
-  margin: 0.25rem;
-  padding: 0.5rem 1rem;
+  margin: var(--space-xxs);
+  padding: var(--space-xs) var(--space-md);
   font-size: var(--fs-14);
 }
 
 .restaurant.account-page .woocommerce-order-details,
 .restaurant.account-page .woocommerce-customer-details {
-  margin-top: 1.5rem;
-  padding: 1.5rem;
-  border-radius: 20px;
+  margin-top: var(--space-xl);
+  padding: var(--space-xl);
+  border-radius: var(--radius-media);
   background: var(--bg-card);
-  box-shadow: 0 0.25rem 0.13rem var(--shadow);
+  box-shadow: var(--shadow-surface);
 }
 
 .restaurant.account-page .woocommerce-ResetPassword {
   max-width: 28.75rem;
   margin: 0 auto;
   padding: 1.88rem;
-  border-radius: 30px;
+  border-radius: var(--radius-surface);
   background: var(--bg-card);
-  box-shadow: 0 0.25rem 0.13rem var(--shadow);
+  box-shadow: var(--shadow-surface);
 }
 
 .restaurant.account-page .woocommerce-ResetPassword .form-row {
@@ -3528,18 +3557,18 @@ Text Domain: thaimoon-restaurant
 
 .restaurant.account-page .account-profile__edit:focus-visible,
 .restaurant.account-page .account-nav__link:focus-visible {
-  outline: 0.13rem solid var(--fg);
+  outline: var(--border-width-strong) solid var(--fg);
   outline-offset: 0.19rem;
 }
 
 @media (max-width: 68.75rem) {
   .account-layout {
     grid-template-columns: 11.19rem minmax(0, 1fr);
-    gap: 2rem;
+    gap: var(--space-2xl);
   }
   .account-profile__columns,
   .account-auth__columns {
-    gap: 1.5rem;
+    gap: var(--space-xl);
   }
 }
 
@@ -3547,7 +3576,7 @@ Text Domain: thaimoon-restaurant
   .account-layout,
   .account-layout--logout {
     grid-template-columns: minmax(0, 1fr);
-    gap: 2rem;
+    gap: var(--space-2xl);
   }
   .restaurant.account-page .account-nav {
     max-width: none;
@@ -3556,7 +3585,7 @@ Text Domain: thaimoon-restaurant
     max-width: none;
   }
   .restaurant.account-page .site-content > .col-full {
-    padding-inline: 1.25rem;
+    padding-inline: var(--space-lg);
   }
 }
 
@@ -3569,7 +3598,7 @@ Text Domain: thaimoon-restaurant
   .restaurant.account-page .woocommerce-EditAccountForm,
   .restaurant.account-page .woocommerce-address-fields,
   .restaurant.account-page .woocommerce-ResetPassword {
-    padding: 1.25rem;
+    padding: var(--space-lg);
   }
   .account-auth__columns,
   .account-profile__columns,
@@ -3590,6 +3619,7 @@ Text Domain: thaimoon-restaurant
   }
 }
 
+/* Pages commandes et demandes d'annulation */
 .account-layout--orders {
   max-width: 71.19rem;
   grid-template-columns: 11.19rem minmax(0, 49.19rem);
@@ -3617,35 +3647,35 @@ Text Domain: thaimoon-restaurant
 .account-orders__row {
   display: flex;
   align-items: center;
-  gap: 2.5rem;
+  gap: var(--space-3xl);
   min-width: 0;
   width: 100%;
 }
 
 .account-orders__row + .account-orders__row {
   padding-top: 1.56rem;
-  border-top: 0.06rem solid var(--clr-gray-transparent);
+  border-top: var(--border-width) solid var(--clr-gray-transparent);
 }
 
 .account-orders__fields {
   display: grid;
   grid-template-columns: 1.3fr 1.1fr 0.9fr 0.7fr;
   flex: 1 1 0;
-  gap: 1.25rem;
+  gap: var(--space-lg);
   min-width: 0;
   margin: 0;
 }
 
 .account-orders__field {
   min-width: 0;
+  overflow-wrap: anywhere;
   color: var(--fg);
   font-size: var(--fs-18);
   line-height: var(--lh-28);
-  overflow-wrap: anywhere;
 }
 
 .account-orders__field dt {
-  margin: 0 0 1.25rem;
+  margin: 0 0 var(--space-lg);
   font-weight: var(--fw-bold);
 }
 
@@ -3669,33 +3699,33 @@ Text Domain: thaimoon-restaurant
   justify-content: center;
   min-height: 2.75rem;
   margin: 0;
-  padding: 0.63rem 1.25rem;
-  border: 0;
-  border-radius: 50px;
-  background: var(--bg-btn);
+  padding: 0.63rem var(--space-lg);
   color: var(--fg-btn);
   font-size: var(--fs-16);
   font-weight: var(--fw-semibold);
   line-height: var(--lh-24);
   text-align: center;
   text-decoration: none;
+  border: 0;
+  border-radius: var(--radius-button);
+  background: var(--bg-btn);
 }
 
 .restaurant.account-page .account-orders__button:hover,
 .restaurant.account-page .account-order .button:hover {
-  background: var(--clr-green-800);
   color: var(--fg-btn);
+  background: var(--clr-green-800);
 }
 
 .restaurant.account-page .account-orders__button:focus-visible,
 .restaurant.account-page .account-order .button:focus-visible {
-  outline: 0.13rem solid var(--fg);
+  outline: var(--border-width-strong) solid var(--fg);
   outline-offset: 0.25rem;
 }
 
 .account-orders__request-state {
   display: block;
-  margin-top: 0.5rem;
+  margin-top: var(--space-xs);
   color: var(--fg-desc);
   font-size: var(--fs-12);
   line-height: var(--lh-20);
@@ -3705,8 +3735,8 @@ Text Domain: thaimoon-restaurant
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-top: 1.5rem;
+  gap: var(--space-sm);
+  margin-top: var(--space-xl);
 }
 
 .account-orders__empty h2 {
@@ -3725,42 +3755,42 @@ Text Domain: thaimoon-restaurant
 }
 
 .account-order__status {
-  margin: 0.75rem 0 1.25rem;
+  margin: var(--space-sm) 0 var(--space-lg);
   color: var(--fg-desc);
   font-size: var(--fs-14);
   line-height: var(--lh-24);
 }
 
 .account-order__notice {
-  margin: 0 0 1.25rem;
-  padding: 1rem;
-  border: 0.06rem solid var(--clr-light-gray);
-  border-radius: 12px;
-  background: var(--bg-choice);
+  margin: 0 0 var(--space-lg);
+  padding: var(--space-md);
   color: var(--fg);
   font-size: var(--fs-16);
   line-height: var(--lh-24);
+  border: var(--border-width) solid var(--clr-light-gray);
+  border-radius: var(--radius-field);
+  background: var(--bg-choice);
 }
 
 .restaurant.account-page .account-order__table {
   width: 100%;
   margin: 0;
-  border: 0;
   border-collapse: collapse;
   table-layout: fixed;
+  border: 0;
 }
 
 .restaurant.account-page .account-order__table thead th,
 .restaurant.account-page .account-order__table td,
 .restaurant.account-page .account-order__table tfoot th {
   padding: 0.63rem 0;
-  border: 0;
-  background: transparent;
+  overflow-wrap: anywhere;
   color: var(--fg);
   font-size: var(--fs-18);
   line-height: var(--lh-28);
   vertical-align: middle;
-  overflow-wrap: anywhere;
+  border: 0;
+  background: transparent;
 }
 
 .restaurant.account-page .account-order__table thead th {
@@ -3772,7 +3802,7 @@ Text Domain: thaimoon-restaurant
 .restaurant.account-page .account-order__table th:first-child,
 .restaurant.account-page .account-order__table td:first-child {
   width: 65%;
-  padding-right: 1.25rem;
+  padding-right: var(--space-lg);
 }
 
 .restaurant.account-page .account-order__table th:last-child,
@@ -3815,8 +3845,8 @@ Text Domain: thaimoon-restaurant
 
 .restaurant.account-page .account-order__table tfoot tr:first-child th,
 .restaurant.account-page .account-order__table tfoot tr:first-child td {
-  padding-top: 1.25rem;
-  border-top: 0.06rem solid var(--clr-gray-transparent);
+  padding-top: var(--space-lg);
+  border-top: var(--border-width) solid var(--clr-gray-transparent);
 }
 
 .restaurant.account-page .account-order__table tfoot th {
@@ -3834,14 +3864,24 @@ Text Domain: thaimoon-restaurant
   margin: 1.56rem 0 0;
 }
 
-.account-order__actions {
+.restaurant.account-page .account-order__actions {
   display: flex;
+  box-sizing: border-box;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
-  gap: 1rem;
-  margin-top: 1.56rem;
+  gap: var(--space-md);
+  width: 100%;
+  margin: 1.56rem 0 0;
   padding-top: 1.56rem;
-  border-top: 0.06rem solid var(--clr-gray-transparent);
+  border-top: var(--border-width) solid var(--clr-gray-transparent);
+}
+
+.restaurant.account-page .account-order__actions > .button {
+  float: none;
+  flex: 0 1 auto;
+  max-width: 100%;
+  margin: 0;
 }
 
 .restaurant.account-page
@@ -3850,18 +3890,18 @@ Text Domain: thaimoon-restaurant
   display: flow-root;
   padding: 1.88rem;
   border: 0;
-  border-radius: 30px;
+  border-radius: var(--radius-surface);
   background: var(--bg-card);
-  box-shadow: 0 0.25rem 0.13rem var(--shadow);
+  box-shadow: var(--shadow-surface);
 }
 
 .restaurant.account-page
   .account-layout--order-detail
   .woocommerce-columns--addresses {
   display: grid;
+  float: none;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.88rem;
-  float: none;
   width: 100%;
   margin: 0;
 }
@@ -3880,7 +3920,7 @@ Text Domain: thaimoon-restaurant
   .account-layout--order-detail
   .woocommerce-customer-details
   h2 {
-  margin: 0 0 1rem;
+  margin: 0 0 var(--space-md);
   color: var(--fg);
   font-size: var(--fs-24);
   font-weight: var(--fw-bold);
@@ -3893,10 +3933,10 @@ Text Domain: thaimoon-restaurant
   address {
   margin: 0;
   padding: 0;
-  border: 0;
+  overflow-wrap: anywhere;
   color: var(--fg-desc);
   font-style: normal;
-  overflow-wrap: anywhere;
+  border: 0;
 }
 
 .account-order-result {
@@ -3913,19 +3953,19 @@ Text Domain: thaimoon-restaurant
 .account-order-result__actions {
   margin-top: 1.56rem;
   padding-top: 1.56rem;
-  border-top: 0.06rem solid var(--clr-gray-transparent);
+  border-top: var(--border-width) solid var(--clr-gray-transparent);
 }
 
 .account-order-result__details {
   display: inline-block;
-  margin-top: 1rem;
+  margin-top: var(--space-md);
   color: var(--fg);
   font-size: var(--fs-14);
   line-height: var(--lh-24);
 }
 
 .account-order-notes {
-  margin-top: 1.5rem;
+  margin-top: var(--space-xl);
 }
 
 .account-order-notes h2 {
@@ -3935,15 +3975,15 @@ Text Domain: thaimoon-restaurant
 }
 
 .account-order-notes__item {
-  margin-top: 1rem;
-  padding: 1.25rem;
-  border: 0.06rem solid var(--clr-light-gray);
-  border-radius: 16px;
+  margin-top: var(--space-md);
+  padding: var(--space-lg);
   color: var(--fg-desc);
+  border: var(--border-width) solid var(--clr-light-gray);
+  border-radius: 16px;
 }
 
 .account-order-notes__item p {
-  margin: 0 0 0.5rem;
+  margin: 0 0 var(--space-xs);
 }
 
 .account-cancel {
@@ -3954,7 +3994,7 @@ Text Domain: thaimoon-restaurant
 .account-cancel--requested {
   display: block;
   max-width: 32.56rem;
-  margin: 1.5rem auto 0;
+  margin: var(--space-xl) auto 0;
 }
 
 .account-cancel__dialog {
@@ -3964,14 +4004,14 @@ Text Domain: thaimoon-restaurant
   margin: auto;
   padding: 0;
   overflow: auto;
-  border: 0;
-  border-radius: 30px;
-  background: var(--bg-card);
   color: var(--fg);
+  border: 0;
+  border-radius: var(--radius-surface);
+  background: var(--bg-card);
 }
 
 .account-cancel__dialog::backdrop {
-  background: rgba(17, 24, 39, 0.65);
+  background: var(--bg-overlay);
 }
 
 .restaurant .account-cancel__panel {
@@ -3991,7 +4031,7 @@ Text Domain: thaimoon-restaurant
 }
 
 .account-cancel__description {
-  margin: 1.25rem 0 0;
+  margin: var(--space-lg) 0 0;
   color: var(--fg-desc);
   font-size: var(--fs-16);
   line-height: var(--lh-24);
@@ -4001,23 +4041,23 @@ Text Domain: thaimoon-restaurant
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1.25rem;
-  margin: 1.25rem 0 0;
-  padding-top: 1.25rem;
-  border-top: 0.06rem solid var(--clr-gray-transparent);
+  gap: var(--space-lg);
+  margin: var(--space-lg) 0 0;
+  padding-top: var(--space-lg);
+  border-top: var(--border-width) solid var(--clr-gray-transparent);
 }
 
 @media (max-width: 75rem) {
   .account-layout--orders,
   .account-layout--order-detail,
   .account-layout--order-result {
-    column-gap: 2rem;
+    column-gap: var(--space-2xl);
   }
   .account-orders__row {
-    gap: 1.25rem;
+    gap: var(--space-lg);
   }
   .account-orders__fields {
-    gap: 0.75rem;
+    gap: var(--space-sm);
   }
 }
 
@@ -4039,7 +4079,7 @@ Text Domain: thaimoon-restaurant
   .account-layout--order-detail,
   .account-layout--order-result {
     grid-template-columns: minmax(0, 1fr);
-    gap: 1.5rem;
+    gap: var(--space-xl);
   }
 }
 
@@ -4047,24 +4087,24 @@ Text Domain: thaimoon-restaurant
   .restaurant.account-page
     .account-layout--order-detail
     .woocommerce-customer-details {
-    padding: 1.25rem;
+    padding: var(--space-lg);
   }
   .restaurant.account-page
     .account-layout--order-detail
     .woocommerce-columns--addresses {
     grid-template-columns: minmax(0, 1fr);
-    gap: 1.5rem;
+    gap: var(--space-xl);
   }
   .account-orders__fields {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: var(--space-xs);
   }
   .account-orders__field {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 0.75rem;
+    gap: var(--space-sm);
     font-size: var(--fs-16);
     line-height: var(--lh-24);
   }
@@ -4079,7 +4119,7 @@ Text Domain: thaimoon-restaurant
   .restaurant.account-page .account-order__table th:first-child,
   .restaurant.account-page .account-order__table td:first-child {
     width: 65%;
-    padding-right: 0.75rem;
+    padding-right: var(--space-sm);
   }
   .restaurant.account-page .account-order__table tfoot th:first-child {
     width: 50%;
@@ -4091,13 +4131,14 @@ Text Domain: thaimoon-restaurant
     width: 100%;
   }
   .account-cancel__form {
-    gap: 0.75rem;
+    gap: var(--space-sm);
   }
   .account-cancel__form .account-orders__button {
     max-width: 100%;
   }
 }
 
+/* Pages équipe et fiches membres */
 .restaurant.team-page .site-content > .col-full {
   max-width: 90rem;
   padding-inline: 0;
@@ -4111,9 +4152,9 @@ Text Domain: thaimoon-restaurant
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2.5rem;
+  gap: var(--space-3xl);
   margin: 0;
-  padding: 3.94rem 3.13rem 2.5rem;
+  padding: 3.94rem 3.13rem var(--space-3xl);
 }
 
 .restaurant.team-page .team-page__main--archive {
@@ -4123,7 +4164,7 @@ Text Domain: thaimoon-restaurant
 .team-heading {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--space-xs);
   width: 100%;
   max-width: 40rem;
   margin-inline: auto;
@@ -4155,7 +4196,7 @@ Text Domain: thaimoon-restaurant
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1.25rem;
+  gap: var(--space-lg);
   width: 100%;
   max-width: 70.13rem;
   padding: 0;
@@ -4175,12 +4216,12 @@ Text Domain: thaimoon-restaurant
   gap: 0.94rem;
   width: 100%;
   min-height: 14.19rem;
-  padding: 1.25rem 0.94rem;
-  border-radius: 30px;
-  background-color: var(--bg-card);
-  box-shadow: 0 0.25rem 0.13rem var(--shadow);
+  padding: var(--space-lg) 0.94rem;
   color: var(--fg);
   text-decoration: none;
+  border-radius: var(--radius-surface);
+  background-color: var(--bg-card);
+  box-shadow: var(--shadow-surface);
 }
 
 .restaurant .member-card:hover .member-card__name {
@@ -4194,9 +4235,9 @@ Text Domain: thaimoon-restaurant
   width: 9.38rem;
   height: 9.38rem;
   margin: 0;
-  border-radius: 20px;
   object-fit: cover;
   object-position: center top;
+  border-radius: var(--radius-media);
 }
 
 .member-card__content {
@@ -4207,18 +4248,18 @@ Text Domain: thaimoon-restaurant
 
 .restaurant .member-card__name {
   margin: 0 0 0.94rem;
+  overflow-wrap: anywhere;
   color: var(--fg);
   font-size: var(--fs-24);
   line-height: var(--lh-32);
-  overflow-wrap: anywhere;
 }
 
 .member-card__description {
   margin: 0;
+  overflow-wrap: anywhere;
   color: var(--fg-desc);
   font-size: var(--fs-16);
   line-height: var(--lh-24);
-  overflow-wrap: anywhere;
 }
 
 .member-profile {
@@ -4235,22 +4276,22 @@ Text Domain: thaimoon-restaurant
   width: 17.5rem;
   height: 20.75rem;
   margin: 0;
-  border-radius: 20px;
   object-fit: cover;
+  border-radius: var(--radius-media);
 }
 
 .member-profile__biography {
   flex: 0 1 21.75rem;
   min-width: 0;
+  overflow-wrap: anywhere;
   color: var(--fg-desc);
   font-size: var(--fs-18);
   line-height: var(--lh-28);
   text-align: center;
-  overflow-wrap: anywhere;
 }
 
 .member-profile__biography p {
-  margin: 0 0 1rem;
+  margin: 0 0 var(--space-md);
 }
 
 .member-profile__biography p:last-child {
@@ -4261,7 +4302,7 @@ Text Domain: thaimoon-restaurant
 .team-page__others {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: var(--space-lg);
   align-items: center;
   width: 100%;
 }
@@ -4270,7 +4311,7 @@ Text Domain: thaimoon-restaurant
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1.25rem;
+  gap: var(--space-lg);
   width: 100%;
   max-width: 83.69rem;
   margin: 0;
@@ -4329,11 +4370,11 @@ Text Domain: thaimoon-restaurant
 
 @media (max-width: 56.25rem) {
   .restaurant.team-page .team-page__main {
-    padding-inline: 1.25rem;
+    padding-inline: var(--space-lg);
   }
   .team-grid {
     max-width: 20.94rem;
-    gap: 1.5rem;
+    gap: var(--space-xl);
   }
   .team-grid__item {
     flex-basis: 100%;
@@ -4347,7 +4388,7 @@ Text Domain: thaimoon-restaurant
   }
   .member-profile {
     flex-direction: column;
-    gap: 1.5rem;
+    gap: var(--space-xl);
     max-width: 40rem;
   }
   .member-profile__portrait {
@@ -4365,8 +4406,8 @@ Text Domain: thaimoon-restaurant
 @media (max-width: 37.44rem) {
   .restaurant.team-page .team-page__main,
   .restaurant.team-page .team-page__main--archive {
-    gap: 2.5rem;
-    padding-block: 2.5rem;
+    gap: var(--space-3xl);
+    padding-block: var(--space-3xl);
   }
   .restaurant.team-page .team-heading__title {
     font-size: var(--fs-36);
@@ -4378,11 +4419,11 @@ Text Domain: thaimoon-restaurant
   }
   .member-recommendations,
   .team-page__others {
-    gap: 1.5rem;
+    gap: var(--space-xl);
   }
   .restaurant.team-page ul.products.member-recommendations__products {
     max-width: 20.94rem;
-    gap: 1.5rem;
+    gap: var(--space-xl);
   }
   .restaurant.team-page
     ul.products.member-recommendations__products
@@ -4394,15 +4435,10 @@ Text Domain: thaimoon-restaurant
     .member-recommendations__products
     .product-card
     > .woocommerce-LoopProduct-link {
-    margin-bottom: 1.25rem;
+    margin-bottom: var(--space-lg);
   }
 }
 
-/* --------------------------------------------------------------------------
-   Avis clients et notes des produits
-   -------------------------------------------------------------------------- */
-
-/* Avis Figma V1.5 : classes natives conservées pour les interactions WooCommerce. */
 .restaurant .product-reviews {
   --review-star-empty: url("./assets/images/review-star-empty.svg");
   padding: 2.19rem 0.63rem 0;
@@ -4413,8 +4449,8 @@ Text Domain: thaimoon-restaurant
   min-width: 0;
 }
 
-.restaurant #reviews .product-reviews__title,
-.restaurant #reviews .product-reviews__form-title {
+.restaurant .product-reviews__title,
+.restaurant .product-reviews__form-title {
   display: block;
   margin: 0 0 0.63rem;
   color: var(--fg);
@@ -4423,22 +4459,22 @@ Text Domain: thaimoon-restaurant
   line-height: var(--lh-32);
 }
 
-.restaurant #reviews ol.product-reviews__list {
+.restaurant .product-reviews__list {
   display: flex;
   align-items: stretch;
-  gap: 1.25rem;
+  gap: var(--space-lg);
   width: 100%;
-  padding: 0.63rem 1.25rem;
+  padding: 0.63rem var(--space-lg);
   margin: 0 0 0.63rem;
-  list-style: none;
   overflow-x: auto;
   overscroll-behavior-inline: contain;
   scroll-snap-type: x proximity;
+  list-style: none;
   scrollbar-color: var(--fg) var(--bg-price);
   scrollbar-width: thin;
 }
 
-.restaurant #reviews .product-reviews__list > .review-card {
+.restaurant .product-reviews__list > .review-card {
   display: block;
   float: none;
   flex: 0 0 31.25rem;
@@ -4446,11 +4482,11 @@ Text Domain: thaimoon-restaurant
   min-height: 14.19rem;
   padding: 1.88rem 0.94rem;
   margin: 0;
-  border: 0;
-  border-radius: 30px;
-  background-color: var(--bg-card);
-  box-shadow: 0 0.25rem 0.13rem var(--shadow);
   scroll-snap-align: start;
+  border: 0;
+  border-radius: var(--radius-surface);
+  background-color: var(--bg-card);
+  box-shadow: var(--shadow-surface);
 }
 
 .review-card__body {
@@ -4465,14 +4501,14 @@ Text Domain: thaimoon-restaurant
   margin-bottom: 0.94rem;
 }
 
-.restaurant #reviews .review-card__author,
+.restaurant .review-card__author,
 .review-card__separator {
   margin: 0;
+  overflow-wrap: anywhere;
   color: var(--fg);
   font-size: var(--fs-24);
   font-weight: var(--fw-bold);
   line-height: var(--lh-32);
-  overflow-wrap: anywhere;
 }
 
 .review-rating {
@@ -4495,15 +4531,15 @@ Text Domain: thaimoon-restaurant
 
 .review-card__text,
 .review-card__moderation {
+  overflow-wrap: anywhere;
   color: var(--fg-desc);
   font-size: var(--fs-16);
   line-height: var(--lh-24);
-  overflow-wrap: anywhere;
 }
 
 .review-card__text p,
 .review-card__text .description {
-  margin: 0 0 0.75rem;
+  margin: 0 0 var(--space-sm);
 }
 
 .review-card__text p:last-child,
@@ -4511,34 +4547,34 @@ Text Domain: thaimoon-restaurant
   margin-bottom: 0;
 }
 
-.restaurant #reviews .product-reviews__notice {
-  margin: 0 0 1.25rem;
-  padding: 1rem 1.25rem 1rem 3.5rem;
-  border: 0;
-  border-radius: 12px;
-  background-color: var(--bg-btn);
+.restaurant .product-reviews__notice {
+  margin: 0 0 var(--space-lg);
+  padding: var(--space-md) var(--space-lg) var(--space-md) 3.5rem;
   color: var(--clr-white);
   font-size: var(--fs-16);
   line-height: var(--lh-24);
+  border: 0;
+  border-radius: var(--radius-field);
+  background-color: var(--bg-btn);
 }
 
-.restaurant #reviews .product-reviews__notice a {
+.restaurant .product-reviews__notice a {
   color: var(--clr-white);
   text-decoration: underline;
 }
 
-.restaurant #reviews .product-reviews__notice::before {
+.restaurant .product-reviews__notice::before {
   position: absolute;
   top: 1rem;
   left: 1.25rem;
   color: var(--clr-white);
 }
 
-.restaurant #reviews .product-reviews__notice--restriction {
-  padding-inline: 1.25rem;
+.restaurant .product-reviews__notice--restriction {
+  padding-inline: var(--space-lg);
 }
 
-.restaurant #reviews .product-reviews__respond {
+.restaurant .product-reviews__respond {
   padding: 0.63rem 0;
   margin: 0;
   border: 0;
@@ -4548,7 +4584,7 @@ Text Domain: thaimoon-restaurant
 .product-reviews__form {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.63rem 1.25rem;
+  gap: 0.63rem var(--space-lg);
   margin: 0;
 }
 
@@ -4572,7 +4608,7 @@ Text Domain: thaimoon-restaurant
   margin-left: 0.63rem;
 }
 
-.restaurant #reviews .product-reviews__rating p.stars {
+.restaurant .product-reviews__rating p.stars {
   display: inline-flex;
   margin: 0;
   line-height: 1;
@@ -4583,20 +4619,20 @@ Text Domain: thaimoon-restaurant
   gap: 0.06rem;
 }
 
-.restaurant #reviews .product-reviews__rating p.stars a {
-  position: relative;
+.restaurant .product-reviews__rating p.stars a {
   display: block;
+  position: relative;
   width: 1rem;
   height: 1rem;
   padding: 0;
   margin: 0;
-  font-size: 1rem;
-  color: var(--fg);
   overflow: hidden;
+  font-size: var(--fs-16);
+  color: var(--fg);
   text-indent: -999rem;
 }
 
-.restaurant #reviews .product-reviews__rating p.stars a::before {
+.restaurant .product-reviews__rating p.stars a::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -4607,21 +4643,19 @@ Text Domain: thaimoon-restaurant
   opacity: 1;
 }
 
-.restaurant #reviews .product-reviews__rating p.stars.selected a::before,
-.restaurant #reviews .product-reviews__rating p.stars:hover a::before,
-.restaurant #reviews .product-reviews__rating p.stars.selected:hover a::before {
+.restaurant .product-reviews__rating p.stars.selected a::before,
+.restaurant .product-reviews__rating p.stars:hover a::before,
+.restaurant .product-reviews__rating p.stars.selected:hover a::before {
   mask-image: url("./assets/images/review-star-full.svg");
 }
 
 .restaurant
-  #reviews
   .product-reviews__rating
   p.stars.selected:not(:hover)
   a.active
   ~ a::before,
-.restaurant #reviews .product-reviews__rating p.stars:hover a:hover ~ a::before,
+.restaurant .product-reviews__rating p.stars:hover a:hover ~ a::before,
 .restaurant
-  #reviews
   .product-reviews__rating
   p.stars.selected:hover
   a:hover
@@ -4635,22 +4669,22 @@ Text Domain: thaimoon-restaurant
   margin: 0;
 }
 
-.restaurant #reviews textarea.product-reviews__textarea {
+.restaurant .product-reviews__textarea {
   display: block;
   width: 100%;
   height: 9.25rem;
   min-height: 9.25rem;
   margin: 0;
-  padding: 0.75rem;
-  border: 0.06rem solid var(--clr-light-gray);
-  border-radius: 12px;
-  background-color: var(--bg);
-  box-shadow: none;
+  padding: var(--space-sm);
+  resize: vertical;
   color: var(--fg-desc);
   font-family: var(--ff-poppins);
   font-size: var(--fs-16);
   line-height: var(--lh-24);
-  resize: vertical;
+  border: var(--border-width) solid var(--clr-light-gray);
+  border-radius: var(--radius-field);
+  background-color: var(--bg);
+  box-shadow: none;
 }
 
 .product-reviews__textarea::placeholder {
@@ -4672,25 +4706,25 @@ Text Domain: thaimoon-restaurant
   width: 100%;
 }
 
-.restaurant #reviews .product-reviews__submit {
+.restaurant .product-reviews__submit {
   display: inline-flex;
   justify-content: center;
   min-height: 2.75rem;
-  padding: 0.63rem 1.25rem;
-  border: 0;
-  border-radius: 50px;
-  background-color: var(--bg-btn);
+  padding: 0.63rem var(--space-lg);
   color: var(--clr-white);
   font-family: var(--ff-poppins);
   font-size: var(--fs-16);
   font-weight: var(--fw-semibold);
   line-height: var(--lh-24);
+  border: 0;
+  border-radius: var(--radius-button);
+  background-color: var(--bg-btn);
   cursor: pointer;
 }
 
-.restaurant #reviews .product-reviews__submit:hover {
-  background-color: var(--hover-bg-btn);
+.restaurant .product-reviews__submit:hover {
   color: var(--hover-fg-btn);
+  background-color: var(--hover-bg-btn);
 }
 
 @media (max-width: 37.44rem) {
@@ -4698,29 +4732,29 @@ Text Domain: thaimoon-restaurant
     --review-star-empty: url("./assets/images/review-star-empty-mobile.svg");
     padding: 0;
   }
-  .restaurant #reviews .product-reviews__title,
-  .restaurant #reviews .product-reviews__form-title {
-    margin-bottom: 1.25rem;
+  .restaurant .product-reviews__title,
+  .restaurant .product-reviews__form-title {
+    margin-bottom: var(--space-lg);
   }
-  .restaurant #reviews ol.product-reviews__list {
+  .restaurant .product-reviews__list {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    gap: 1.25rem;
+    gap: var(--space-lg);
     padding: 0.63rem 0;
-    margin-bottom: 1.25rem;
+    margin-bottom: var(--space-lg);
     overflow: visible;
     scroll-snap-type: none;
   }
-  .restaurant #reviews .product-reviews__list > .review-card {
+  .restaurant .product-reviews__list > .review-card {
     width: 100%;
     min-height: 0;
   }
   .review-card__header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.5rem;
+    gap: var(--space-xs);
   }
-  .restaurant #reviews .review-card__author {
+  .restaurant .review-card__author {
     font-size: var(--fs-18);
     line-height: var(--lh-28);
   }
@@ -4733,15 +4767,15 @@ Text Domain: thaimoon-restaurant
   .product-reviews__rating .stars > span {
     gap: 0.38rem;
   }
-  .restaurant #reviews .product-reviews__rating p.stars a,
-  .restaurant #reviews .product-reviews__rating p.stars a::before {
+  .restaurant .product-reviews__rating p.stars a,
+  .restaurant .product-reviews__rating p.stars a::before {
     width: 1.5rem;
     height: 1.5rem;
   }
   .product-reviews__identity {
     flex-basis: 100%;
   }
-  .restaurant #reviews .product-reviews__submit {
+  .restaurant .product-reviews__submit {
     width: 100%;
   }
 }
@@ -4754,23 +4788,24 @@ Text Domain: thaimoon-restaurant
   display: none;
 }
 
+/* Boutons radio */
 .restaurant input[type="radio"],
 .restaurant .cutlery-options__input,
 .restaurant .woocommerce-shipping-methods input[type="radio"],
 .restaurant .checkout-payment .payment_methods > li > input.input-radio {
-  appearance: none;
-  -webkit-appearance: none;
   display: inline-block;
   flex: 0 0 1.25rem;
   width: 1.25rem;
   height: 1.25rem;
   min-width: 1.25rem;
   padding: 0;
-  border: 0.13rem solid var(--fg-desc);
+  vertical-align: middle;
+  appearance: none;
+  -webkit-appearance: none;
+  border: var(--border-width-strong) solid var(--fg-desc);
   border-radius: 50%;
   background: transparent;
   box-shadow: none;
-  vertical-align: middle;
   cursor: pointer;
 }
 
@@ -4790,7 +4825,7 @@ Text Domain: thaimoon-restaurant
 }
 
 .restaurant input[type="radio"]:focus-visible {
-  outline: 0.13rem solid var(--fg);
+  outline: var(--border-width-strong) solid var(--fg);
   outline-offset: 0.25rem;
 }
 
@@ -4810,12 +4845,9 @@ Text Domain: thaimoon-restaurant
   }
 }
 
-/* ==========================================================================
-   Accueil — Figma V1.6 : bandeau de plats et trois derniers produits publiés
-   ========================================================================== */
 .restaurant.home-page {
-  --home-heading-size: var(--fs-48);
-  --home-heading-line: var(--lh-48);
+  --home-heading-size: clamp(1.75rem, calc(3.7vw - 0.33rem), var(--fs-48));
+  --home-heading-line: clamp(2.25rem, calc(2.22vw + 1rem), var(--lh-48));
   --home-caption-size: 0.94rem;
 }
 
@@ -4851,7 +4883,7 @@ Text Domain: thaimoon-restaurant
 .home-carousel__track {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
+  gap: var(--space-lg);
   width: max-content;
   height: 100%;
   animation: home-carousel-scroll 20s linear infinite;
@@ -4862,20 +4894,20 @@ Text Domain: thaimoon-restaurant
 }
 
 .home-carousel__item {
+  display: flex;
   position: relative;
   isolation: isolate;
   box-sizing: border-box;
-  display: flex;
   flex: 0 0 14.38rem;
   align-items: center;
   justify-content: center;
   width: 14.38rem;
   padding: 0.63rem;
-  border-radius: 20px;
+  border-radius: var(--radius-media);
 }
 
 .home-carousel__item::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
@@ -4895,31 +4927,31 @@ Text Domain: thaimoon-restaurant
 }
 
 .home-page__body {
-  box-sizing: border-box;
   display: flex;
+  box-sizing: border-box;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: var(--space-lg);
   width: 100%;
-  padding-block: 1.25rem;
+  padding-block: var(--space-lg);
 }
 
 .home-welcome {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-  padding: 1.25rem 2.5rem;
+  gap: var(--space-xs);
+  padding: var(--space-lg) var(--space-3xl);
   text-align: center;
 }
 
 .restaurant .home-welcome__title,
 .restaurant .home-latest__title {
   margin: 0;
+  overflow-wrap: anywhere;
   color: var(--fg);
   font-size: var(--home-heading-size);
   font-weight: var(--fw-bold);
   line-height: var(--home-heading-line);
-  overflow-wrap: anywhere;
 }
 
 .home-welcome__description {
@@ -4932,15 +4964,15 @@ Text Domain: thaimoon-restaurant
 }
 
 .home-latest {
-  box-sizing: border-box;
   display: flex;
+  box-sizing: border-box;
   flex-direction: column;
   align-items: center;
-  gap: 1.25rem;
+  gap: var(--space-lg);
   width: 100%;
   max-width: 90rem;
   margin-inline: auto;
-  padding-inline: 2.5rem;
+  padding-inline: var(--space-3xl);
 }
 
 .home-latest__heading {
@@ -4973,7 +5005,7 @@ Text Domain: thaimoon-restaurant
   min-width: 0;
 }
 
-.restaurant.home-page .home-latest__products ul.products.product-grid {
+.restaurant.home-page .home-latest__products .products.product-grid {
   gap: 1.88rem;
   margin: 0;
 }
@@ -4983,8 +5015,12 @@ Text Domain: thaimoon-restaurant
 }
 
 @keyframes home-carousel-scroll {
-  from { translate: 0 0; }
-  to { translate: -93.13rem 0; }
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: -93.13rem 0;
+  }
 }
 
 @media (max-width: 56.25rem) {
@@ -5001,10 +5037,12 @@ Text Domain: thaimoon-restaurant
     scrollbar-width: none;
   }
 
-  .home-carousel::-webkit-scrollbar { display: none; }
+  .home-carousel::-webkit-scrollbar {
+    display: none;
+  }
 
   .home-carousel__track {
-    gap: 0.75rem;
+    gap: var(--space-sm);
     animation: none;
     translate: none;
   }
@@ -5015,7 +5053,9 @@ Text Domain: thaimoon-restaurant
     padding: 0.38rem;
   }
 
-  .home-carousel__item--copy { display: none; }
+  .home-carousel__item--copy {
+    display: none;
+  }
 
   .home-carousel .home-carousel__image {
     width: 7.88rem;
@@ -5023,12 +5063,12 @@ Text Domain: thaimoon-restaurant
   }
 
   .home-page__body {
-    gap: 2rem;
-    padding: 1.5rem 1.25rem 2.5rem;
+    gap: var(--space-2xl);
+    padding: var(--space-xl) var(--space-lg) var(--space-3xl);
   }
 
   .home-welcome {
-    gap: 0.75rem;
+    gap: var(--space-sm);
     padding: 0;
   }
 
@@ -5038,25 +5078,386 @@ Text Domain: thaimoon-restaurant
   }
 
   .home-latest {
-    gap: 1.5rem;
+    gap: var(--space-xl);
     padding: 0;
   }
 
-  .home-latest__heading { gap: 0.75rem; }
-  .home-latest__underline { width: 3.75rem; }
-  .home-latest__description { line-height: var(--lh-20); }
-
-  .restaurant.home-page .home-latest__products ul.products.product-grid {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 1.5rem;
+  .home-latest__heading {
+    gap: var(--space-sm);
+  }
+  .home-latest__underline {
+    width: 3.75rem;
+  }
+  .home-latest__description {
+    line-height: var(--lh-20);
   }
 
-  .restaurant.home-page .home-latest__products .product-card { min-height: 0; }
+  .restaurant.home-page .home-latest__products .products.product-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-xl);
+  }
+
+  .restaurant.home-page .home-latest__products .product-card {
+    min-height: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .home-carousel__track {
     animation: none;
     translate: none;
+  }
+}
+
+
+/* ========================================================================== 
+   ITÉRATION 18 : recherche et filtres du catalogue
+   ========================================================================== */
+
+/* Les filtres flottent à droite sans réduire la largeur des trois cartes (V1.7). */
+.catalogue-layout {
+  --catalogue-sidebar-width: 15.875rem;
+  --catalogue-control-height: 3rem;
+  --catalogue-control-border: var(--clr-light-gray);
+  position: relative;
+  display: block;
+  min-height: var(--catalogue-filters-height, 0px);
+}
+
+.catalogue-layout__sidebar {
+  position: absolute;
+  top: var(--catalogue-filters-top, 9.375rem);
+  right: 0;
+  z-index: 5;
+  width: min(100%, var(--catalogue-sidebar-width));
+  min-width: 0;
+}
+
+.catalogue-layout__results {
+  min-width: 0;
+  scroll-margin-top: var(--space-2xl);
+}
+
+.catalogue-layout__results > .woocommerce-notices-wrapper:empty {
+  display: none;
+}
+
+.restaurant.shop-catalogue .catalogue-layout .product-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.catalogue-layout .product-card__visual,
+.catalogue-layout .product-card__price {
+  max-width: 100%;
+}
+
+/* Composant : panneau de filtres. Les éléments natifs des widgets restent encapsulés. */
+.catalogue-filters {
+  min-width: 0;
+  color: var(--fg);
+  border-radius: var(--radius-button);
+  background: var(--bg-card);
+  box-shadow: var(--shadow-surface);
+}
+
+.catalogue-filters[open] {
+  border-radius: var(--radius-media);
+}
+
+.catalogue-filters__toggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  white-space: nowrap;
+  min-height: var(--catalogue-control-height);
+  padding: 0.625rem var(--space-lg);
+  font-size: 1.125rem;
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-28);
+  list-style: none;
+  cursor: pointer;
+}
+
+.catalogue-filters__toggle::-webkit-details-marker {
+  display: none;
+}
+
+.catalogue-filters__toggle::after {
+  content: '';
+  display: block;
+  flex: 0 0 auto;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-left: auto;
+  background: url('assets/images/filter-chevron.svg') center / contain no-repeat;
+}
+
+.catalogue-filters[open] .catalogue-filters__toggle::after {
+  transform: rotate(180deg);
+}
+
+.catalogue-filters__count {
+  position: absolute;
+  top: -0.5rem;
+  right: var(--space-sm);
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5rem;
+  padding-inline: var(--space-xxs);
+  color: var(--clr-white);
+  font-size: var(--fs-12);
+  line-height: var(--lh-24);
+  border-radius: var(--radius-button);
+  background: var(--bg-btn);
+}
+
+.catalogue-filters__widgets {
+  padding: 0 var(--space-lg) var(--space-lg);
+}
+
+.catalogue-filters__widgets .widget {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.catalogue-filters__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  min-width: 0;
+  margin: 0;
+}
+
+.restaurant .catalogue-filters__title {
+  margin: 0;
+  font-size: var(--fs-24);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-32);
+}
+
+.catalogue-filters__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  min-width: 0;
+}
+
+.catalogue-filters__group {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.catalogue-filters__label,
+.catalogue-filters__legend {
+  display: block;
+  margin: 0;
+  padding: 0;
+  color: var(--fg);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-24);
+}
+
+.catalogue-filters__legend {
+  margin-bottom: var(--space-xs);
+}
+
+.catalogue-filters__prices {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-sm);
+}
+
+.catalogue-filters__price-label {
+  margin: 0;
+  color: var(--fg-desc);
+  font-size: var(--fs-14);
+  line-height: var(--lh-20);
+}
+
+.restaurant .catalogue-filters__input,
+.restaurant .catalogue-filters__select {
+  width: 100%;
+  min-width: 0;
+  min-height: var(--catalogue-control-height);
+  margin: 0;
+  padding: var(--space-sm);
+  color: var(--fg-desc);
+  font-family: var(--ff-poppins);
+  font-size: var(--fs-16);
+  line-height: var(--lh-24);
+  border: var(--border-width) solid var(--catalogue-control-border);
+  border-radius: var(--radius-field);
+  background: var(--bg);
+  box-shadow: none;
+}
+
+.catalogue-filters__input::placeholder {
+  color: var(--fg-desc);
+  opacity: 1;
+}
+
+.catalogue-filters__hint {
+  margin: var(--space-xs) 0 0;
+  color: var(--fg-desc);
+  font-size: var(--fs-12);
+  line-height: var(--lh-20);
+}
+
+.catalogue-filters__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-xs);
+}
+
+.restaurant .catalogue-filters__apply,
+.restaurant .catalogue-empty__reset {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  margin: 0;
+  padding: 0.63rem var(--space-lg);
+  color: var(--fg-btn);
+  font-family: var(--ff-poppins);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-24);
+  text-align: center;
+  text-decoration: none;
+  border: 0;
+  border-radius: var(--radius-button);
+  background: var(--bg-btn);
+}
+
+.restaurant .catalogue-filters__apply:hover,
+.restaurant .catalogue-empty__reset:hover {
+  color: var(--hover-fg-btn);
+  background: var(--hover-bg-btn);
+}
+
+.catalogue-filters__clear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: var(--space-xs);
+  color: var(--fg);
+  font-size: var(--fs-14);
+  line-height: var(--lh-24);
+  text-align: center;
+  text-decoration: underline;
+  text-underline-offset: var(--space-xxs);
+}
+
+/* Composant : nombre de résultats, critères et état vide. */
+.catalogue-results {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding-inline-end: calc(var(--catalogue-sidebar-width) + var(--space-lg));
+}
+
+.catalogue-results__count {
+  margin: 0;
+  color: var(--fg-desc);
+  font-size: var(--fs-16);
+  line-height: var(--lh-24);
+}
+
+.catalogue-results__criteria {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.catalogue-results__criterion {
+  max-width: 100%;
+  padding: var(--space-xxs) var(--space-sm);
+  overflow-wrap: anywhere;
+  color: var(--fg);
+  font-size: var(--fs-14);
+  line-height: var(--lh-20);
+  border-radius: var(--radius-button);
+  background: var(--bg-price);
+}
+
+.catalogue-results__errors {
+  margin: 0;
+  padding: var(--space-md) var(--space-lg);
+  color: var(--fg);
+  font-size: var(--fs-16);
+  line-height: var(--lh-24);
+  list-style-position: inside;
+  border-left: var(--border-width-strong) solid var(--fg);
+  border-radius: var(--radius-field);
+  background: var(--clr-green-50);
+}
+
+.catalogue-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-lg);
+  min-width: 0;
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+  border-radius: var(--radius-surface);
+  background: var(--bg-card);
+  box-shadow: var(--shadow-surface);
+}
+
+.restaurant .catalogue-empty__title {
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: var(--fg);
+  font-size: var(--fs-24);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-32);
+}
+
+.catalogue-empty__description {
+  margin: 0;
+  color: var(--fg-desc);
+  font-size: var(--fs-16);
+  line-height: var(--lh-24);
+}
+
+@media (max-width: 74.94rem) {
+  .restaurant.shop-catalogue .catalogue-layout .product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 74.94rem) {
+  .catalogue-layout {
+    min-height: 0;
+  }
+
+  .catalogue-layout__sidebar {
+    position: static;
+    width: min(100%, 20.94rem);
+    margin-inline-start: auto;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .catalogue-results {
+    padding-inline-end: 0;
+  }
+}
+
+@media (max-width: 37.44rem) {
+  .restaurant.shop-catalogue .catalogue-layout .product-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

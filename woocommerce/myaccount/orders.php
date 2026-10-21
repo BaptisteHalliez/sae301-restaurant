@@ -37,7 +37,11 @@ if ( $has_orders ) : ?>
         <div class="account-orders__actions">
         <?php if ( has_action( 'woocommerce_my_account_my_orders_column_order-actions' ) ) :
             do_action( 'woocommerce_my_account_my_orders_column_order-actions', $order );
-        else : foreach ( wc_get_account_orders_actions( $order ) as $key => $action ) : ?>
+        else :
+            $list_actions = wc_get_account_orders_actions( $order );
+            // La facture reste accessible dans le détail, sans bouton dans l’historique.
+            unset( $list_actions['invoice'], $list_actions['invoice_xml'] );
+            foreach ( $list_actions as $key => $action ) : ?>
             <a class="button account-orders__button <?php echo esc_attr( sanitize_html_class( $key ) ); ?>" href="<?php echo esc_url( $action['url'] ); ?>" aria-label="<?php echo esc_attr( ( $action['name'] ?? '' ) . ' — commande n°' . $order->get_order_number() ); ?>"><?php echo esc_html( $action['name'] ); ?></a>
         <?php endforeach; endif; ?>
         </div>

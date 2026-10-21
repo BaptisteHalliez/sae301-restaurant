@@ -41,6 +41,9 @@ function thaimoon_product_card_button_text( $text, $product ) {
 // Organisation de la boutique par catégories.
 require_once __DIR__ . '/shop-catalogue.php';
 
+// Recherche et colonne de filtres compatibles avec le catalogue PHP (itération 18).
+require_once __DIR__ . '/catalogue-filters.php';
+
 // Stock, variations et quantité (US3.2).
 require_once __DIR__ . '/product-purchase.php';
 
