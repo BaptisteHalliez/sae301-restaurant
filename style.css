@@ -4809,3 +4809,254 @@ Text Domain: thaimoon-restaurant
     background: none;
   }
 }
+
+/* ==========================================================================
+   Accueil — Figma V1.6 : bandeau de plats et trois derniers produits publiés
+   ========================================================================== */
+.restaurant.home-page {
+  --home-heading-size: var(--fs-48);
+  --home-heading-line: var(--lh-48);
+  --home-caption-size: 0.94rem;
+}
+
+.restaurant.home-page #masthead {
+  position: relative;
+  z-index: 2;
+}
+
+.restaurant.home-page .site-content > .col-full {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+.restaurant.home-page .home-page__content,
+.restaurant.home-page .home-page__main {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.home-page__main {
+  overflow-x: clip;
+}
+
+.home-carousel {
+  height: 10.31rem;
+  background-color: var(--clr-green-800);
+}
+
+.home-carousel__track {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  width: max-content;
+  height: 100%;
+  animation: home-carousel-scroll 20s linear infinite;
+}
+
+.home-carousel:hover .home-carousel__track {
+  animation-play-state: paused;
+}
+
+.home-carousel__item {
+  position: relative;
+  isolation: isolate;
+  box-sizing: border-box;
+  display: flex;
+  flex: 0 0 14.38rem;
+  align-items: center;
+  justify-content: center;
+  width: 14.38rem;
+  padding: 0.63rem;
+  border-radius: 20px;
+}
+
+.home-carousel__item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background-color: var(--clr-green-100);
+  opacity: 0.5;
+}
+
+.home-carousel .home-carousel__image {
+  display: block;
+  flex: none;
+  width: 13.13rem;
+  max-width: none;
+  height: 13.13rem;
+  margin: 0;
+  object-fit: contain;
+}
+
+.home-page__body {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+  padding-block: 1.25rem;
+}
+
+.home-welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.25rem 2.5rem;
+  text-align: center;
+}
+
+.restaurant .home-welcome__title,
+.restaurant .home-latest__title {
+  margin: 0;
+  color: var(--fg);
+  font-size: var(--home-heading-size);
+  font-weight: var(--fw-bold);
+  line-height: var(--home-heading-line);
+  overflow-wrap: anywhere;
+}
+
+.home-welcome__description {
+  width: 100%;
+  max-width: 40rem;
+  margin: 0;
+  color: var(--fg-desc);
+  font-size: var(--fs-16);
+  line-height: var(--lh-24);
+}
+
+.home-latest {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 90rem;
+  margin-inline: auto;
+  padding-inline: 2.5rem;
+}
+
+.home-latest__heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.94rem;
+  width: 100%;
+  text-align: center;
+}
+
+.home-latest__underline {
+  width: 5rem;
+  height: 0.19rem;
+  border-radius: 2px;
+  background-color: var(--fg);
+}
+
+.home-latest__description,
+.home-latest__empty {
+  margin: 0;
+  color: var(--fg-desc);
+  font-size: var(--home-caption-size);
+  line-height: var(--lh-24);
+  text-align: center;
+}
+
+.home-latest__products {
+  width: 100%;
+  min-width: 0;
+}
+
+.restaurant.home-page .home-latest__products ul.products.product-grid {
+  gap: 1.88rem;
+  margin: 0;
+}
+
+.restaurant.home-page .home-latest__products .product-card {
+  min-height: 17.19rem;
+}
+
+@keyframes home-carousel-scroll {
+  from { translate: 0 0; }
+  to { translate: -93.13rem 0; }
+}
+
+@media (max-width: 56.25rem) {
+  .restaurant.home-page {
+    --home-heading-size: 1.75rem;
+    --home-heading-line: 2.25rem;
+    --home-caption-size: 0.81rem;
+  }
+
+  .home-carousel {
+    height: 8.63rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+  }
+
+  .home-carousel::-webkit-scrollbar { display: none; }
+
+  .home-carousel__track {
+    gap: 0.75rem;
+    animation: none;
+    translate: none;
+  }
+
+  .home-carousel__item {
+    flex-basis: 8.63rem;
+    width: 8.63rem;
+    padding: 0.38rem;
+  }
+
+  .home-carousel__item--copy { display: none; }
+
+  .home-carousel .home-carousel__image {
+    width: 7.88rem;
+    height: 7.88rem;
+  }
+
+  .home-page__body {
+    gap: 2rem;
+    padding: 1.5rem 1.25rem 2.5rem;
+  }
+
+  .home-welcome {
+    gap: 0.75rem;
+    padding: 0;
+  }
+
+  .home-welcome__description {
+    font-size: var(--fs-14);
+    line-height: 1.38rem;
+  }
+
+  .home-latest {
+    gap: 1.5rem;
+    padding: 0;
+  }
+
+  .home-latest__heading { gap: 0.75rem; }
+  .home-latest__underline { width: 3.75rem; }
+  .home-latest__description { line-height: var(--lh-20); }
+
+  .restaurant.home-page .home-latest__products ul.products.product-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+
+  .restaurant.home-page .home-latest__products .product-card { min-height: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-carousel__track {
+    animation: none;
+    translate: none;
+  }
+}

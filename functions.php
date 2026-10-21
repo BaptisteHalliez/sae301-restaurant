@@ -269,3 +269,6 @@ require_once get_stylesheet_directory() . '/inc/woocommerce.php';
 
 // Équipe et fiches membres, maquette Figma V1.4.
 require_once get_stylesheet_directory() . '/inc/team.php';
+
+// Page d’accueil V1.6 et nouveautés du catalogue.
+require_once get_stylesheet_directory() . '/inc/homepage.php';
