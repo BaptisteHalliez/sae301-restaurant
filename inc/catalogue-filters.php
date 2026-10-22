@@ -4,8 +4,8 @@ defined( 'ABSPATH' ) || exit;
 
 /** Paramètres publics en lecture seule : aucun nonce ni changement de données. */
 function thaimoon_parse_catalogue_filters( $input ) {
-    $state = array( 'search' => '', 'min_price' => null, 'max_price' => null, 'category' => '', 'portion' => '', 'stock' => '', 'errors' => array() );
-    foreach ( array( 's' => 'search', 'filter_product_cat' => 'category', 'filter_portion' => 'portion', 'filter_stock_status' => 'stock' ) as $key => $name ) {
+    $state = array( 'search' => '', 'min_price' => null, 'max_price' => null, 'category' => '', 'portion' => '', 'quantity' => '', 'stock' => '', 'errors' => array() );
+    foreach ( array( 's' => 'search', 'filter_product_cat' => 'category', 'filter_portion' => 'portion', 'filter_quantite' => 'quantity', 'filter_stock_status' => 'stock' ) as $key => $name ) {
         if ( ! isset( $input[ $key ] ) || '' === $input[ $key ] ) {
             continue;
         }
@@ -54,7 +54,7 @@ function thaimoon_prepare_catalogue_filters( $query ) {
     // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Recherche publique, sans écriture.
     $state = thaimoon_parse_catalogue_filters( wp_unslash( $_GET ) );
     $query->set( '_thaimoon_catalogue_filters', $state );
-    foreach ( array( 'min_price', 'max_price', 'filter_portion' => 'portion', 'filter_stock_status' => 'stock' ) as $key => $name ) {
+    foreach ( array( 'min_price', 'max_price', 'filter_portion' => 'portion', 'filter_quantite' => 'quantity', 'filter_stock_status' => 'stock' ) as $key => $name ) {
         $parameter = is_int( $key ) ? $name : $key;
         if ( null === $state[ $name ] || '' === $state[ $name ] ) {
             unset( $_GET[ $parameter ] );
@@ -83,7 +83,7 @@ function thaimoon_filter_catalogue_query( $query ) {
     $query->set( 'order', 'ASC' );
 
     $tax_query = (array) $query->get( 'tax_query' );
-    foreach ( array( 'category' => 'product_cat', 'portion' => 'pa_portion' ) as $name => $taxonomy ) {
+    foreach ( array( 'category' => 'product_cat', 'portion' => 'pa_portion', 'quantity' => 'pa_quantite' ) as $name => $taxonomy ) {
         if ( '' === $state[ $name ] ) {
             continue;
         }
@@ -123,8 +123,10 @@ function thaimoon_catalogue_offer_matches( $offer, $state ) {
             return false;
         }
         $attributes = $offer->get_attributes();
-        if ( '' !== $state['portion'] && ! empty( $attributes['pa_portion'] ) && $attributes['pa_portion'] !== $state['portion'] ) {
-            return false;
+        foreach ( array( 'portion' => 'pa_portion', 'quantity' => 'pa_quantite' ) as $name => $taxonomy ) {
+            if ( '' !== $state[ $name ] && ! empty( $attributes[ $taxonomy ] ) && $attributes[ $taxonomy ] !== $state[ $name ] ) {
+                return false;
+            }
         }
     }
     $price = wc_add_number_precision( wc_get_price_to_display( $offer ) );
@@ -132,11 +134,11 @@ function thaimoon_catalogue_offer_matches( $offer, $state ) {
         ( null === $state['max_price'] || $price <= wc_add_number_precision( $state['max_price'] ) );
 }
 
-/** Une même variation doit satisfaire le prix, la portion et la disponibilité. */
+/** Une même variation doit satisfaire le prix, les attributs et la disponibilité. */
 add_filter( 'the_posts', 'thaimoon_filter_catalogue_offers', 20, 2 );
 function thaimoon_filter_catalogue_offers( $posts, $query ) {
     $state = $query->get( '_thaimoon_catalogue_filters' );
-    if ( ! is_array( $state ) || ! $query->is_main_query() || ( null === $state['min_price'] && null === $state['max_price'] && '' === $state['portion'] && '' === $state['stock'] ) ) {
+    if ( ! is_array( $state ) || ! $query->is_main_query() || ( null === $state['min_price'] && null === $state['max_price'] && '' === $state['portion'] && '' === $state['quantity'] && '' === $state['stock'] ) ) {
         return $posts;
     }
     return array_values( array_filter( $posts, static function ( $post ) use ( $state ) {
@@ -184,10 +186,10 @@ function thaimoon_catalogue_active_filters( $state ) {
         $max = null === $state['max_price'] ? '' : wc_format_localized_price( $state['max_price'] );
         $active[] = '' === $max ? sprintf( __( 'À partir de %s %s', 'restaurant' ), $min, get_woocommerce_currency_symbol() ) : sprintf( __( 'Prix : %1$s à %2$s %3$s', 'restaurant' ), $min, $max, get_woocommerce_currency_symbol() );
     }
-    foreach ( array( 'category' => 'product_cat', 'portion' => 'pa_portion' ) as $name => $taxonomy ) {
+    foreach ( array( 'category' => 'product_cat', 'portion' => 'pa_portion', 'quantity' => 'pa_quantite' ) as $name => $taxonomy ) {
         $term = $state[ $name ] ? get_term_by( 'slug', $state[ $name ], $taxonomy ) : false;
         if ( $term ) {
-            $active[] = $term->name;
+            $active[] = 'quantity' === $name ? sprintf( __( 'Quantité : %s', 'restaurant' ), $term->name ) : $term->name;
         }
     }
     $statuses = wc_get_product_stock_status_options();
@@ -197,9 +199,9 @@ function thaimoon_catalogue_active_filters( $state ) {
     return $active;
 }
 
-/** Reprendre les titres et l'ordre du bloc enregistré, puis ajouter Portion. */
+/** Reprendre les titres et l'ordre du bloc, avec Quantité immédiatement après Portion. */
 function thaimoon_catalogue_filter_settings( $block = array() ) {
-    $defaults = array( 'price' => __( 'Prix', 'restaurant' ), 'category' => __( 'Catégorie', 'restaurant' ), 'stock' => __( 'Disponibilité', 'restaurant' ), 'portion' => __( 'Portion', 'restaurant' ) );
+    $defaults = array( 'price' => __( 'Prix', 'restaurant' ), 'category' => __( 'Catégorie', 'restaurant' ), 'stock' => __( 'Disponibilité', 'restaurant' ), 'portion' => __( 'Portion', 'restaurant' ), 'quantity' => __( 'Quantité', 'restaurant' ) );
     $settings = array( 'title' => __( 'Filtres', 'restaurant' ), 'groups' => array() );
     $names = array( 'woocommerce/product-filter-price' => 'price', 'woocommerce/product-filter-taxonomy' => 'category', 'woocommerce/product-filter-status' => 'stock' );
     foreach ( isset( $block['innerBlocks'] ) ? $block['innerBlocks'] : array() as $child ) {
@@ -224,7 +226,7 @@ function thaimoon_catalogue_filter_settings( $block = array() ) {
 /** Widget compatible avec la requête PHP, disponible aussi dans Apparence → Widgets. */
 class Thaimoon_Catalogue_Filters_Widget extends WP_Widget {
     public function __construct() {
-        parent::__construct( 'thaimoon_catalogue_filters', __( 'Thaï Moon — Filtres du catalogue', 'restaurant' ), array( 'description' => __( 'Recherche, prix, catégorie, disponibilité et portion pour le catalogue PHP du thème.', 'restaurant' ) ) );
+        parent::__construct( 'thaimoon_catalogue_filters', __( 'Thaï Moon — Filtres du catalogue', 'restaurant' ), array( 'description' => __( 'Recherche, prix, catégorie, disponibilité, portion et quantité pour le catalogue PHP du thème.', 'restaurant' ) ) );
     }
 
     public function widget( $args, $instance ) {

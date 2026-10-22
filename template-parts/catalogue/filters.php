@@ -9,11 +9,15 @@ $currency = get_woocommerce_currency_symbol();
 $step = number_format( pow( 10, -wc_get_price_decimals() ), wc_get_price_decimals(), '.', '' );
 $categories = get_terms( array( 'taxonomy' => 'product_cat', 'hide_empty' => true, 'orderby' => 'name' ) );
 $portions = taxonomy_exists( 'pa_portion' ) ? get_terms( array( 'taxonomy' => 'pa_portion', 'hide_empty' => true, 'orderby' => 'menu_order', 'order' => 'ASC' ) ) : array();
+$quantities = taxonomy_exists( 'pa_quantite' ) ? get_terms( array( 'taxonomy' => 'pa_quantite', 'hide_empty' => true, 'orderby' => 'menu_order', 'order' => 'ASC' ) ) : array();
 if ( is_wp_error( $categories ) ) {
     $categories = array();
 }
 if ( is_wp_error( $portions ) ) {
     $portions = array();
+}
+if ( is_wp_error( $quantities ) ) {
+    $quantities = array();
 }
 if ( '' === $state['category'] && is_product_category() ) {
     $category = get_queried_object();
@@ -63,17 +67,23 @@ if ( '' === $state['category'] && is_product_category() ) {
                     <?php endforeach; ?>
                 </select>
             </div>
-        <?php elseif ( 'portion' === $group ) : ?>
+        <?php elseif ( 'portion' === $group || 'quantity' === $group ) : ?>
+            <?php
+            $is_quantity = 'quantity' === $group;
+            $terms = $is_quantity ? $quantities : $portions;
+            $field = $is_quantity ? 'quantity' : 'portion';
+            $parameter = $is_quantity ? 'filter_quantite' : 'filter_portion';
+            ?>
             <div class="catalogue-filters__field">
-                <label class="catalogue-filters__label" for="<?php echo esc_attr( $id . '-portion' ); ?>"><?php echo esc_html( $label ); ?></label>
-                <select class="catalogue-filters__select" id="<?php echo esc_attr( $id . '-portion' ); ?>" name="filter_portion"<?php disabled( empty( $portions ) ); ?>>
-                    <option value=""><?php esc_html_e( 'Toutes les portions', 'restaurant' ); ?></option>
-                    <?php foreach ( $portions as $portion ) : ?>
-                        <option value="<?php echo esc_attr( $portion->slug ); ?>" <?php selected( $state['portion'], $portion->slug ); ?>><?php echo esc_html( $portion->name ); ?></option>
+                <label class="catalogue-filters__label" for="<?php echo esc_attr( $id . '-' . $field ); ?>"><?php echo esc_html( $label ); ?></label>
+                <select class="catalogue-filters__select" id="<?php echo esc_attr( $id . '-' . $field ); ?>" name="<?php echo esc_attr( $parameter ); ?>"<?php disabled( empty( $terms ) ); ?>>
+                    <option value=""><?php echo esc_html( $is_quantity ? __( 'Toutes les quantités', 'restaurant' ) : __( 'Toutes les portions', 'restaurant' ) ); ?></option>
+                    <?php foreach ( $terms as $term ) : ?>
+                        <option value="<?php echo esc_attr( $term->slug ); ?>" <?php selected( $state[ $field ], $term->slug ); ?>><?php echo esc_html( $term->name ); ?></option>
                     <?php endforeach; ?>
                 </select>
-                <?php if ( ! $portions ) : ?>
-                    <p class="catalogue-filters__hint"><?php esc_html_e( 'Aucune portion n’est encore associée aux produits.', 'restaurant' ); ?></p>
+                <?php if ( ! $terms ) : ?>
+                    <p class="catalogue-filters__hint"><?php echo esc_html( $is_quantity ? __( 'Aucune quantité n’est encore associée aux produits.', 'restaurant' ) : __( 'Aucune portion n’est encore associée aux produits.', 'restaurant' ) ); ?></p>
                 <?php endif; ?>
             </div>
         <?php endif; ?>

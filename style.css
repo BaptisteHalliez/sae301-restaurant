@@ -5456,6 +5456,48 @@ Text Domain: thaimoon-restaurant
   }
 }
 
+/* Bouton mobile V1.7 : centré, avec un panneau séparé lorsqu’il est ouvert. */
+@media (max-width: 56.25rem) {
+  .catalogue-layout__sidebar {
+    width: 100%;
+    margin-inline: auto;
+  }
+
+  .catalogue-filters {
+    --catalogue-toggle-shadow: 0 0.25rem 0.13rem color-mix(in srgb, var(--clr-black) 25%, transparent);
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .catalogue-filters__toggle {
+    justify-content: center;
+    gap: 0.63rem;
+    width: max-content;
+    max-width: 100%;
+    min-height: var(--catalogue-control-height);
+    margin-inline: auto;
+    padding: 0.63rem var(--space-lg);
+    color: var(--fg);
+    font-size: var(--fs-18);
+    white-space: normal;
+    border-radius: var(--radius-button);
+    background: var(--bg-card);
+    box-shadow: var(--catalogue-toggle-shadow);
+  }
+
+  .catalogue-filters__toggle::after {
+    margin-left: 0;
+  }
+
+  .catalogue-filters[open] .catalogue-filters__widgets {
+    margin-top: var(--space-xl);
+    padding: var(--space-lg);
+    border-radius: var(--radius-media);
+    background: var(--bg-card);
+    box-shadow: var(--shadow-surface);
+  }
+}
+
 @media (max-width: 37.44rem) {
   .restaurant.shop-catalogue .catalogue-layout .product-grid {
     grid-template-columns: minmax(0, 1fr);
