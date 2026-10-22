@@ -70,3 +70,6 @@ require_once __DIR__ . '/preparation-fees.php';
 
 // Livraison à domicile selon le poids, page SCF Tarification (itération 19).
 require_once __DIR__ . '/weight-shipping.php';
+
+// Choix du jour et du créneau de livraison/retrait (itération 20).
+require_once __DIR__ . '/fulfilment-slots.php';

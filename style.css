@@ -5503,3 +5503,76 @@ Text Domain: thaimoon-restaurant
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* Composant : jour et créneau de livraison/retrait (itération 20). */
+.checkout-fulfilment {
+  min-width: 0;
+  margin-block: var(--space-xl);
+}
+
+.checkout-fulfilment__title {
+  margin: 0 0 var(--space-sm);
+  color: var(--fg);
+  font-size: var(--fs-24);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-32);
+}
+
+.checkout-fulfilment__hint,
+.checkout-fulfilment__message {
+  margin: 0 0 var(--space-md);
+  color: var(--fg-desc);
+  font-size: var(--fs-16);
+  line-height: var(--lh-24);
+}
+
+.checkout-fulfilment__fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-md);
+}
+
+.checkout-fulfilment__field {
+  min-width: 0;
+  margin: 0;
+}
+
+.checkout-fulfilment__label {
+  display: block;
+  margin-bottom: var(--space-xs);
+  color: var(--fg);
+  font-size: var(--fs-16);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-24);
+}
+
+.checkout-fulfilment__select {
+  width: 100%;
+  min-width: 0;
+  min-height: 3rem;
+  padding: var(--space-sm);
+  font-family: var(--ff-poppins);
+  font-size: var(--fs-16);
+  line-height: var(--lh-24);
+  color: var(--fg-desc);
+  background: var(--bg-card);
+  border: var(--border-width) solid var(--clr-light-gray);
+  border-radius: var(--radius-field);
+}
+
+.checkout-fulfilment__select:focus-visible {
+  outline: var(--border-width-strong) solid var(--focus-color);
+  outline-offset: var(--space-xxs);
+}
+
+.checkout-fulfilment__select:disabled {
+  color: var(--fg-desc);
+  background: var(--bg-price);
+  cursor: not-allowed;
+}
+
+@media (max-width: 37.44rem) {
+  .checkout-fulfilment__fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
