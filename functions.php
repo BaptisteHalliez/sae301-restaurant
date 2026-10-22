@@ -240,7 +240,17 @@ function thaimoon_footer() {
         <div class="footer__bottom">
             <p class="footer__copyright">© <?php echo esc_html( wp_date( 'Y' ) ); ?> Thaï Moon. Tous droits réservés.</p>
             <p class="footer__credit">Site créé par <strong>Oyaz</strong></p>
-            <nav class="footer__navigation" aria-label="Liens du pied de page"><?php wp_nav_menu( array( 'theme_location' => 'thaimoon-footer', 'container' => false, 'menu_class' => 'footer__links', 'depth' => 1, 'fallback_cb' => 'thaimoon_footer_links' ) ); ?></nav>
+            <nav class="footer__navigation" aria-label="Liens du pied de page">
+                <?php
+                $footer_menu = wp_nav_menu( array( 'theme_location' => 'thaimoon-footer', 'container' => false, 'menu_class' => 'footer__links', 'depth' => 1, 'fallback_cb' => false, 'echo' => false ) );
+                // Un menu affecté mais vide ne déclenche pas toujours le fallback de WordPress.
+                if ( $footer_menu ) {
+                    echo $footer_menu;
+                } else {
+                    thaimoon_footer_links();
+                }
+                ?>
+            </nav>
         </div>
     </div>
     <?php
@@ -272,3 +282,6 @@ require_once get_stylesheet_directory() . '/inc/team.php';
 
 // Page d’accueil V1.6 et nouveautés du catalogue.
 require_once get_stylesheet_directory() . '/inc/homepage.php';
+
+// Mentions légales et conditions générales de vente — maquette Figma V1.9.
+require_once get_stylesheet_directory() . '/inc/legal-pages.php';

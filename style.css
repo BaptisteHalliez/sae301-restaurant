@@ -296,6 +296,7 @@ Text Domain: thaimoon-restaurant
     --radius-button: 50px;
     --shadow-surface: 0 0.25rem 0.13rem var(--shadow);
     --bg-overlay: rgba(17, 24, 39, 0.65);
+    --footer-spacing: 3.5rem;
   }
 }
 
@@ -523,7 +524,7 @@ Text Domain: thaimoon-restaurant
   /* Footer */
   .restaurant #colophon {
     padding: 0;
-    margin-top: 3.5rem;
+    margin-top: var(--footer-spacing);
     color: var(--clr-light-gray);
     background-color: var(--clr-dark-gray);
     background-image: linear-gradient(
@@ -5574,5 +5575,160 @@ Text Domain: thaimoon-restaurant
 @media (max-width: 37.44rem) {
   .checkout-fulfilment__fields {
     grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+
+/* Pages légales — mise en page Figma V1.9. */
+@layer tokens {
+  .legal-page {
+    --footer-spacing: 0;
+  }
+}
+
+@layer layout {
+  .legal-page .site-content > .col-full {
+    max-width: 90rem;
+    padding-inline: var(--space-lg);
+  }
+
+  .legal-page .legal-page__area {
+    margin: 0;
+  }
+
+}
+
+@layer components {
+  .legal-page .legal-page__main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3xl);
+    margin: 0;
+    padding-block: var(--space-3xl);
+  }
+
+  .legal-page__trail {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-xs);
+    margin: 0;
+    padding: 0;
+    font-size: var(--fs-14);
+    font-weight: var(--fw-semibold);
+    line-height: var(--lh-20);
+    list-style: none;
+  }
+
+  .legal-page__crumb {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-xs);
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .legal-page__separator {
+    color: var(--fg-desc);
+  }
+
+  .legal-page__home {
+    color: var(--fg-desc);
+    text-decoration: none;
+  }
+
+  .legal-page__home:hover {
+    text-decoration: underline;
+  }
+
+  .legal-page__article {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3xl);
+    min-width: 0;
+    margin: 0;
+  }
+
+  .legal-page__title {
+    margin: 0;
+    font-size: var(--fs-48);
+    line-height: var(--lh-48);
+    text-align: center;
+    overflow-wrap: anywhere;
+  }
+
+  .legal-page__body {
+    max-width: 75rem;
+    font-size: var(--fs-18);
+    font-weight: var(--fw-regular);
+    line-height: var(--lh-28);
+    color: var(--fg);
+    overflow-wrap: anywhere;
+  }
+
+  .legal-page--mentions .legal-page__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    max-width: 50rem;
+  }
+
+  .legal-page__paragraph {
+    margin: 0;
+  }
+
+  .legal-page__heading,
+  .legal-page__subheading {
+    margin: 0;
+    font-size: var(--fs-24);
+    line-height: var(--lh-32);
+  }
+
+  .legal-page--terms .legal-page__heading,
+  .legal-page--terms .legal-page__subheading {
+    margin-block-start: var(--lh-28);
+    font-size: inherit;
+    font-weight: var(--fw-regular);
+    line-height: inherit;
+  }
+
+  .legal-page__list {
+    margin: 0;
+    padding-inline-start: var(--space-xl);
+  }
+
+  .legal-page__link {
+    text-decoration: underline;
+    text-underline-offset: 0.13rem;
+  }
+
+  .legal-page__link:hover {
+    text-decoration-thickness: var(--border-width-strong);
+  }
+
+  @media (max-width: 37.44rem) {
+    .legal-page .site-content > .col-full {
+      padding-inline: var(--space-lg);
+    }
+
+    .legal-page__title {
+      font-size: var(--fs-36);
+      line-height: 3.38rem;
+    }
+
+    .legal-page__body {
+      font-size: var(--fs-16);
+      line-height: var(--lh-24);
+    }
+
+    .legal-page--mentions .legal-page__heading,
+    .legal-page--mentions .legal-page__subheading {
+      text-align: center;
+    }
+
+    .legal-page--terms .legal-page__heading,
+    .legal-page--terms .legal-page__subheading {
+      margin-block-start: var(--lh-24);
+    }
   }
 }
