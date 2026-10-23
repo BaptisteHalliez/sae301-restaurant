@@ -2,7 +2,7 @@
 defined( 'ABSPATH' ) || exit;
 
 function thaimoon_is_shop_catalogue() {
-    return function_exists( 'is_shop' ) && ( is_shop() || is_product_category() || is_tax( 'collection' ) || ( is_search() && 'product' === get_query_var( 'post_type' ) ) );
+    return function_exists( 'is_shop' ) && ( thaimoon_is_collections_page() || is_shop() || is_product_category() || is_tax( 'collection' ) || ( is_search() && 'product' === get_query_var( 'post_type' ) ) );
 }
 
 add_filter( 'body_class', 'thaimoon_shop_catalogue_class' );

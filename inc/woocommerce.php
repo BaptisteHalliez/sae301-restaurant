@@ -40,6 +40,7 @@ require_once __DIR__ . '/shop-catalogue.php';
 
 
 require_once __DIR__ . '/catalogue-filters.php';
+require_once __DIR__ . '/collections.php';
 
 
 require_once __DIR__ . '/product-purchase.php';

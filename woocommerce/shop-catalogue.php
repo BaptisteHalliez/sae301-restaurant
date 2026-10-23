@@ -4,12 +4,20 @@ defined( 'ABSPATH' ) || exit;
 get_header( 'shop' );
 do_action( 'woocommerce_before_main_content' );
 
-$sections = thaimoon_get_shop_catalogue();
+$collections_page = thaimoon_is_collections_page();
+$sections = $collections_page ? thaimoon_get_collections_catalogue() : thaimoon_get_shop_catalogue();
 $state = thaimoon_catalogue_filter_state();
 $active_filters = thaimoon_catalogue_active_filters( $state );
 $total = array_sum( array_map( static function ( $section ) { return count( $section['products'] ); }, $sections ) );
+if ( $collections_page ) {
+    $product_ids = array();
+    foreach ( $sections as $section ) {
+        $product_ids = array_merge( $product_ids, wp_list_pluck( $section['products'], 'ID' ) );
+    }
+    $total = count( array_unique( $product_ids ) );
+}
 $archive = ( is_product_category() || is_tax( 'collection' ) ) ? get_queried_object() : null;
-$page_title = $archive instanceof WP_Term ? $archive->name : __( 'Click & Collect — La carte', 'restaurant' );
+$page_title = $collections_page ? get_the_title( get_queried_object_id() ) : ( $archive instanceof WP_Term ? $archive->name : __( 'Click & Collect — La carte', 'restaurant' ) );
 $previous_loop = isset( $GLOBALS['woocommerce_loop'] ) ? $GLOBALS['woocommerce_loop'] : null;
 $previous_product = isset( $GLOBALS['product'] ) ? $GLOBALS['product'] : null;
 ?>
@@ -49,7 +57,11 @@ $previous_product = isset( $GLOBALS['product'] ) ? $GLOBALS['product'] : null;
                 </header>
                 <?php
                 if ( empty( $section['products'] ) ) {
-                    do_action( 'woocommerce_no_products_found' );
+                    if ( $collections_page ) {
+                        echo '<p class="catalogue__description">' . esc_html__( 'Aucun produit disponible dans cette collection pour le moment.', 'restaurant' ) . '</p>';
+                    } else {
+                        do_action( 'woocommerce_no_products_found' );
+                    }
                 } else {
                     wc_setup_loop( array( 'name' => 'thaimoon-catalogue', 'columns' => 3, 'total' => count( $section['products'] ), 'per_page' => count( $section['products'] ), 'total_pages' => 1, 'current_page' => 1, 'is_paginated' => false ) );
                     woocommerce_product_loop_start();

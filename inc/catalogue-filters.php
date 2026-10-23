@@ -68,7 +68,7 @@ function thaimoon_prepare_catalogue_filters( $query ) {
 add_action( 'pre_get_posts', 'thaimoon_filter_catalogue_query', 30 );
 function thaimoon_filter_catalogue_query( $query ) {
     $state = $query->get( '_thaimoon_catalogue_filters' );
-    if ( ! is_array( $state ) || ! thaimoon_is_catalogue_query( $query ) ) {
+    if ( ! is_array( $state ) || ( ! thaimoon_is_catalogue_query( $query ) && ! $query->get( '_thaimoon_collections_query' ) ) ) {
         return;
     }
     $query->set( 'posts_per_page', -1 );
@@ -131,7 +131,7 @@ function thaimoon_catalogue_offer_matches( $offer, $state ) {
 add_filter( 'the_posts', 'thaimoon_filter_catalogue_offers', 20, 2 );
 function thaimoon_filter_catalogue_offers( $posts, $query ) {
     $state = $query->get( '_thaimoon_catalogue_filters' );
-    if ( ! is_array( $state ) || ! $query->is_main_query() || ( null === $state['min_price'] && null === $state['max_price'] && '' === $state['portion'] && '' === $state['quantity'] && '' === $state['stock'] ) ) {
+    if ( ! is_array( $state ) || ( ! $query->is_main_query() && ! $query->get( '_thaimoon_collections_query' ) ) || ( null === $state['min_price'] && null === $state['max_price'] && '' === $state['portion'] && '' === $state['quantity'] && '' === $state['stock'] ) ) {
         return $posts;
     }
     return array_values( array_filter( $posts, static function ( $post ) use ( $state ) {
@@ -154,11 +154,17 @@ function thaimoon_filter_catalogue_offers( $posts, $query ) {
 
 function thaimoon_catalogue_filter_state() {
     global $wp_query;
+    if ( thaimoon_is_collections_page() ) {
+        return thaimoon_collections_query()->get( '_thaimoon_catalogue_filters' );
+    }
     $state = $wp_query instanceof WP_Query ? $wp_query->get( '_thaimoon_catalogue_filters' ) : null;
     return is_array( $state ) ? $state : thaimoon_parse_catalogue_filters( array() );
 }
 
 function thaimoon_catalogue_filter_url() {
+    if ( thaimoon_is_collections_page() ) {
+        return get_permalink( get_queried_object_id() );
+    }
     if ( is_tax( 'collection' ) ) {
         $url = get_term_link( get_queried_object() );
         if ( ! is_wp_error( $url ) ) {

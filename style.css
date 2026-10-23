@@ -468,6 +468,7 @@ Text Domain: thaimoon-restaurant
     font-size: 0.94rem;
     line-height: 1.44rem;
   }
+  .navigation__link--collections,
   .navigation__order {
     gap: 0.63rem;
     padding: 0.63rem var(--space-lg);
@@ -846,7 +847,8 @@ Text Domain: thaimoon-restaurant
   .restaurant.post-type-archive-product .site-content > .col-full,
   .restaurant.tax-product_cat .site-content > .col-full,
   .restaurant.tax-product_tag .site-content > .col-full,
-  .restaurant.tax-collection .site-content > .col-full {
+  .restaurant.tax-collection .site-content > .col-full,
+  .restaurant.collections-page .site-content > .col-full {
     max-width: 90rem;
   }
   .restaurant .products.product-grid {

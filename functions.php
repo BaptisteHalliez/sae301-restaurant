@@ -142,6 +142,9 @@ add_filter( 'nav_menu_link_attributes', 'thaimoon_menu_link_attributes', 10, 4 )
 function thaimoon_menu_link_attributes( $attributes, $item, $args, $depth ) {
     if ( ! empty( $args->thaimoon_menu ) ) {
         $attributes['class'] = trim( ( isset( $attributes['class'] ) ? $attributes['class'] : '' ) . ' navigation__link' );
+        if ( 'page' === $item->object && ( 'nos-collections' === get_post_field( 'post_name', $item->object_id ) || 'page-nos-collections.php' === get_page_template_slug( $item->object_id ) ) ) {
+            $attributes['class'] .= ' navigation__link--collections';
+        }
     }
     return $attributes;
 }

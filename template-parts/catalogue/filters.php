@@ -26,11 +26,13 @@ if ( '' === $state['category'] && is_product_category() ) {
 }
 ?>
 <form class="catalogue-filters__form" action="<?php echo esc_url( $base_url . '#catalogue-results' ); ?>" method="get" role="search" aria-label="<?php echo esc_attr__( 'Rechercher et filtrer les produits', 'restaurant' ); ?>">
-    <input type="hidden" name="post_type" value="product">
+    <?php if ( ! thaimoon_is_collections_page() ) : ?>
+        <input type="hidden" name="post_type" value="product">
+    <?php endif; ?>
     <h2 class="catalogue-filters__title"><?php echo esc_html( $settings['title'] ); ?></h2>
     <div class="catalogue-filters__field">
         <label class="catalogue-filters__label" for="<?php echo esc_attr( $id . '-search' ); ?>"><?php esc_html_e( 'Rechercher un produit', 'restaurant' ); ?></label>
-        <input class="catalogue-filters__input" id="<?php echo esc_attr( $id . '-search' ); ?>" type="search" name="s" value="<?php echo esc_attr( $state['search'] ); ?>" placeholder="<?php echo esc_attr__( 'Nom ou ingrédient…', 'restaurant' ); ?>">
+        <input class="catalogue-filters__input" id="<?php echo esc_attr( $id . '-search' ); ?>" type="search" name="<?php echo esc_attr( thaimoon_is_collections_page() ? 'catalogue_search' : 's' ); ?>" value="<?php echo esc_attr( $state['search'] ); ?>" placeholder="<?php echo esc_attr__( 'Nom ou ingrédient…', 'restaurant' ); ?>">
     </div>
     <?php foreach ( $settings['groups'] as $group => $label ) : ?>
         <?php if ( 'price' === $group ) : ?>
