@@ -9,9 +9,10 @@ $home_images = array( 'home-kao-pad.png', 'home-noodles.png', 'home-pad-thai.png
         <div class="home-carousel" aria-hidden="true">
             <div class="home-carousel__track">
                 <?php for ( $copy = 0; $copy < 2; $copy++ ) : ?>
-                    <?php foreach ( $home_images as $image ) : ?>
+                    <?php foreach ( $home_images as $index => $image ) : ?>
+                        <?php $image_srcset = thaimoon_home_image_srcset( $image ); ?>
                         <div class="home-carousel__item<?php echo $copy ? ' home-carousel__item--copy' : ''; ?>">
-                            <img class="home-carousel__image" src="<?php echo esc_url( thaimoon_image_url( $image ) ); ?>" alt="" width="210" height="210" decoding="async">
+                            <img class="home-carousel__image" src="<?php echo esc_url( thaimoon_image_url( $image ) ); ?>"<?php if ( $image_srcset ) : ?> srcset="<?php echo esc_attr( $image_srcset ); ?>" sizes="(max-width: 37.44rem) 7.88rem, 13.13rem"<?php endif; ?> alt="" width="210" height="210" decoding="async" fetchpriority="<?php echo ! $copy && 0 === $index ? 'high' : 'low'; ?>"<?php if ( $copy ) : ?> loading="lazy"<?php endif; ?>>
                         </div>
                     <?php endforeach; ?>
                 <?php endfor; ?>

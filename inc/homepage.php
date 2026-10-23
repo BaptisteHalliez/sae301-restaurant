@@ -43,6 +43,26 @@ function thaimoon_home_latest_products() {
     return $products;
 }
 
+function thaimoon_home_image_srcset( $image ) {
+    static $srcsets = array();
+    if ( isset( $srcsets[ $image ] ) ) {
+        return $srcsets[ $image ];
+    }
+    $base = pathinfo( $image, PATHINFO_FILENAME );
+    $candidates = array();
+    foreach ( array( 128, 256 ) as $width ) {
+        $file = $base . '-' . $width . '.webp';
+        if ( ! is_readable( get_stylesheet_directory() . '/assets/images/' . $file ) ) {
+            $srcsets[ $image ] = '';
+            return '';
+        }
+        $candidates[] = thaimoon_image_url( $file ) . ' ' . $width . 'w';
+    }
+    $candidates[] = thaimoon_image_url( $image ) . ' 400w';
+    $srcsets[ $image ] = implode( ', ', $candidates );
+    return $srcsets[ $image ];
+}
+
 
 add_filter( 'woocommerce_loop_add_to_cart_link', 'thaimoon_home_product_button', 30, 2 );
 function thaimoon_home_product_button( $html, $product ) {

@@ -1,7 +1,6 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 
-// Storefront charge le parent. Le CSS enfant vient ensuite, avec les variables et le reset.
 add_action( 'wp_enqueue_scripts', 'thaimoon_assets', 40 );
 function thaimoon_assets() {
     wp_dequeue_style( 'storefront-fonts' );
@@ -10,8 +9,6 @@ function thaimoon_assets() {
     wp_enqueue_style( 'storefront-child-style', get_stylesheet_uri(), array( 'storefront-style' ), (string) filemtime( get_stylesheet_directory() . '/style.css' ) );
 }
 
-
-// Charger le parent dans sa couche : un CSS hors layer prendrait le dessus sur le thème enfant.
 add_action( 'wp_head', 'thaimoon_layer_order', 1 );
 function thaimoon_layer_order() {
     echo '<style id="thaimoon-layer-order">@layer reset, storefront, tokens, base, layout, components;</style>' . "\n";
@@ -83,7 +80,19 @@ function thaimoon_header_styles( $styles ) {
 }
 
 function thaimoon_image_url( $file ) {
-    return get_stylesheet_directory_uri() . '/assets/images/' . $file;
+    static $urls = array();
+    if ( isset( $urls[ $file ] ) ) {
+        return $urls[ $file ];
+    }
+    if ( 'png' === pathinfo( $file, PATHINFO_EXTENSION ) ) {
+        $webp = substr( $file, 0, -4 ) . '.webp';
+        if ( is_readable( get_stylesheet_directory() . '/assets/images/' . $webp ) ) {
+            $urls[ $file ] = get_stylesheet_directory_uri() . '/assets/images/' . $webp;
+            return $urls[ $file ];
+        }
+    }
+    $urls[ $file ] = get_stylesheet_directory_uri() . '/assets/images/' . $file;
+    return $urls[ $file ];
 }
 
 function thaimoon_directions_url() {
@@ -167,13 +176,16 @@ function thaimoon_navigation() {
 }
 
 function thaimoon_header() {
+    ob_start();
+    thaimoon_navigation();
+    $navigation = ob_get_clean();
     ?>
     <div class="header">
         <?php thaimoon_brand(); ?>
-        <div class="header__desktop"><?php thaimoon_navigation(); ?></div>
+        <div class="header__desktop"><?php echo $navigation; ?></div>
         <details class="header__mobile">
             <summary class="header__toggle"><span class="header__burger" aria-hidden="true"></span><span class="screen-reader-text">Menu principal</span></summary>
-            <div class="header__panel"><?php thaimoon_navigation(); ?></div>
+            <div class="header__panel"><?php echo $navigation; ?></div>
         </details>
     </div>
     <?php
@@ -278,3 +290,5 @@ require_once get_stylesheet_directory() . '/inc/team.php';
 require_once get_stylesheet_directory() . '/inc/homepage.php';
 
 require_once get_stylesheet_directory() . '/inc/legal-pages.php';
+
+require_once get_stylesheet_directory() . '/inc/performance.php';
