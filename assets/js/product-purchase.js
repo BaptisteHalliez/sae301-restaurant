@@ -36,7 +36,6 @@
     const amount = form.querySelector('.purchase__amount');
     if (amount) {
       if (form.thaimoonOriginalPrice === undefined) form.thaimoonOriginalPrice = amount.innerHTML;
-      // HTML issu exclusivement du prix WooCommerce, pas de calcul monétaire dans le navigateur.
       amount.innerHTML = selected ? variation.thaimoon_price_html || variation.price_html || form.thaimoonOriginalPrice : form.thaimoonOriginalPrice;
     }
     syncFormQuantities(form);

@@ -1,5 +1,4 @@
 <?php
-/** Fiche membre — présentation, produits recommandés et autres membres. */
 defined( 'ABSPATH' ) || exit;
 get_header();
 ?>

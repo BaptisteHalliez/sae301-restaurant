@@ -1,5 +1,4 @@
 <?php
-/** Aperçu des données réelles du client — hooks du gabarit WooCommerce 4.4.0. */
 defined( 'ABSPATH' ) || exit;
 $customer = new WC_Customer( get_current_user_id() );
 $edit = wc_get_account_endpoint_url( 'edit-account' );

@@ -1,5 +1,4 @@
 <?php
-/** Notification du restaurant, configurable dans WooCommerce → Réglages → Emails. */
 defined( 'ABSPATH' ) || exit;
 class Thaimoon_Email_Cancellation_Request extends WC_Email {
     public function __construct() {

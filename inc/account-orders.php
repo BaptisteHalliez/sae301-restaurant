@@ -1,5 +1,4 @@
 <?php
-/** Compte V1.3 : demandes d'annulation, décision du restaurant et suivi WooCommerce. */
 defined( 'ABSPATH' ) || exit;
 
 add_action( 'wp_enqueue_scripts', 'thaimoon_orders_assets', 46 );
@@ -46,7 +45,6 @@ function thaimoon_orders_layout_class() {
     return '';
 }
 
-/** Verrou atomique stocké dans les options WP, indépendant du stockage HPOS des commandes. */
 function thaimoon_orders_unlock( $key, $token ) {
     global $wpdb;
     $wpdb->delete( $wpdb->options, array( 'option_name' => $key, 'option_value' => $token ), array( '%s', '%s' ) );
@@ -69,7 +67,6 @@ function thaimoon_orders_locked( $order_id, $callback ) {
     }
 }
 
-/** Entrée unique : POST, nonce propre à la commande, session et propriété vérifiés. */
 function thaimoon_orders_submit_request( $post, $method, $customer_id ) {
     if ( 'POST' !== $method || $customer_id <= 0 ) {
         return new WP_Error( 'forbidden', 'Connectez-vous pour demander l’annulation de votre commande.' );
@@ -91,7 +88,6 @@ function thaimoon_orders_submit_request( $post, $method, $customer_id ) {
         $order->update_meta_data( '_thaimoon_cancellation_requested_at', time() );
         $order->save();
         $order->add_order_note( 'Demande d’annulation envoyée par le client depuis son compte. La commande reste active en attente de la décision du restaurant.' );
-        // Une erreur de transport ne doit jamais effacer une demande enregistrée.
         try {
             $emails = WC()->mailer()->get_emails();
             $notified = isset( $emails['Thaimoon_Email_Cancellation_Request'] ) && $emails['Thaimoon_Email_Cancellation_Request']->trigger( $order->get_id() );
@@ -122,7 +118,6 @@ function thaimoon_orders_request_handler() {
     exit;
 }
 
-// Le lien Annuler natif ne permet pas de sauter la validation du restaurant.
 add_filter( 'woocommerce_my_account_my_orders_actions', 'thaimoon_orders_actions', 20, 2 );
 function thaimoon_orders_actions( $actions, $order ) {
     if ( ! is_account_page() || ! thaimoon_orders_owned( $order, get_current_user_id() ) ) {
@@ -135,7 +130,7 @@ function thaimoon_orders_actions( $actions, $order ) {
     return $actions;
 }
 
-// Remplacer seulement le rendu de Mon compte → Détails ; les autres pages restent natives.
+
 add_action( 'wp', 'thaimoon_orders_view_callback' );
 function thaimoon_orders_view_callback() {
     if ( is_account_page() && is_wc_endpoint_url( 'view-order' ) ) {
@@ -157,7 +152,6 @@ function thaimoon_orders_email_class( $emails ) {
     return $emails;
 }
 
-/** Décision via les Actions de commande natives, protégées par leurs contrôles admin. */
 function thaimoon_orders_review_request( $order_id, $decision, $staff_id ) {
     if ( ! current_user_can( 'edit_shop_order', $order_id ) || $staff_id !== get_current_user_id() || ! in_array( $decision, array( 'approved', 'declined' ), true ) ) {
         return new WP_Error( 'forbidden', 'Vous ne pouvez pas traiter cette demande.' );
@@ -168,7 +162,6 @@ function thaimoon_orders_review_request( $order_id, $decision, $staff_id ) {
             return new WP_Error( 'unavailable', 'Cette demande ne peut plus être traitée.' );
         }
         if ( 'approved' === $decision ) {
-            // WooCommerce gère la transition et la restitution du stock ; aucun double réassort.
             if ( ! $order->update_status( 'cancelled', 'Demande d’annulation du client acceptée par le restaurant.', true ) ) {
                 return new WP_Error( 'status', 'La commande n’a pas pu être annulée. La demande reste à examiner.' );
             }
@@ -243,7 +236,6 @@ function thaimoon_orders_meta_box_content( $post_or_order ) {
     }
 }
 
-// Signalement visible dès la liste des commandes, avec les deux stockages WooCommerce.
 add_action( 'manage_shop_order_posts_custom_column', 'thaimoon_orders_admin_badge', 20, 2 );
 add_action( 'manage_woocommerce_page_wc-orders_custom_column', 'thaimoon_orders_admin_badge', 20, 2 );
 function thaimoon_orders_admin_badge( $column, $order_or_id ) {

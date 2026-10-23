@@ -1,5 +1,4 @@
 <?php
-/** Accueil Thaï Moon — maquette Figma V1.6, produits issus du catalogue WooCommerce. */
 defined( 'ABSPATH' ) || exit;
 get_header();
 $home_products = thaimoon_home_latest_products();

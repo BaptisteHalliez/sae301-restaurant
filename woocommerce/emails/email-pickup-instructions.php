@@ -1,5 +1,4 @@
 <?php
-/** Instructions US8.3 : expédition enregistrée dans la commande, jamais paiement. */
 defined( 'ABSPATH' ) || exit;
 if ( ! isset( $order ) || ! $order instanceof WC_Order || ! empty( $sent_to_admin ) ) {
     return;
@@ -12,7 +11,7 @@ foreach ( $shipping_items as $shipping_item ) {
     $method = $shipping_item->get_method_id();
     $pickup = in_array( $method, array( 'local_pickup', 'pickup_location' ), true ) ||
         ( 'free_shipping' === $method && false !== strpos( sanitize_title( $shipping_item->get_name() ), 'retrait' ) );
-    // Une commande mixte ne doit pas être annoncée comme intégralement à retirer.
+    
     if ( ! $pickup ) {
         return;
     }

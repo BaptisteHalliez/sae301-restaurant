@@ -1,5 +1,4 @@
 <?php
-/** Boutique, catégories, collections et recherches avec les cartes Figma. */
 defined( 'ABSPATH' ) || exit;
 
 function thaimoon_is_shop_catalogue() {
@@ -22,7 +21,7 @@ function thaimoon_shop_catalogue_breadcrumb( $crumbs ) {
     return $crumbs;
 }
 
-// La boutique et les catégories partagent la présentation, en conservant les notices.
+
 add_action( 'wp', 'thaimoon_shop_catalogue_controls' );
 function thaimoon_shop_catalogue_controls() {
     if ( ! thaimoon_is_shop_catalogue() ) {
@@ -63,7 +62,6 @@ function thaimoon_get_shop_catalogue() {
         $categories = array();
     }
     $groups = array();
-    // L'ordre Figma d'abord, puis toute nouvelle catégorie créée dans WooCommerce.
     foreach ( $defaults as $slug => $settings ) {
         foreach ( $categories as $category ) {
             if ( $slug === $category->slug ) {
@@ -90,7 +88,6 @@ function thaimoon_get_shop_catalogue() {
             'products' => array(),
         );
     }
-    // Les filtres et la recherche agissent sur cette même requête principale.
     $sorted_products = array();
     foreach ( $wp_query->posts as $position => $product_post ) {
         $catalogue_product = wc_get_product( $product_post->ID );
@@ -114,7 +111,6 @@ function thaimoon_get_shop_catalogue() {
         foreach ( $groups as $id => $category ) {
             if ( $current_category instanceof WP_Term || in_array( $id, $entry['category_ids'], true ) ) {
                 $section_id = $id;
-                break; // Un produit de plusieurs catégories reste affiché une seule fois.
             }
         }
         if ( ! isset( $sections[ $section_id ] ) ) {
@@ -127,9 +123,7 @@ function thaimoon_get_shop_catalogue() {
     } );
 }
 
-/** Prix décroissants ; à prix égal, garder l'ordre alphabétique de la requête WordPress. */
 function thaimoon_compare_catalogue_products( $a, $b ) {
-    // Un prix vide reste en fin de liste ; un produit gratuit conserve bien son prix zéro.
     if ( null === $a['price'] && null !== $b['price'] ) {
         return 1;
     }

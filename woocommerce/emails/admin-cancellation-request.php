@@ -1,5 +1,4 @@
 <?php
-/** Demande d'annulation : notification du restaurant, aucune annulation automatique. */
 defined( 'ABSPATH' ) || exit;
 if ( ! isset( $order ) || ! $order instanceof WC_Order ) { return; }
 do_action( 'woocommerce_email_header', $email_heading, $email );

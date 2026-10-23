@@ -1,5 +1,4 @@
 <?php
-/** Catalogue filtrable commun : boutique, catégories, collections et recherches. */
 defined( 'ABSPATH' ) || exit;
 
 get_header( 'shop' );

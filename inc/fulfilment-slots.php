@@ -1,10 +1,8 @@
 <?php
-/** Jours et créneaux de livraison/retrait, groupe SCF Réglages Créneaux. */
 defined( 'ABSPATH' ) || exit;
 
 require_once __DIR__ . '/fulfilment-slots-settings.php';
 
-/** Les libellés SCF lèvent l'ambiguïté des choix numériques (0/1 = lundi ou dimanche). */
 function thaimoon_slots_days( $values, $choices = array() ) {
     if ( ! is_array( $values ) ) {
         return array();
@@ -26,7 +24,6 @@ function thaimoon_slots_days( $values, $choices = array() ) {
     return array_values( array_unique( $days ) );
 }
 
-/** Une ligne = une plage, par exemple 12:00 - 12:30 ou 12h00 – 12h30. */
 function thaimoon_slots_ranges( $text ) {
     if ( ! is_string( $text ) || '' === trim( $text ) ) {
         return array();
@@ -67,7 +64,6 @@ function thaimoon_slots_settings( $mode ) {
     return array( 'days' => $days, 'ranges' => $ranges, 'delay' => (int) $delay, 'horizon' => (int) $horizon );
 }
 
-/** Calcul centralisé, utilisé par l'affichage ET par la validation côté serveur. */
 function thaimoon_slots_availability( $settings, $now = null ) {
     if ( empty( $settings ) ) {
         return array();
@@ -84,7 +80,6 @@ function thaimoon_slots_availability( $settings, $now = null ) {
         $slots = array();
         foreach ( $settings['ranges'] as $value => $label ) {
             $start = new DateTimeImmutable( $date . ' ' . substr( $value, 0, 5 ), wp_timezone() );
-            // Une heure inexistante au passage à l'heure d'été n'est pas décalée silencieusement.
             if ( $start->format( 'H:i' ) !== substr( $value, 0, 5 ) || $start->getTimestamp() <= $now->getTimestamp() || $start->getTimestamp() < $cutoff ) {
                 continue;
             }
@@ -97,7 +92,6 @@ function thaimoon_slots_availability( $settings, $now = null ) {
     return $available;
 }
 
-/** Un seul mode doit couvrir tous les colis ; ne pas déduire le retrait du paiement. */
 function thaimoon_slots_mode() {
     if ( ! WC()->cart || ! WC()->cart->needs_shipping() ) {
         return '';
@@ -156,7 +150,7 @@ function thaimoon_slots_render() {
     $settings = thaimoon_slots_settings( $mode );
     $available = thaimoon_slots_availability( $settings );
     $selection = WC()->session ? WC()->session->get( 'thaimoon_fulfilment_selection', array() ) : array();
-    if ( isset( $_POST['thaimoon_fulfilment_date'] ) ) { // La nonce du formulaire est validée par WooCommerce.
+    if ( isset( $_POST['thaimoon_fulfilment_date'] ) ) {
         $selection = thaimoon_slots_selection( wp_unslash( $_POST ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
     }
     if ( ( $selection['mode'] ?? '' ) !== $mode ) {
@@ -201,7 +195,6 @@ function thaimoon_slots_save_order( $order, $data ) {
     if ( ! WC()->cart || ! WC()->cart->needs_shipping() ) {
         return;
     }
-    // Revalider à l'enregistrement : l'heure ou les réglages ont pu changer entre-temps.
     $result = thaimoon_slots_validate( thaimoon_slots_selection( wp_unslash( $_POST ) ), thaimoon_slots_mode() ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Appelé par le checkout vérifié.
     if ( is_wp_error( $result ) ) {
         throw new Exception( $result->get_error_message() );
@@ -209,7 +202,6 @@ function thaimoon_slots_save_order( $order, $data ) {
     $order->update_meta_data( '_thaimoon_fulfilment', $result );
 }
 
-/** Même contrôle si une intégration tente d'utiliser directement le checkout Store API. */
 add_action( 'woocommerce_store_api_checkout_update_order_from_request', 'thaimoon_slots_store_api', 20, 2 );
 function thaimoon_slots_store_api( $order, $request ) {
     if ( ! WC()->cart || ! WC()->cart->needs_shipping() ) {
@@ -224,7 +216,6 @@ function thaimoon_slots_store_api( $order, $request ) {
     $order->update_meta_data( '_thaimoon_fulfilment', $result );
 }
 
-/** Le même libellé enregistré apparaît dans les détails, confirmations et emails natifs. */
 add_filter( 'woocommerce_get_order_item_totals', 'thaimoon_slots_order_totals', 20, 3 );
 function thaimoon_slots_order_totals( $totals, $order, $tax_display ) {
     $saved = $order->get_meta( '_thaimoon_fulfilment', true );

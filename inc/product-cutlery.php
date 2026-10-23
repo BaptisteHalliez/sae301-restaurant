@@ -1,5 +1,4 @@
 <?php
-/** Choix de couverts gratuit, indépendant des variations de portion/quantité. */
 defined( 'ABSPATH' ) || exit;
 
 function thaimoon_cutlery_options( $product ) {
@@ -39,7 +38,6 @@ function thaimoon_cutlery_options( $product ) {
 
 function thaimoon_cutlery_selection( $options ) {
     if ( isset( $_POST['thaimoon_cutlery'] ) ) {
-        // Comparaison stricte à la liste autorisée : aucun libellé client n'est enregistré.
         return is_string( $_POST['thaimoon_cutlery'] ) ? wp_unslash( $_POST['thaimoon_cutlery'] ) : null; // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Formulaire natif d'ajout au panier.
     }
     foreach ( $options as $key => $label ) {
@@ -59,7 +57,6 @@ function thaimoon_cutlery_fields() {
     }
     $selected = thaimoon_cutlery_selection( $options );
     if ( ! is_string( $selected ) || ! array_key_exists( $selected, $options ) ) {
-        // Un choix invalide ne doit pas empêcher de corriger le formulaire.
         $selected = key( $options );
     }
     ?>
@@ -93,7 +90,6 @@ function thaimoon_cutlery_cart_data( $data, $product_id, $variation_id ) {
     $options  = thaimoon_cutlery_options( wc_get_product( $product_id ) );
     $selected = thaimoon_cutlery_selection( $options );
     if ( is_string( $selected ) && array_key_exists( $selected, $options ) ) {
-        // Des choix différents créent des lignes distinctes dans le panier.
         $data['thaimoon_cutlery'] = array( 'value' => $selected, 'label' => $options[ $selected ] );
     }
     return $data;
@@ -115,7 +111,6 @@ function thaimoon_cutlery_order_data( $item, $cart_item_key, $values, $order ) {
     }
 }
 
-// Un produit simple avec ce choix passe aussi par sa fiche avant l'ajout au panier.
 add_filter( 'woocommerce_loop_add_to_cart_link', 'thaimoon_cutlery_product_link', 30, 2 );
 function thaimoon_cutlery_product_link( $html, $product ) {
     if ( $product->is_type( 'simple' ) && $product->is_in_stock() && $product->is_purchasable() && thaimoon_cutlery_options( $product ) ) {

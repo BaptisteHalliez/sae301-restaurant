@@ -1,6 +1,5 @@
 <?php
 /**
- * Carte d'avis Figma V1.5. La fermeture du li est gérée par le walker WordPress.
  * @package WooCommerce\Templates
  * @version 2.6.0
  */

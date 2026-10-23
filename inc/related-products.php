@@ -1,5 +1,4 @@
 <?php
-/** Suggestions complémentaires : entrée, plat et dessert sur les fiches produit. */
 defined( 'ABSPATH' ) || exit;
 
 add_filter( 'woocommerce_product_related_products_heading', 'thaimoon_related_products_heading' );
@@ -99,7 +98,6 @@ function thaimoon_complementary_related_products( $related_ids, $product_id, $ar
     }
 
     $selected = array();
-    // Choisir deux produits distincts, même si certains appartiennent aux deux catégories.
     foreach ( $pools[0] as $first ) {
         foreach ( $pools[1] as $second ) {
             if ( $first !== $second ) {
@@ -120,6 +118,6 @@ function thaimoon_complementary_related_products( $related_ids, $product_id, $ar
             $selected[] = $id;
         }
     }
-    // Le mélange et le rendu des cartes restent assurés par WooCommerce.
+    
     return $selected;
 }

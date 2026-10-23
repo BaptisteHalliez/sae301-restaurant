@@ -1,8 +1,6 @@
 <?php
-/** Informations du groupe SCF « Infos Nutritionnelles » sur la fiche produit. */
 defined( 'ABSPATH' ) || exit;
 
-// Après la description courte (20), avant le formulaire d'achat (30).
 add_action( 'woocommerce_single_product_summary', 'thaimoon_product_information', 25 );
 function thaimoon_product_information() {
     global $product;
@@ -18,7 +16,7 @@ function thaimoon_product_information() {
     $rows = array();
 
     foreach ( $labels as $name => $label ) {
-        // Ces deux champs Texte SCF sont enregistrés comme métadonnées du produit.
+        
         $value = get_post_meta( $product->get_id(), $name, true );
         if ( is_string( $value ) && '' !== trim( $value ) ) {
             $rows[] = array( 'label' => $label, 'value' => trim( $value ) );

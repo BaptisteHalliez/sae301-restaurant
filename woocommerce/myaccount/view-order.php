@@ -1,5 +1,5 @@
 <?php
-/** Détail de commande et suivi V1.3. @version 10.6.0 */
+/** @version 10.6.0 */
 defined( 'ABSPATH' ) || exit;
 if ( ! thaimoon_orders_owned( $order, get_current_user_id() ) ) {
     wc_print_notice( 'Cette commande n’est pas accessible depuis ce compte.', 'error' );

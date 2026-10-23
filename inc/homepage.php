@@ -1,5 +1,4 @@
 <?php
-/** Accueil Figma V1.6 : visuels du bandeau et trois derniers produits publiés. */
 defined( 'ABSPATH' ) || exit;
 
 add_filter( 'body_class', 'thaimoon_home_body_class' );
@@ -29,8 +28,6 @@ function thaimoon_home_latest_products() {
         'has_password'        => false,
         'ignore_sticky_posts' => true,
         'no_found_rows'       => true,
-        // La date de publication, jamais celle de modification ni un tirage aléatoire.
-        // En cas de dates identiques, le dernier identifiant créé passe en premier.
         'orderby'             => array( 'date' => 'DESC', 'ID' => 'DESC' ),
         'tax_query'           => WC()->query->get_tax_query(),
         'meta_query'          => WC()->query->get_meta_query(),
@@ -46,7 +43,7 @@ function thaimoon_home_latest_products() {
     return $products;
 }
 
-// Le bouton des nouveautés ouvre toujours la fiche, y compris pour un produit simple.
+
 add_filter( 'woocommerce_loop_add_to_cart_link', 'thaimoon_home_product_button', 30, 2 );
 function thaimoon_home_product_button( $html, $product ) {
     if ( 'thaimoon-home-latest' !== wc_get_loop_prop( 'name' ) ) {

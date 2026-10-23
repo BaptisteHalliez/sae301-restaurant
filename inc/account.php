@@ -1,5 +1,4 @@
 <?php
-/** Espace client Thaï Moon — maquette Figma V1.2, formulaires WooCommerce natifs. */
 defined( 'ABSPATH' ) || exit;
 
 add_filter( 'body_class', 'thaimoon_account_body_class' );
@@ -62,9 +61,7 @@ function thaimoon_account_menu( $items ) {
     if ( isset( $items['customer-logout'] ) ) {
         $items['customer-logout'] = 'Déconnexion';
     }
-    // Les crayons donnent accès à ce formulaire ; éviter un second lien identique.
     unset( $items['edit-account'] );
-    // Garder les téléchargements s'il existe effectivement des fichiers à récupérer.
     if ( is_user_logged_in() && WC()->customer instanceof WC_Customer && empty( WC()->customer->get_downloadable_products() ) ) {
         unset( $items['downloads'] );
     }
@@ -103,7 +100,6 @@ function thaimoon_account_registration_errors( $errors, $username, $password, $e
         $errors->add( 'invalid-phone', 'Veuillez saisir un numéro de téléphone valide.' );
     }
     if ( 'no' === get_option( 'woocommerce_registration_generate_password' ) ) {
-        // Comparer les mêmes valeurs brutes que le gestionnaire natif, sans stocker les mots de passe.
         $confirm = isset( $_POST['password_confirm'] ) && is_string( $_POST['password_confirm'] ) ? $_POST['password_confirm'] : '';
         if ( ! is_string( $password ) || '' === $password || '' === $confirm || $password !== $confirm ) {
             $errors->add( 'password-confirmation', 'Les deux mots de passe doivent être identiques.' );
@@ -159,7 +155,6 @@ function thaimoon_account_details_errors( $errors, $user ) {
 }
 add_action( 'woocommerce_save_account_details', 'thaimoon_account_save_details' );
 function thaimoon_account_save_details( $customer_id ) {
-    // Ce hook est appelé après les contrôles natifs de nonce, d'identité et de mot de passe.
     if ( isset( $_POST['account_phone'] ) ) {
         $customer = new WC_Customer( $customer_id );
         $customer->set_billing_phone( wc_sanitize_phone_number( thaimoon_account_posted_text( 'account_phone' ) ) );
@@ -171,7 +166,7 @@ function thaimoon_account_save_details( $customer_id ) {
     }
 }
 
-// Raccourcir uniquement les deux libellés du formulaire natif de modification.
+
 add_filter( 'gettext_woocommerce', 'thaimoon_account_password_labels', 10, 3 );
 function thaimoon_account_password_labels( $translation, $text, $domain ) {
     $labels = array(
@@ -191,7 +186,6 @@ function thaimoon_account_shipping_form() {
 
 function thaimoon_account_shipping_name( $part ) {
     $customer = new WC_Customer( get_current_user_id() );
-    // Préserver un destinataire existant ; compléter une nouvelle adresse avec le compte.
     foreach ( array( 'get_shipping_' . $part, 'get_' . $part, 'get_billing_' . $part ) as $getter ) {
         $value = trim( $customer->$getter() );
         if ( '' !== $value ) {
@@ -205,7 +199,6 @@ add_filter( 'woocommerce_address_to_edit', 'thaimoon_account_shipping_fields', 1
 function thaimoon_account_shipping_fields( $address, $type ) {
     if ( 'shipping' === $type && thaimoon_account_shipping_form() ) {
         foreach ( array( 'first_name', 'last_name' ) as $part ) {
-            // Si le compte est incomplet, laisser le champ natif pour pouvoir le renseigner.
             if ( '' !== thaimoon_account_shipping_name( $part ) ) {
                 unset( $address[ 'shipping_' . $part ] );
             }
@@ -234,5 +227,5 @@ function thaimoon_account_profile_field( $label, $value, $url ) {
     <?php
 }
 
-// Historique, détails et demandes d'annulation — maquette V1.3.
+
 require_once __DIR__ . '/account-orders.php';

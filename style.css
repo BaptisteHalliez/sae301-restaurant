@@ -5110,12 +5110,6 @@ Text Domain: thaimoon-restaurant
   }
 }
 
-
-/* ========================================================================== 
-   ITÉRATION 18 : recherche et filtres du catalogue
-   ========================================================================== */
-
-/* Les filtres flottent à droite sans réduire la largeur des trois cartes (V1.7). */
 .catalogue-layout {
   --catalogue-sidebar-width: 15.875rem;
   --catalogue-control-height: 3rem;
@@ -5152,7 +5146,6 @@ Text Domain: thaimoon-restaurant
   max-width: 100%;
 }
 
-/* Composant : panneau de filtres. Les éléments natifs des widgets restent encapsulés. */
 .catalogue-filters {
   min-width: 0;
   color: var(--fg);
@@ -5191,7 +5184,7 @@ Text Domain: thaimoon-restaurant
   width: 1.25rem;
   height: 1.25rem;
   margin-left: auto;
-  background: url('assets/images/filter-chevron.svg') center / contain no-repeat;
+  background: url('./assets/images/filter-chevron.svg') center / contain no-repeat;
 }
 
 .catalogue-filters[open] .catalogue-filters__toggle::after {
@@ -5359,7 +5352,6 @@ Text Domain: thaimoon-restaurant
   text-underline-offset: var(--space-xxs);
 }
 
-/* Composant : nombre de résultats, critères et état vide. */
 .catalogue-results {
   display: flex;
   flex-direction: column;
@@ -5457,7 +5449,6 @@ Text Domain: thaimoon-restaurant
   }
 }
 
-/* Bouton mobile V1.7 : centré, avec un panneau séparé lorsqu’il est ouvert. */
 @media (max-width: 56.25rem) {
   .catalogue-layout__sidebar {
     width: 100%;
@@ -5505,7 +5496,6 @@ Text Domain: thaimoon-restaurant
   }
 }
 
-/* Composant : jour et créneau de livraison/retrait (itération 20). */
 .checkout-fulfilment {
   min-width: 0;
   margin-block: var(--space-xl);
@@ -5578,8 +5568,6 @@ Text Domain: thaimoon-restaurant
   }
 }
 
-
-/* Pages légales — mise en page Figma V1.9. */
 @layer tokens {
   .legal-page {
     --footer-spacing: 0;

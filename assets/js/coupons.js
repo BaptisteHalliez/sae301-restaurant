@@ -1,8 +1,6 @@
-/* Les contrôleurs wc-cart / wc-checkout assurent l’application, le retrait et les calculs. */
 (function ($) {
   'use strict';
   const opened = new Set();
-  // Raccorder le bouton du récapitulatif au formulaire natif, sans doubler les appels AJAX.
   $(document).on('click.thaimoonCoupon', '[data-coupon-apply]', function (event) {
     const native = document.querySelector('[data-coupon-native-submit]');
     if (!native || typeof wc_cart_params === 'undefined') return;
@@ -21,18 +19,17 @@
       if (notice.dataset.couponEnhanced === 'yes') return;
       const id = notice.dataset.couponRemoval;
       let seen = opened.has(id);
-      try { seen = seen || sessionStorage.getItem('thaimoon-coupon-' + id) === 'seen'; } catch (error) { /* Stockage optionnel. */ }
+      try { seen = seen || sessionStorage.getItem('thaimoon-coupon-' + id) === 'seen'; } catch (error) {}
       if (seen) { notice.remove(); return; }
       opened.add(id);
       notice.dataset.couponEnhanced = 'yes';
-      try { sessionStorage.setItem('thaimoon-coupon-' + id, 'seen'); } catch (error) { /* Stockage optionnel. */ }
+      try { sessionStorage.setItem('thaimoon-coupon-' + id, 'seen'); } catch (error) {}
       const close = notice.querySelector('[data-coupon-removal-close]');
       close.hidden = false;
       if (typeof HTMLDialogElement === 'undefined' || typeof HTMLDialogElement.prototype.showModal !== 'function') {
         close.addEventListener('click', function () { notice.remove(); });
         return;
       }
-      // Le fragment reste à sa place : aucune fenêtre orpheline lors d’un rafraîchissement du panier.
       const dialog = document.createElement('dialog');
       dialog.className = 'coupon-removal__dialog';
       dialog.setAttribute('aria-label', 'Code promotionnel désactivé');

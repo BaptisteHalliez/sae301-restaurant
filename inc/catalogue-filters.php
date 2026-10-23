@@ -1,8 +1,6 @@
 <?php
-/** Recherche et filtres du catalogue PHP — itération 18. */
 defined( 'ABSPATH' ) || exit;
 
-/** Paramètres publics en lecture seule : aucun nonce ni changement de données. */
 function thaimoon_parse_catalogue_filters( $input ) {
     $state = array( 'search' => '', 'min_price' => null, 'max_price' => null, 'category' => '', 'portion' => '', 'quantity' => '', 'stock' => '', 'errors' => array() );
     foreach ( array( 's' => 'search', 'filter_product_cat' => 'category', 'filter_portion' => 'portion', 'filter_quantite' => 'quantity', 'filter_stock_status' => 'stock' ) as $key => $name ) {
@@ -37,7 +35,6 @@ function thaimoon_parse_catalogue_filters( $input ) {
     return $state;
 }
 
-/** Limiter tous les raccords aux archives que le thème affiche lui-même. */
 function thaimoon_is_catalogue_query( $query ) {
     return ! is_admin() && $query->is_main_query() && (
         $query->is_post_type_archive( 'product' ) || $query->is_page( wc_get_page_id( 'shop' ) ) || $query->is_tax( array( 'product_cat', 'collection' ) ) ||
@@ -45,7 +42,6 @@ function thaimoon_is_catalogue_query( $query ) {
     );
 }
 
-// Nettoyer avant que WooCommerce ne lise ses paramètres natifs de prix/attributs.
 add_action( 'pre_get_posts', 'thaimoon_prepare_catalogue_filters', 5 );
 function thaimoon_prepare_catalogue_filters( $query ) {
     if ( ! thaimoon_is_catalogue_query( $query ) ) {
@@ -69,7 +65,6 @@ function thaimoon_prepare_catalogue_filters( $query ) {
     }
 }
 
-// La carte conserve toutes ses catégories ; une seule requête principale remplace les requêtes parallèles.
 add_action( 'pre_get_posts', 'thaimoon_filter_catalogue_query', 30 );
 function thaimoon_filter_catalogue_query( $query ) {
     $state = $query->get( '_thaimoon_catalogue_filters' );
@@ -107,7 +102,6 @@ function thaimoon_filter_catalogue_query( $query ) {
     $query->set( '_thaimoon_catalogue_filters', $state );
 }
 
-/** Comparer les prix affichés par WooCommerce, à sa précision monétaire. */
 function thaimoon_catalogue_offer_matches( $offer, $state ) {
     if ( '' === $offer->get_price() ) {
         return false;
@@ -134,7 +128,6 @@ function thaimoon_catalogue_offer_matches( $offer, $state ) {
         ( null === $state['max_price'] || $price <= wc_add_number_precision( $state['max_price'] ) );
 }
 
-/** Une même variation doit satisfaire le prix, les attributs et la disponibilité. */
 add_filter( 'the_posts', 'thaimoon_filter_catalogue_offers', 20, 2 );
 function thaimoon_filter_catalogue_offers( $posts, $query ) {
     $state = $query->get( '_thaimoon_catalogue_filters' );
@@ -165,7 +158,6 @@ function thaimoon_catalogue_filter_state() {
     return is_array( $state ) ? $state : thaimoon_parse_catalogue_filters( array() );
 }
 
-/** Garder la collection visitée, mais permettre de changer de catégorie. */
 function thaimoon_catalogue_filter_url() {
     if ( is_tax( 'collection' ) ) {
         $url = get_term_link( get_queried_object() );
@@ -199,7 +191,6 @@ function thaimoon_catalogue_active_filters( $state ) {
     return $active;
 }
 
-/** Reprendre les titres et l'ordre du bloc, avec Quantité immédiatement après Portion. */
 function thaimoon_catalogue_filter_settings( $block = array() ) {
     $defaults = array( 'price' => __( 'Prix', 'restaurant' ), 'category' => __( 'Catégorie', 'restaurant' ), 'stock' => __( 'Disponibilité', 'restaurant' ), 'portion' => __( 'Portion', 'restaurant' ), 'quantity' => __( 'Quantité', 'restaurant' ) );
     $settings = array( 'title' => __( 'Filtres', 'restaurant' ), 'groups' => array() );
@@ -223,7 +214,6 @@ function thaimoon_catalogue_filter_settings( $block = array() ) {
     return $settings;
 }
 
-/** Widget compatible avec la requête PHP, disponible aussi dans Apparence → Widgets. */
 class Thaimoon_Catalogue_Filters_Widget extends WP_Widget {
     public function __construct() {
         parent::__construct( 'thaimoon_catalogue_filters', __( 'Thaï Moon — Filtres du catalogue', 'restaurant' ), array( 'description' => __( 'Recherche, prix, catégorie, disponibilité, portion et quantité pour le catalogue PHP du thème.', 'restaurant' ) ) );
@@ -257,7 +247,6 @@ class Thaimoon_Catalogue_Filters_Widget extends WP_Widget {
 }
 add_action( 'widgets_init', static function () { register_widget( 'Thaimoon_Catalogue_Filters_Widget' ); } );
 
-/** Adapter uniquement le bloc rendu dans cette colonne, sans changer les widgets enregistrés. */
 function thaimoon_catalogue_sidebar_widgets() {
     $rendered = false;
     $mark_rendered = static function () use ( &$rendered ) { $rendered = true; };
@@ -294,7 +283,6 @@ function thaimoon_catalogue_filter_assets() {
     }
 }
 
-// Un résultat unique reste dans le catalogue pour pouvoir affiner ou effacer les critères.
 add_filter( 'woocommerce_redirect_single_search_result', static function ( $redirect ) {
     return thaimoon_is_shop_catalogue() ? false : $redirect;
 } );

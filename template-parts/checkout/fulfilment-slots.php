@@ -1,5 +1,4 @@
 <?php
-/** Choix unique d'un jour et d'une plage, actualisé avec le checkout WooCommerce. */
 defined( 'ABSPATH' ) || exit;
 $mode = $args['mode'];
 $available = $args['available'];

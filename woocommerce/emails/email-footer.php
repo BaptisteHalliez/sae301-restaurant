@@ -1,6 +1,5 @@
 <?php
 /**
- * Pied de page commun Thaï Moon ; le texte WooCommerce et son filtre sont conservés.
  * @package WooCommerce\Templates\Emails
  * @version 10.4.0
  */

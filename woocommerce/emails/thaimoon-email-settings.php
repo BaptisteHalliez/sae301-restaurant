@@ -1,5 +1,4 @@
 <?php
-/** Réglages partagés des emails du thème ; aucune option WordPress n'est écrite. */
 defined( 'ABSPATH' ) || exit;
 $colors = array( 'background' => '#f9fafb', 'surface' => '#ffffff', 'accent' => '#2d4f19', 'text' => '#4b5563' );
 $options = array( 'background' => 'woocommerce_email_background_color', 'surface' => 'woocommerce_email_body_background_color', 'accent' => 'woocommerce_email_base_color', 'text' => 'woocommerce_email_text_color' );

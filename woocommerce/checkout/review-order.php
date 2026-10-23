@@ -1,5 +1,4 @@
 <?php
-/** Récapitulatif ; calculs et hooks issus de review-order.php WooCommerce 11.2.0. */
 defined( 'ABSPATH' ) || exit;
 ?>
 <div class="woocommerce-checkout-review-order-table commerce-summary">

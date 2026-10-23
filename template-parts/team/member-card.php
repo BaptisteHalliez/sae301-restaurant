@@ -1,5 +1,4 @@
 <?php
-/** Carte commune à l'archive et aux autres membres d'une fiche. */
 defined( 'ABSPATH' ) || exit;
 $member = isset( $args['member'] ) ? $args['member'] : null;
 if ( ! $member instanceof WP_Post || 'membre' !== $member->post_type || 'publish' !== $member->post_status || post_password_required( $member ) ) {

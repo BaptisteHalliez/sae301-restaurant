@@ -1,5 +1,4 @@
 <?php
-/** Espace client — hooks du gabarit WooCommerce 3.5.0. */
 defined( 'ABSPATH' ) || exit;
 $logout = 'deconnexion' === thaimoon_account_view();
 ?>

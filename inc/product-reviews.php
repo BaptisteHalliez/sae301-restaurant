@@ -1,8 +1,5 @@
 <?php
-/** Avis produit — présentation Figma V1.5, validation et stockage WooCommerce. */
 defined( 'ABSPATH' ) || exit;
-
-// Activer le contrôle natif des achats, y compris lors de l'envoi d'un avis.
 add_filter( 'pre_option_woocommerce_review_rating_verification_required', 'thaimoon_product_reviews_require_purchase' );
 function thaimoon_product_reviews_require_purchase() {
     return 'yes';
@@ -55,7 +52,6 @@ function thaimoon_product_review_form( $args ) {
     if ( isset( $args['must_log_in'] ) ) {
         $args['must_log_in'] = str_replace( 'class="must-log-in"', 'class="must-log-in product-reviews__notice product-reviews__notice--restriction"', $args['must_log_in'] );
     }
-    // Conserver les champs nom/e-mail et leurs obligations pour les avis invités autorisés.
     foreach ( array( 'author', 'email' ) as $key ) {
         if ( isset( $args['fields'][ $key ] ) ) {
             $args['fields'][ $key ] = str_replace( 'class="comment-form-' . $key . '"', 'class="comment-form-' . $key . ' product-reviews__identity"', $args['fields'][ $key ] );

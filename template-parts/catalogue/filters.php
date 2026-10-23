@@ -1,5 +1,4 @@
 <?php
-/** Formulaire GET partagé par le widget et le bloc de filtres préparé. */
 defined( 'ABSPATH' ) || exit;
 $state = $args['state'];
 $settings = $args['settings'];

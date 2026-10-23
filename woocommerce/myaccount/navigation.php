@@ -1,5 +1,4 @@
 <?php
-/** Navigation de compte — hooks du gabarit WooCommerce 9.3.0. */
 defined( 'ABSPATH' ) || exit;
 do_action( 'woocommerce_before_account_navigation' );
 ?>

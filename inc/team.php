@@ -1,5 +1,4 @@
 <?php
-/** Équipe et fiches membres — Figma V1.4, contenu du type SCF « membre ». */
 defined( 'ABSPATH' ) || exit;
 
 function thaimoon_is_team_page() {
@@ -17,7 +16,7 @@ function thaimoon_team_body_class( $classes ) {
 add_action( 'wp', 'thaimoon_team_layout' );
 function thaimoon_team_layout() {
     if ( thaimoon_is_team_page() ) {
-        // La maquette commence directement par le titre de l'équipe ou du membre.
+        
         remove_action( 'storefront_before_content', 'woocommerce_breadcrumb', 10 );
     }
 }
@@ -44,7 +43,6 @@ function thaimoon_member_presentation( $id ) {
 }
 
 function thaimoon_member_card_role( $id ) {
-    // Dans les petites cartes, le nom du restaurant est déjà donné par le contexte.
     return preg_replace( '/\s+de Thaï Moon$/u', '', thaimoon_member_text( $id, 'poste' ) );
 }
 
@@ -53,7 +51,6 @@ function thaimoon_member_products( $id ) {
     if ( ! function_exists( 'wc_get_product' ) ) {
         return $products;
     }
-    // Lire les IDs enregistrés par SCF : indépendant du format de retour du champ.
     $ids = array_unique( array_map( 'absint', (array) get_post_meta( $id, 'recommandations', true ) ) );
     foreach ( $ids as $product_id ) {
         $product = wc_get_product( $product_id );
@@ -79,7 +76,7 @@ function thaimoon_member_product_button( $html, $product ) {
 }
 
 function thaimoon_member_render_products( $products ) {
-    // Réutiliser la vraie carte du thème et les prix WooCommerce, sans panier fictif.
+    
     $previous_product = isset( $GLOBALS['product'] ) ? $GLOBALS['product'] : null;
     $previous_loop = isset( $GLOBALS['woocommerce_loop'] ) ? $GLOBALS['woocommerce_loop'] : null;
     add_filter( 'woocommerce_loop_add_to_cart_link', 'thaimoon_member_product_button', 20, 2 );

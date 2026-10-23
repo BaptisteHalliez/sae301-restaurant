@@ -1,11 +1,5 @@
 <?php
-/**
- * Carte produit du catalogue — Thaï Moon, maquette Figma V1.0.
- * Les hooks natifs conservent le lien produit, les promotions et l'ajout au panier.
- *
- * @package WooCommerce\Templates
- * @version 9.4.0
- */
+/** @version 9.4.0 */
 defined( 'ABSPATH' ) || exit;
 
 global $product;
@@ -17,7 +11,6 @@ $description = $product->get_short_description();
 if ( '' === trim( wp_strip_all_tags( $description ) ) ) {
     $description = $product->get_description();
 }
-// Du texte simple : pas de blocs, d'images ni de shortcodes dans une petite carte.
 $description = wp_trim_words( wp_strip_all_tags( strip_shortcodes( $description ) ), 24, '…' );
 ?>
 <li <?php wc_product_class( 'product-card', $product ); ?>>

@@ -1,8 +1,6 @@
 <?php
-/** Livraison à domicile selon le poids, réglée dans SCF Tarification (itération 19). */
 defined( 'ABSPATH' ) || exit;
 
-/** Accepter les nombres SCF, y compris une saisie avec virgule décimale. */
 function thaimoon_weight_shipping_number( $value ) {
     if ( is_string( $value ) ) {
         $value = str_replace( ',', '.', trim( $value ) );
@@ -10,7 +8,6 @@ function thaimoon_weight_shipping_number( $value ) {
     return is_numeric( $value ) && is_finite( (float) $value ) ? (float) $value : null;
 }
 
-/** Aucun tarif codé en dur : les cinq valeurs proviennent du groupe existant. */
 function thaimoon_weight_shipping_settings() {
     if ( ! function_exists( 'get_field' ) ) {
         return array();
@@ -31,7 +28,6 @@ function thaimoon_weight_shipping_settings() {
     return $settings;
 }
 
-/** Le produit du panier est la variation choisie ; get_weight() hérite du parent. */
 function thaimoon_weight_shipping_package_weight( $package ) {
     $weight = 0.0;
     $has_items = false;
@@ -46,13 +42,11 @@ function thaimoon_weight_shipping_package_weight( $package ) {
         }
         $unit_weight = thaimoon_weight_shipping_number( $product->get_weight() );
         if ( null === $unit_weight || $unit_weight < 0 ) {
-            // Un poids manquant n'est pas un poids nul : conserver le forfait existant.
             return null;
         }
         $weight += wc_get_weight( $unit_weight, 'kg' ) * $quantity;
         $has_items = true;
     }
-    // Six décimales évitent de changer de tranche à cause des flottants.
     return $has_items && is_finite( $weight ) ? round( $weight, 6 ) : null;
 }
 
@@ -66,7 +60,6 @@ function thaimoon_weight_shipping_price( $weight, $settings ) {
     return $settings['tarif_tranche_3'];
 }
 
-// Le cache natif exclut les objets produit : inclure poids et options dans sa clé.
 add_filter( 'woocommerce_cart_shipping_packages', 'thaimoon_weight_shipping_packages', 100 );
 function thaimoon_weight_shipping_packages( $packages ) {
     $settings = thaimoon_weight_shipping_settings();
@@ -81,7 +74,6 @@ function thaimoon_weight_shipping_packages( $packages ) {
     return $packages;
 }
 
-// Modifier le forfait disponible dans la zone, avant le calcul natif des taxes.
 add_filter( 'woocommerce_shipping_method_add_rate_args', 'thaimoon_weight_shipping_rate', 20, 2 );
 function thaimoon_weight_shipping_rate( $args, $method ) {
     if ( ! $method instanceof WC_Shipping_Method || 'flat_rate' !== $method->id || ( $args['id'] ?? '' ) !== $method->get_rate_id() || empty( $args['package']['contents'] ) ) {
@@ -100,7 +92,7 @@ function thaimoon_weight_shipping_rate( $args, $method ) {
     return $args;
 }
 
-// Précision et aide de saisie du groupe SCF existant, sans recréer ses champs.
+
 foreach ( array( 'seuil_poids_1', 'seuil_poids_2', 'tarif_tranche_1', 'tarif_tranche_2', 'tarif_tranche_3' ) as $thaimoon_shipping_field ) {
     add_filter( 'acf/load_field/name=' . $thaimoon_shipping_field, 'thaimoon_weight_shipping_field' );
 }

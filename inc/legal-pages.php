@@ -1,5 +1,4 @@
 <?php
-/** Présentation des pages légales, avec les contenus administrés dans WordPress. */
 defined( 'ABSPATH' ) || exit;
 
 function thaimoon_legal_page_type() {
@@ -28,7 +27,7 @@ function thaimoon_legal_body_classes( $classes ) {
 add_action( 'wp', 'thaimoon_legal_layout' );
 function thaimoon_legal_layout() {
     if ( thaimoon_legal_page_type() ) {
-        // Le gabarit fournit son fil d’Ariane BEM, à l’intérieur du contenu.
+        
         remove_action( 'storefront_before_content', 'woocommerce_breadcrumb', 10 );
     }
 }
@@ -44,8 +43,6 @@ function thaimoon_legal_template( $template ) {
 function thaimoon_legal_content( $content ) {
     $type = thaimoon_legal_page_type();
 
-    // Les textes actuels utilisent des paragraphes pour leurs intertitres.
-    // Leur donner une structure de titres au rendu, sans réécrire la base.
     if ( 'mentions' === $type ) {
         $content = preg_replace( '~<p\b([^>]*)>\s*<strong>([^<]+)</strong>\s*</p>~iu', '<h2$1>$2</h2>', $content );
     } elseif ( 'terms' === $type ) {
@@ -58,7 +55,6 @@ function thaimoon_legal_content( $content ) {
         }, $content );
     }
 
-    // Garder les blocs, liens et attributs de l’éditeur ; ajouter seulement les classes.
     $html = new WP_HTML_Tag_Processor( $content );
     $classes = array(
         'P' => 'legal-page__paragraph',

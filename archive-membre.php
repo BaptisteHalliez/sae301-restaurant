@@ -1,5 +1,4 @@
 <?php
-/** Liste de l'équipe — archive native du type de contenu « membre ». */
 defined( 'ABSPATH' ) || exit;
 get_header();
 ?>

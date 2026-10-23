@@ -36,7 +36,6 @@
     if (wrapper) syncQuantity(wrapper);
     clearTimeout(updateTimer);
     updateTimer = setTimeout(function () {
-      // Déclencher le formulaire natif : prix, taxes, stock et frais sont recalculés côté serveur.
       const button = document.querySelector('.woocommerce-cart-form [name="update_cart"]');
       if (button && !button.disabled) button.click();
     }, 550);

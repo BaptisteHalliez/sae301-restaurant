@@ -1,6 +1,5 @@
 <?php
 /**
- * Boutique et catégories harmonisées ; recherches et résultats filtrés natifs.
  * @package WooCommerce\Templates
  * @version 8.6.0
  */

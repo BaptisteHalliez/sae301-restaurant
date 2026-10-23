@@ -1,19 +1,5 @@
 <?php
-/**
- * Email Styles
- *
- * This template can be overridden by copying it to yourtheme/woocommerce/emails/email-styles.php.
- *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
- * (the theme developer) will need to copy the new files to your theme to
- * maintain compatibility. We try to do this as little as possible, but it does
- * happen. When this occurs the version of the template file will be bumped and
- * the readme will list any important changes.
- *
- * @see     https://woocommerce.com/document/template-structure/
- * @package WooCommerce\Templates\Emails
- * @version 11.0.0
- */
+/** @version 11.0.0 */
 
 use Automattic\WooCommerce\Internal\Email\EmailFont;
 use Automattic\WooCommerce\Utilities\FeaturesUtil;
@@ -25,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $email_improvements_enabled = FeaturesUtil::feature_is_enabled( 'email_improvements' );
 $block_email_editor_enabled = FeaturesUtil::feature_is_enabled( 'block_email_editor' );
 
-// Load colors.
+
 $bg               = get_option( 'woocommerce_email_background_color' );
 $body             = get_option( 'woocommerce_email_body_background_color' );
 $base             = get_option( 'woocommerce_email_base_color' );
@@ -64,26 +50,22 @@ if ( $is_email_preview ) {
 	$font_family      = $font_family_transient ? $font_family_transient : $font_family;
 }
 
-// Palette du site par défaut, couleurs WooCommerce et aperçu conservés si renseignés.
 $thaimoon_email = require __DIR__ . '/thaimoon-email-settings.php';
 $bg = $thaimoon_email['colors']['background'];
 $body = $thaimoon_email['colors']['surface'];
 $base = $thaimoon_email['colors']['accent'];
 $text = $thaimoon_email['colors']['text'];
 
-// Only use safe fonts. They won't be escaped to preserve single quotes.
 $safe_font_family = EmailFont::$font[ $font_family ] ?? EmailFont::$font[ $default_font ];
 
 $base_text = wc_light_or_dark( $base, '#202020', '#ffffff' );
 
-// Pick a contrasting color for links.
 $link_color = wc_hex_is_light( $base ) ? $base : $base_text;
 
 if ( wc_hex_is_light( $body ) ) {
 	$link_color = wc_hex_is_light( $base ) ? $base_text : $base;
 }
 
-// If email improvements are enabled, always use the base color for links.
 if ( $email_improvements_enabled ) {
 	$link_color = $base;
 }
@@ -96,8 +78,6 @@ $base_lighter_40 = wc_hex_lighter( $base, 40 );
 $text_lighter_20 = wc_hex_lighter( $text, 20 );
 $text_lighter_40 = wc_hex_lighter( $text, 40 );
 
-// !important; is a gmail hack to prevent styles being stripped if it doesn't like something.
-// body{padding: 0;} ensures proper scale/positioning of the email in the iOS native email app.
 ?>
 body {
 	background-color: <?php echo esc_attr( $bg ); ?>;
@@ -561,7 +541,6 @@ h2.email-order-detail-heading span a {
 		}
 	<?php endif; ?>
 }
-/* Thaï Moon : adaptations communes aux emails, indépendantes du CSS du site. */
 body { margin: 0; }
 #outer_wrapper { width: 100%; border-collapse: collapse; }
 .email-shell { padding: 24px 12px; }

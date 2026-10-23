@@ -1,5 +1,4 @@
 <?php
-/** Gabarit commun des pages légales — Figma V1.9, ordinateur et mobile. */
 defined( 'ABSPATH' ) || exit;
 get_header();
 ?>

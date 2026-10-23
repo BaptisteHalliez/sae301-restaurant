@@ -1,21 +1,5 @@
 <?php
-/**
- * Shipping Methods Display
- *
- * In 2.1 we show methods per package. This allows for multiple methods per order if so desired.
- *
- * This template can be overridden by copying it to yourtheme/woocommerce/cart/cart-shipping.php.
- *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
- * (the theme developer) will need to copy the new files to your theme to
- * maintain compatibility. We try to do this as little as possible, but it does
- * happen. When this occurs the version of the template file will be bumped and
- * the readme will list any important changes.
- *
- * @see https://woocommerce.com/document/template-structure/
- * @package WooCommerce\Templates
- * @version 11.2.0
- */
+/** @version 11.2.0 */
 
 defined( 'ABSPATH' ) || exit;
 
@@ -50,7 +34,7 @@ $calculator_text          = '';
 				<p class="woocommerce-shipping-destination">
 					<?php
 					if ( $formatted_destination ) {
-						// Translators: $s shipping destination.
+						
 						printf( esc_html__( 'Shipping to %s.', 'woocommerce' ) . ' ', '<strong>' . esc_html( $formatted_destination ) . '</strong>' );
 						$calculator_text = esc_html__( 'Change address', 'woocommerce' );
 					} else {
@@ -80,7 +64,7 @@ $calculator_text          = '';
 				 */
 				apply_filters(
 					'woocommerce_cart_no_shipping_available_html',
-					// Translators: $s shipping destination.
+					
 					sprintf( esc_html__( 'No shipping options were found for %s.', 'woocommerce' ) . ' ', '<strong>' . esc_html( $formatted_destination ) . '</strong>' ),
 					$formatted_destination
 				)

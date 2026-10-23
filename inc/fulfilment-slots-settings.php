@@ -1,5 +1,4 @@
 <?php
-/** Aides de saisie du groupe SCF existant, sans modifier les valeurs enregistrées. */
 defined( 'ABSPATH' ) || exit;
 
 foreach ( array( 'creneaux_de_livraison', 'creneaux_de_retrait', 'delai_de_preparation', 'jours_reservables' ) as $thaimoon_slots_field ) {

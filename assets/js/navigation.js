@@ -1,4 +1,3 @@
-/* Navigation mobile : progressive, utilisable même sans JavaScript. */
 (() => {
     const button = document.querySelector('.tm-menu-toggle');
     const nav = document.getElementById('tm-navigation');

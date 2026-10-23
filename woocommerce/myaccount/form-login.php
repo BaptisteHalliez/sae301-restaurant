@@ -1,5 +1,4 @@
 <?php
-/** Connexion et inscription séparées — hooks et nonces WooCommerce 9.9.0. */
 defined( 'ABSPATH' ) || exit;
 $register = 'inscription' === thaimoon_account_view();
 do_action( 'woocommerce_before_customer_login_form' );

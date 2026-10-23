@@ -1,5 +1,5 @@
 <?php
-/** Historique V1.3 ; données, filtres de colonnes et pagination WooCommerce conservés. @version 9.5.0 */
+/** @version 9.5.0 */
 defined( 'ABSPATH' ) || exit;
 do_action( 'woocommerce_before_account_orders', $has_orders );
 if ( $has_orders ) : ?>

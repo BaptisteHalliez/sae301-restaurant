@@ -1,19 +1,5 @@
 <?php
-/**
- * Cart Page
- *
- * This template can be overridden by copying it to yourtheme/woocommerce/cart/cart.php.
- *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
- * (the theme developer) will need to copy the new files to your theme to
- * maintain compatibility. We try to do this as little as possible, but it does
- * happen. When this occurs the version of the template file will be bumped and
- * the readme will list any important changes.
- *
- * @see     https://woocommerce.com/document/template-structure/
- * @package WooCommerce\Templates
- * @version 11.2.0
- */
+/** @version 11.2.0 */
 
 defined( 'ABSPATH' ) || exit;
 
@@ -74,7 +60,6 @@ do_action( 'woocommerce_before_cart' ); ?>
 									sprintf(
 										'<a role="button" href="%s" class="remove" aria-label="%s" data-product_id="%s" data-product_sku="%s">&times;</a>',
 										esc_url( wc_get_cart_remove_url( $cart_item_key ) ),
-										/* translators: %s is the product name */
 										esc_attr( sprintf( __( 'Remove %s from cart', 'woocommerce' ), wp_strip_all_tags( $product_name ) ) ),
 										esc_attr( $product_id ),
 										esc_attr( $_product->get_sku() )
@@ -115,11 +100,6 @@ do_action( 'woocommerce_before_cart' ); ?>
 						if ( ! $product_permalink ) {
 							echo wp_kses_post( $product_name . '&nbsp;' );
 						} else {
-							/**
-							 * This filter is documented above.
-							 *
-							 * @since 2.1.0
-							 */
 							echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s">%s</a>', esc_url( $product_permalink ), $cart_item_name ), $cart_item, $cart_item_key ) );
 						}
 
@@ -132,11 +112,11 @@ do_action( 'woocommerce_before_cart' ); ?>
 <?php
 do_action( 'woocommerce_after_cart_item_name', $cart_item, $cart_item_key );
 
-						// Meta data.
+						
 						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						echo wc_get_formatted_cart_item_data( $cart_item, false, $cart_item_name );
 
-						// Backorder notification.
+						
 						if ( $_product->backorders_require_notification() && $_product->is_on_backorder( $cart_item['quantity'] ) ) {
 							echo wp_kses_post( apply_filters( 'woocommerce_cart_item_backorder_notification', '<p class="backorder_notification">' . esc_html__( 'Available on backorder', 'woocommerce' ) . '</p>', $product_id ) );
 						}
@@ -210,12 +190,6 @@ do_action( 'woocommerce_after_cart_item_name', $cart_item, $cart_item_key );
 
 <div class="cart-collaterals">
 	<?php
-		/**
-		 * Cart collaterals hook.
-		 *
-		 * @hooked woocommerce_cross_sell_display
-		 * @hooked woocommerce_cart_totals - 10
-		 */
 		do_action( 'woocommerce_cart_collaterals' );
 	?>
 </div>

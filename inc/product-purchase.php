@@ -1,5 +1,4 @@
 <?php
-/** US3.2 : disponibilité, portions et quantité — composants Figma V1.2. */
 defined( 'ABSPATH' ) || exit;
 
 function thaimoon_low_stock_quantity( $product ) {
@@ -57,7 +56,6 @@ function thaimoon_unavailable_card_button( $html, $product ) {
     return $html;
 }
 
-// Les données sont aussi utilisées lorsque WooCommerce recherche une variation par AJAX.
 add_filter( 'woocommerce_available_variation', 'thaimoon_purchase_variation_data', 20, 3 );
 function thaimoon_purchase_variation_data( $data, $parent, $variation ) {
     $data['thaimoon_price_html'] = $variation->get_price_html();
@@ -107,7 +105,6 @@ function thaimoon_unavailable_simple_purchase() {
 
 function thaimoon_unavailable_variable_purchase() {
     global $product;
-    // Si WooCommerce ne peut présenter aucune variation, il n'émet pas de bouton natif.
     if ( $product->is_type( 'variable' ) && empty( $product->get_available_variations() ) ) {
         echo thaimoon_stock_badge( $product ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- HTML échappé par le composant.
         thaimoon_unavailable_purchase();

@@ -1,6 +1,5 @@
 <?php
 /**
- * En-tête commun Thaï Moon : tables compatibles email, logo et titre WooCommerce.
  * @package WooCommerce\Templates\Emails
  * @version 10.7.0
  */

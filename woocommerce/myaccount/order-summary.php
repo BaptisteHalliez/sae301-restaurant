@@ -1,5 +1,4 @@
 <?php
-/** Carte de détail V1.3, avec les lignes et hooks natifs du récapitulatif WooCommerce. */
 defined( 'ABSPATH' ) || exit;
 if ( ! thaimoon_orders_owned( $order, get_current_user_id() ) ) { return; }
 $items = $order->get_items( apply_filters( 'woocommerce_purchase_order_item_types', 'line_item' ) );

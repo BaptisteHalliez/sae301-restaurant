@@ -1,4 +1,3 @@
-/* La confirmation fonctionne aussi sans JS via le lien et le formulaire natifs. */
 (() => {
   'use strict';
   const container = document.querySelector('[data-order-cancel-container]');

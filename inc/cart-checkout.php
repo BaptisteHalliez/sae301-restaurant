@@ -1,8 +1,7 @@
 <?php
-/** Panier et validation classiques WooCommerce, présentation Figma V1.2. */
 defined( 'ABSPATH' ) || exit;
 
-// Codes promo V1.3 : formulaires, validations et calculs natifs de WooCommerce.
+
 require_once __DIR__ . '/coupons.php';
 
 add_action( 'wp_enqueue_scripts', 'thaimoon_commerce_assets', 45 );
@@ -12,8 +11,6 @@ function thaimoon_commerce_assets() {
     }
     $path = get_stylesheet_directory();
     $uri  = get_stylesheet_directory_uri();
-    // Les pages enregistrées en blocs retirent ces scripts à la priorité 20.
-    // Réactiver le moteur classique pour les formulaires rendus par ce thème.
     $engine = is_cart() ? 'wc-cart' : 'wc-checkout';
     wp_enqueue_script( $engine );
     wp_enqueue_script( 'selectWoo' );
@@ -21,7 +18,6 @@ function thaimoon_commerce_assets() {
     wp_enqueue_script( 'thaimoon-commerce', $uri . '/assets/js/cart-checkout.js', array( 'jquery', $engine ), (string) filemtime( $path . '/assets/js/cart-checkout.js' ), true );
 }
 
-// Remplacer uniquement les blocs panier/commande à l'affichage, sans écrire dans les pages.
 add_filter( 'the_content', 'thaimoon_commerce_classic_content', 8 );
 function thaimoon_commerce_classic_content( $content ) {
     if ( is_admin() || ! is_main_query() || ! in_the_loop() || ( ! is_cart() && ! is_checkout() ) ) {
@@ -94,7 +90,6 @@ function thaimoon_commerce_is_pickup() {
     return true;
 }
 function thaimoon_commerce_rate_is_pickup( $rate ) {
-    // Ce site nomme aussi « Retrait en Boutique » une méthode gratuite existante.
     $pickup = in_array( $rate->get_method_id(), array( 'local_pickup', 'pickup_location' ), true ) ||
         ( 'free_shipping' === $rate->get_method_id() && false !== strpos( sanitize_title( $rate->get_label() ), 'retrait' ) );
     return (bool) apply_filters( 'thaimoon_shipping_rate_is_pickup', $pickup, $rate );
@@ -157,7 +152,6 @@ function thaimoon_commerce_cart_quantity( $html, $key, $item ) {
 
 add_filter( 'woocommerce_checkout_fields', 'thaimoon_commerce_checkout_fields' );
 function thaimoon_commerce_checkout_fields( $fields ) {
-    // Les champs et leurs obligations de validation restent ceux de WooCommerce.
     $contact = array( 'billing_last_name' => array( 10, 'Votre nom' ), 'billing_first_name' => array( 20, 'Votre prénom' ), 'billing_email' => array( 30, 'Votre adresse email' ), 'billing_phone' => array( 40, 'Votre numéro de téléphone' ) );
     foreach ( $fields['billing'] as $key => &$field ) {
         if ( isset( $contact[ $key ] ) ) {
@@ -192,7 +186,7 @@ function thaimoon_commerce_order_button_text() {
     return 'Valider ma commande';
 }
 
-// Le panier conserve ses notices et ses hooks, sans recommandations dans les colonnes.
+
 add_action( 'wp', 'thaimoon_commerce_setup' );
 function thaimoon_commerce_setup() {
     if ( is_cart() ) {

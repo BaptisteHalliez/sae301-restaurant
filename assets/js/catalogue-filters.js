@@ -1,4 +1,3 @@
-/** Le panneau reste utilisable sans JavaScript grâce à details/summary. */
 (() => {
   'use strict';
 
@@ -20,12 +19,10 @@
       return;
     }
 
-    // Aligner le bouton sur la description, même après un filtrage ou un retour à la ligne.
     const top = header
       ? Math.max(0, header.getBoundingClientRect().bottom - layout.getBoundingClientRect().top - toggle.offsetHeight + 12)
       : 0;
     sidebar.style.setProperty('--catalogue-filters-top', `${top}px`);
-    // Le panneau absolu peut être plus haut qu'une courte liste de résultats.
     layout.style.setProperty('--catalogue-filters-height', `${top + panel.offsetHeight}px`);
   };
 

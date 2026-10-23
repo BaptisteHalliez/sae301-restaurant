@@ -1,5 +1,4 @@
 <?php
-/** Habillage commun Thaï Moon — Figma V1.0, thème enfant Storefront. */
 defined( 'ABSPATH' ) || exit;
 
 // Storefront charge le parent. Le CSS enfant vient ensuite, avec les variables et le reset.
@@ -76,7 +75,7 @@ function thaimoon_body_class( $classes ) {
     return $classes;
 }
 
-// Le fond de navigation provient du design system, même si une image d'en-tête est configurée.
+
 add_filter( 'storefront_header_styles', 'thaimoon_header_styles' );
 function thaimoon_header_styles( $styles ) {
     unset( $styles['background-image'] );
@@ -123,7 +122,6 @@ function thaimoon_default_menu() {
     <?php
 }
 
-// Ajout des classes BEM uniquement à nos menus, sans modifier ceux des extensions.
 add_filter( 'nav_menu_css_class', 'thaimoon_menu_item_classes', 10, 4 );
 function thaimoon_menu_item_classes( $classes, $item, $args, $depth ) {
     if ( ! empty( $args->thaimoon_menu ) ) {
@@ -243,7 +241,6 @@ function thaimoon_footer() {
             <nav class="footer__navigation" aria-label="Liens du pied de page">
                 <?php
                 $footer_menu = wp_nav_menu( array( 'theme_location' => 'thaimoon-footer', 'container' => false, 'menu_class' => 'footer__links', 'depth' => 1, 'fallback_cb' => false, 'echo' => false ) );
-                // Un menu affecté mais vide ne déclenche pas toujours le fallback de WordPress.
                 if ( $footer_menu ) {
                     echo $footer_menu;
                 } else {
@@ -274,14 +271,10 @@ function thaimoon_customize( $customizer ) {
     }
 }
 
-// Cartes de la boutique : réglages séparés pour garder ce fichier lisible.
 require_once get_stylesheet_directory() . '/inc/woocommerce.php';
 
-// Équipe et fiches membres, maquette Figma V1.4.
 require_once get_stylesheet_directory() . '/inc/team.php';
 
-// Page d’accueil V1.6 et nouveautés du catalogue.
 require_once get_stylesheet_directory() . '/inc/homepage.php';
 
-// Mentions légales et conditions générales de vente — maquette Figma V1.9.
 require_once get_stylesheet_directory() . '/inc/legal-pages.php';

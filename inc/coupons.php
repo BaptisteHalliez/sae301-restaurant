@@ -1,5 +1,4 @@
 <?php
-/** Codes promo V1.3 — présentation uniquement ; moteur, restrictions et totaux WooCommerce. */
 defined( 'ABSPATH' ) || exit;
 
 add_action( 'wp_enqueue_scripts', 'thaimoon_coupon_assets', 48 );
@@ -9,7 +8,6 @@ function thaimoon_coupon_assets() {
     $uri = get_stylesheet_directory_uri();
     wp_enqueue_script( 'thaimoon-coupons', $uri . '/assets/js/coupons.js', array( 'jquery', is_cart() ? 'wc-cart' : 'wc-checkout' ), (string) filemtime( $path . '/assets/js/coupons.js' ), true );
 }
-// Le champ est dans le panier ; éviter un second formulaire déroulant en haut du checkout.
 add_action( 'wp', 'thaimoon_coupon_checkout_setup' );
 function thaimoon_coupon_checkout_setup() {
     if ( is_checkout() ) { remove_action( 'woocommerce_before_checkout_form', 'woocommerce_checkout_coupon_form', 10 ); }
@@ -35,7 +33,6 @@ function thaimoon_coupon_error( $message, $error_code, $coupon ) {
     } elseif ( WC_Coupon::E_WC_COUPON_NOT_EXIST === (int) $error_code ) {
         $message = 'Votre code est erroné';
     }
-    // Ne pas confondre une restriction de panier avec un code inexistant.
     $code = $coupon instanceof WC_Coupon ? $coupon->get_code() : '';
     if ( isset( $_POST['coupon_code'] ) && is_string( $_POST['coupon_code'] ) ) {
         $code = wc_format_coupon_code( wp_unslash( $_POST['coupon_code'] ) );
@@ -54,7 +51,6 @@ function thaimoon_coupon_label( $coupon ) {
 add_filter( 'woocommerce_cart_totals_coupon_html', 'thaimoon_coupon_discount_html', 20, 3 );
 function thaimoon_coupon_discount_html( $html, $coupon, $discount ) {
     if ( ! thaimoon_coupon_front_context() ) { return $html; }
-    // Le lien natif reste fonctionnel au checkout ; le panier l’affiche sous son champ.
     $checkout = is_checkout() || ( defined( 'WOOCOMMERCE_CHECKOUT' ) && WOOCOMMERCE_CHECKOUT );
     if ( ! $checkout ) { return $discount; }
     return preg_replace( '/(<a\b[^>]*class="[^"]*\bwoocommerce-remove-coupon\b[^"]*"[^>]*>).*?(<\/a>)/s', '$1Désactiver ?$2', $html );
